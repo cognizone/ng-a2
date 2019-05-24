@@ -1,0 +1,12 @@
+{
+  "name": "@cognizone/a2-sse",
+  "version": "2.3.0",
+  "peerDependencies": {
+    "@angular/common": ">=20.0.0",
+    "@angular/core": ">=20.0.0",
+    "@cognizone/model-utils": "^7.0.0-beta.2"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "@cognizone/a2-core": {
+      "projectType": "library",
+      "root": "projects/cognizone/a2-core",
+      "sourceRoot": "projects/cognizone/a2-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cognizone/a2-core/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/a2-core/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-core:serve",
+            "configFile": "projects/cognizone/a2-core/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-core:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/a2-core/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-core:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/a2-core:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-core:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-core:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "@cognizone/a2-sse": {
+      "projectType": "library",
+      "root": "projects/cognizone/a2-sse",
+      "sourceRoot": "projects/cognizone/a2-sse/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cognizone/a2-sse/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-sse/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/a2-sse/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-sse:serve",
+            "configFile": "projects/cognizone/a2-sse/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-sse:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/a2-sse/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-sse:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/a2-sse:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-sse:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-sse:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "@cognizone/a2-ui": {
+      "projectType": "library",
+      "root": "projects/cognizone/a2-ui",
+      "sourceRoot": "projects/cognizone/a2-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-ui:serve",
+            "configFile": "projects/cognizone/a2-ui/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-ui:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/a2-ui/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-ui:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/a2-ui:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-ui:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-ui:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "@cognizone/a2-tree-browser": {
+      "projectType": "library",
+      "root": "projects/cognizone/a2-tree-browser",
+      "sourceRoot": "projects/cognizone/a2-tree-browser/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-tree-browser/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
+            "configFile": "projects/cognizone/a2-tree-browser/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/a2-tree-browser/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "cypress-test-app": {
+      "projectType": "application",
+      "root": "projects/cypress-test-app",
+      "sourceRoot": "projects/cypress-test-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/cypress-test-app",
+            "index": "projects/cypress-test-app/src/index.html",
+            "browser": "projects/cypress-test-app/src/main.ts",
+            "polyfills": [],
+            "tsConfig": "projects/cypress-test-app/tsconfig.app.json",
+            "assets": [],
+            "styles": ["projects/cypress-test-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {},
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "cypress-test-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "cypress-test-app:build:production"
+            },
+            "development": {
+              "buildTarget": "cypress-test-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false,
+    "schematicCollections": ["@cypress/schematic", "@schematics/angular"]
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "es2022",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2022", "dom"],
+    "paths": {
+      "@cognizone/a2-core": ["projects/cognizone/a2-core"],
+      "@cognizone/a2-core/*": ["projects/cognizone/a2-core/*"],
+      "@cognizone/a2-sse": ["projects/cognizone/a2-sse"],
+      "@cognizone/a2-sse/*": ["projects/cognizone/a2-sse/*"],
+      "@cognizone/a2-ui": ["projects/cognizone/a2-ui"],
+      "@cognizone/a2-ui/*": ["projects/cognizone/a2-ui/*"],
+      "@cognizone/a2-tree-browser": ["projects/cognizone/a2-a2-tree-browser"],
+      "@cognizone/a2-tree-browser/*": ["projects/cognizone/a2-a2-tree-browser/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
+  "exclude": [
+    "**/*.spec.ts", // Exclude all spec files; re-include them in tsconfig.spec.json
+    "**/*.cy.ts", // Exclude all Cypress files
+    "cypress/**/*.ts", // Also exclude the whole Cypress folder
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/out-tsc/**"
+  ]
+}
