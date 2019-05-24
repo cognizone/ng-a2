@@ -5,18 +5,12 @@ import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonResource {
   public static _wrap(jsonRoot: any = { data: {} }): JsonResource {
-    const structure = new SingleJsonResourceWrapper<JsonResource>(
-      jsonRoot,
-      new BasicJsonResourceFactory()
-    );
+    const structure = new SingleJsonResourceWrapper<JsonResource>(jsonRoot, new BasicJsonResourceFactory());
     return structure.getRoot();
   }
 
   public static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
-    const structure = new MultiJsonResourceWrapper<JsonResource>(
-      jsonRoot,
-      new BasicJsonResourceFactory()
-    );
+    const structure = new MultiJsonResourceWrapper<JsonResource>(jsonRoot, new BasicJsonResourceFactory());
     return structure.getRoots();
   }
 
@@ -43,8 +37,8 @@ export class JsonResource {
 
   isEmptyResource(): boolean {
     return (
-      Object.keys(this._getAttributes()).length == 0 &&
-      Object.keys(this._getReferences()).length == 0
+        Object.keys(this._getAttributes()).length == 0 &&
+        Object.keys(this._getReferences()).length == 0
     );
   }
 
@@ -75,8 +69,8 @@ export class JsonResource {
 
   getLangString(key: string, lang: string): string {
     const attrib = this.getValueWithDataType(
-      key,
-      RdfDataType.TYPES.rdf_langString
+        key,
+        RdfDataType.TYPES.rdf_langString
     );
     return attrib ? attrib[lang] : null;
   }
@@ -111,8 +105,8 @@ export class JsonResource {
 
   getParents(attributeId?: string) {
     return attributeId
-      ? this._structure.getParentsByReference(attributeId, this)
-      : this._structure.getParents(this);
+        ? this._structure.getParentsByReference(attributeId, this)
+        : this._structure.getParents(this);
   }
 
   getParent(attributeId: string) {
@@ -130,8 +124,8 @@ export class JsonResource {
 
   getReferences(reference?: string): string[] {
     return reference
-      ? this._getReferences()[reference]
-      : this.getAllReferences();
+        ? this._getReferences()[reference]
+        : this.getAllReferences();
   }
 
   // todo untested
@@ -141,8 +135,10 @@ export class JsonResource {
 
     if (uri && refs instanceof Array && refs.length > 1) {
       const index = refs.indexOf(uri);
-      if (index >= 0) { refs.splice(index, 1); }
-    } else {
+      if (index >= 0) { refs.splice(index, 1);
+      }
+    }
+    else {
       delete this._getReferences()[key];
     }
   }
@@ -168,9 +164,7 @@ export class JsonResource {
   }
 
   public getDeepCopy(): JsonResource {
-    return JsonResource._wrap(
-      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
-    );
+    return JsonResource._wrap(JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson())));
   }
 
   public getStructure(): JsonResourceWrapper<JsonResource> {
@@ -188,7 +182,7 @@ export class JsonResource {
   private getAllReferences(): string[] {
     const allRefSet = new Set<string>();
     Object.values(this._getReferences()).forEach(refs =>
-      this.getAsArray(refs).forEach(ref => allRefSet.add(ref))
+        this.getAsArray(refs).forEach(ref => allRefSet.add(ref))
     );
 
     return Array.from(allRefSet);
@@ -201,11 +195,8 @@ export class JsonResource {
 }
 
 export class BasicJsonResourceFactory
-  implements JsonResourceFactory<JsonResource> {
-  wrap(
-    rawJson: any,
-    structure: JsonResourceWrapper<JsonResource>
-  ): JsonResource {
+    implements JsonResourceFactory<JsonResource> {
+  wrap(rawJson: any, structure: JsonResourceWrapper<JsonResource>): JsonResource {
     return new JsonResource(rawJson, structure);
   }
 }

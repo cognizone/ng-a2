@@ -18,7 +18,6 @@ export class ApplicationProfileUtils {
           console.warn('"' + classId + '" defined multiple times, skipping ...');
           return;
         }
-
         mergeMap.set(classId, t);
       });
     });

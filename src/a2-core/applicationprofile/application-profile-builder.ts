@@ -11,17 +11,13 @@ export class ApplicationProfileBuilder {
 
     this.validateNotNull(this._json, () => 'json');
     this.validateNotNull(this._json.types, () => 'types');
-    this.validateState(
-      this._json.types instanceof Object,
-      () => 'types was not object'
-    );
+    this.validateState(this._json.types instanceof Object, () => 'types was not object');
     const types = new Map<string, Type>();
 
     const ap = new ApplicationProfile(uri, types);
 
-    Object.entries(this._json.types).forEach(([key, value]) =>
-      types.set(key, this.buildType(ap, key, value))
-    );
+    Object.entries(this._json.types)
+        .forEach(([key, value]) => types.set(key, this.buildType(ap, key, value)));
 
     return ap;
   }
@@ -31,46 +27,31 @@ export class ApplicationProfileBuilder {
 
     this.validateNotNull(json, typeNameMsg);
 
-    this.validateNotNull(
-      json.attributes,
-      () => typeNameMsg() + ' - attributes'
-    );
+    this.validateNotNull(json.attributes, () => typeNameMsg() + ' - attributes');
     const attributes = new Map<string, Attribute>();
 
     const type = new Type(profile, [key], attributes);
 
-    Object.entries(json.attributes).forEach(([key, value]) =>
-      attributes.set(key, this.buildAttribute(type, key, value, key))
-    );
+    Object.entries(json.attributes)
+        .forEach(([key, value]) => attributes.set(key, this.buildAttribute(type, key, value, key)));
 
     return type;
   }
 
-  private buildAttribute(
-    type: Type,
-    key: string,
-    json: any,
-    classId: string
-  ): Attribute {
+  private buildAttribute(type: Type, key: string, json: any, classId: string): Attribute {
     const attributeNameMsg = () =>
-      'type "' + classId + '", attribute "' + key + '" ';
+        'type "' + classId + '", attribute "' + key + '" ';
     this.validateNotNull(json, attributeNameMsg);
 
     const uri = json.uri;
     this.validateNotNull(uri, () => attributeNameMsg() + 'uri');
 
     const attributeId = json.attributeId;
-    this.validateNotNull(
-      attributeId,
-      () => attributeNameMsg() + ' - attributeId'
-    );
+    this.validateNotNull(attributeId, () => attributeNameMsg() + ' - attributeId');
 
     const rules = json.rules;
     this.validateNotNull(rules, () => attributeNameMsg() + 'rules');
-    this.validateState(
-      rules instanceof Array,
-      () => attributeNameMsg() + 'rules was not array'
-    );
+    this.validateState(rules instanceof Array, () => attributeNameMsg() + 'rules was not array');
 
     let minC: number;
     let maxC: number;
@@ -83,34 +64,23 @@ export class ApplicationProfileBuilder {
       this.validateNotNull(name, () => attributeNameMsg() + ' rule name');
 
       if (name === RuleName.minCardinality) {
-        this.validateState(
-          minC == null,
-          () => attributeNameMsg() + 'rule "' + name + '" was defined twice '
-        );
+        this.validateState(minC == null, () => attributeNameMsg() + 'rule "' + name + '" was defined twice ');
         minC = rule.value;
         this.validateNotNull(minC, () => attributeNameMsg() + name);
-      } else if (name === RuleName.maxCardinality) {
-        this.validateState(
-          maxC == null,
-          () => attributeNameMsg() + 'rule "' + name + '" was defined twice '
-        );
+      }
+      else if (name === RuleName.maxCardinality) {
+        this.validateState(maxC == null, () => attributeNameMsg() + 'rule "' + name + '" was defined twice ');
         maxC = rule.value;
         this.validateNotNull(maxC, () => attributeNameMsg() + name);
-      } else if (name === RuleName.range) {
+      }
+      else if (name === RuleName.range) {
         const val = rule.value;
         this.validateNotNull(val, () => attributeNameMsg() + name + ' value');
-
         const valName = val.name;
-        this.validateNotNull(
-          valName,
-          () => attributeNameMsg() + name + 'value name'
-        );
+        this.validateNotNull(valName, () => attributeNameMsg() + name + 'value name');
 
         const valValue = val.value;
-        this.validateNotNull(
-          valValue,
-          () => attributeNameMsg() + name + 'value value'
-        );
+        this.validateNotNull(valValue, () => attributeNameMsg() + name + 'value value');
 
         if (valName === 'classId') {
           rangeClassId = valValue;
@@ -122,26 +92,12 @@ export class ApplicationProfileBuilder {
       }
     });
 
-    this.validateState(
-      dataType != null || rangeClassId != null,
-      () => attributeNameMsg() + ' range was not defined'
-    );
-    return new Attribute(
-      type,
-      uri,
-      attributeId,
-      dataType,
-      maxC,
-      minC,
-      rangeClassId
-    );
+    this.validateState(dataType != null || rangeClassId != null, () => attributeNameMsg() + ' range was not defined');
+    return new Attribute(type, uri, attributeId, dataType, maxC, minC, rangeClassId);
   }
 
   private validateNotNull(thing: any, name = () => 'object'): void {
-    Preconditions.checkNotNull(
-      thing,
-      () => 'Fail build AP: ' + name() + '" was null'
-    );
+    Preconditions.checkNotNull(thing, () => 'Fail build AP: ' + name() + '" was null');
   }
 
   private validateState(state: boolean, msg = () => 'illegal state') {

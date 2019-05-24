@@ -43,18 +43,12 @@ export class BasicJsonModel implements AttributeModel {
     if (filters) Preconditions.checkState(filters instanceof Array, () => 'filters must be array');
 
     let objects: BasicJsonModel[] = [this];
-    trail.forEach
-    (
-      p => objects = objects
-        .map(obj => this.getChildObjectsOfProperty(obj, p)).
-        reduce((a, b) => a.concat(b), [])
-    );
+    trail.forEach(p => objects = objects
+        .map(obj => this.getChildObjectsOfProperty(obj, p))
+        .reduce((a, b) => a.concat(b), []));
 
-    if (filters) filters.forEach
-    (
-      filter => objects = objects
-        .filter(obj => obj.getValue(filter.key) === filter.value)
-    );
+    if (filters) filters
+        .forEach(filter => objects = objects.filter(obj => obj.getValue(filter.key) === filter.value));
     return objects;
   }
 

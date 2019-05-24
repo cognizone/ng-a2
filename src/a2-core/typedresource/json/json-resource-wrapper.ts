@@ -42,22 +42,19 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     return this.getChildrenInner(parent);
   }
 
-  public getChildrenByReference(
-    reference: string,
-    parent: T,
-    sorter?: (a: any, b: any) => number
-  ): T[] {
+  public getChildrenByReference(reference: string, parent: T, sorter?: (a: any, b: any) => number): T[] {
     const children = this.getChildrenInner(parent, reference);
     return sorter ? children.sort(sorter) : children;
   }
 
   private getChildrenInner(parent: T, reference?: string) {
     const child = parent.getReferences(reference);
-    if (!child) {
-      return [];
-    } else if (child instanceof Array) {
+    if (!child) {return [];
+    }
+    else if (child instanceof Array) {
       return child.map(uri => this.uriToResourceMap.get(uri));
-    } else {
+    }
+    else {
       return [this.uriToResourceMap.get(child as string)];
     }
   }
@@ -78,9 +75,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
   }
 
   /* get one resource and extract all its references in a singe JsonTypedResourceWrapper */
-  public getSingleResourceAsFullJson(
-    resource: T
-  ): SingleJsonResourceWrapper<T> {
+  public getSingleResourceAsFullJson(resource: T): SingleJsonResourceWrapper<T> {
     const newJsonRoot = { data: resource.getRawJson(), included: [] };
 
     this.addAllReferences(resource, newJsonRoot.included);
@@ -134,10 +129,7 @@ export class SingleJsonResourceWrapper<T extends JsonResource> extends JsonResou
     super(root, factory);
 
     Preconditions.checkNotNull(root.data, () => 'data was null');
-    Preconditions.checkState(
-      !(root.data instanceof Array),
-      () => 'data was array'
-    );
+    Preconditions.checkState(!(root.data instanceof Array), () => 'data was array');
     this._resourceRoot = this.resourceFactory.wrap(root.data, this);
 
     this.addToMap(this._resourceRoot);
@@ -156,13 +148,8 @@ export class MultiJsonResourceWrapper<T extends JsonResource> extends JsonResour
     super(root, factory);
 
     Preconditions.checkNotNull(root.data, () => 'data was null');
-    Preconditions.checkState(
-      root.data instanceof Array,
-      () => 'data was not array'
-    );
-    this._resourceRoots = root.data.map(obj =>
-      this.resourceFactory.wrap(obj, this)
-    );
+    Preconditions.checkState(root.data instanceof Array, () => 'data was not array');
+    this._resourceRoots = root.data.map(obj => this.resourceFactory.wrap(obj, this));
     this._resourceRoots.forEach(root => this.addToMap(root));
     this.populateMap();
   }

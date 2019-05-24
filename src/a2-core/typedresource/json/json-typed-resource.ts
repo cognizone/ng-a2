@@ -8,43 +8,23 @@ import {JsonResource} from './json-resource';
 import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
-  public static wrap(
-    profile: ApplicationProfile,
-    jsonRoot: any
-  ): JsonTypedResource {
-    const structure = new SingleJsonResourceWrapper<JsonTypedResource>(
-      jsonRoot,
-      new TypedFactory(profile)
-    );
+  public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
+    const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile));
     return structure.getRoot();
   }
 
-  public static wrapMany(
-    profile: ApplicationProfile,
-    jsonRoot: any = { data: [] }
-  ): JsonTypedResource[] {
-    const structure = new MultiJsonResourceWrapper<JsonTypedResource>(
-      jsonRoot,
-      new TypedFactory(profile)
-    );
+  public static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
+    const structure = new MultiJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile));
     return structure.getRoots();
   }
 
-  public static create(
-    profile: ApplicationProfile,
-    uri: string,
-    type: string[]
-  ): JsonTypedResource {
+  public static create(profile: ApplicationProfile, uri: string, type: string[]): JsonTypedResource {
     return JsonTypedResource.wrap(profile, { data: { uri: uri, type: type } });
   }
 
   private _type: Type;
 
-  constructor(
-    json: any,
-    structure: JsonResourceWrapper<JsonTypedResource>,
-    type: Type
-  ) {
+  constructor(json: any, structure: JsonResourceWrapper<JsonTypedResource>, type: Type) {
     super(json, structure);
     Preconditions.checkNotNull(json, () => 'json was null');
     this._type = type;
@@ -60,10 +40,8 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     if (attribute.isTypedResource()) { return this._getResource(attributeId); }
 
     const dataType = attribute.getDataType();
-    return this.getValueWithDataType(
-      attributeId,
-      dataType.equals(RdfDataType.TYPES.rdfs_Literal) ? null : dataType
-    ); // todo revise logic for rdfs:Literal
+    return this.getValueWithDataType(attributeId, dataType.equals(RdfDataType.TYPES.rdfs_Literal) ? null : dataType);
+    // todo revise logic for rdfs:Literal
   }
 
   setValue(attributeId: string, value: any): void {
@@ -78,15 +56,8 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
 
   private getAttribute(attributeId: string): Attribute {
     let attribute = this._type.getAttribute(attributeId);
-    Preconditions.checkNotNull(
-      attribute,
-      () =>
-        "attribute '" +
-        attributeId +
-        "' not defined for type '" +
-        this._type +
-        "'"
-    );
+    Preconditions.checkNotNull(attribute,
+        () => "attribute '" + attributeId + "' not defined for type '" + this._type + "'");
     return attribute;
   }
 
@@ -101,45 +72,31 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
 
   public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
     return JsonTypedResource.wrap(
-      profile ? profile : this._type.getApplicationProfile(),
-      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
+        profile ? profile : this._type.getApplicationProfile(),
+        JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
     );
   }
 
-  private _getResource(
-    attributeId: string
-  ): JsonTypedResource | JsonTypedResource[] {
+  private _getResource(attributeId: string): JsonTypedResource | JsonTypedResource[] {
     let attribute = this._type.getAttribute(attributeId);
-    return attribute.isMany()
-      ? this.getResources(attributeId)
-      : this.getResources(attributeId);
+    return attribute.isMany() ? this.getResources(attributeId) : this.getResources(attributeId);
   }
 
-  private setTypedResource(
-    attribute: Attribute,
-    resource: JsonResource | JsonResource[]
-  ) {
+  private setTypedResource(attribute: Attribute, resource: JsonResource | JsonResource[]) {
     if (attribute.isMany()) {
       Preconditions.checkState(resource instanceof Array);
-      this.setReferences(
-        attribute.getAttributeId(),
-        (<JsonResource[]>resource).map(res => res.getUri())
-      );
+      this.setReferences(attribute.getAttributeId(), (<JsonResource[]>resource).map(res => res.getUri()));
       (<JsonResource[]>resource).forEach(res => this.addIncluded(res));
-    } else {
+    }
+    else {
       Preconditions.checkState(!(resource instanceof Array));
-      this.setSingleReference(
-        attribute.getAttributeId(),
-        (<JsonResource>resource).getUri()
-      );
+      this.setSingleReference(attribute.getAttributeId(), (<JsonResource>resource).getUri());
       this.addIncluded(<JsonResource>resource);
     }
   }
 
   public getStructure(): JsonResourceWrapper<JsonTypedResource> {
-    return <JsonResourceWrapper<JsonTypedResource>>(
-      (<unknown>super.getStructure())
-    );
+    return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
   }
 }
 
@@ -150,25 +107,16 @@ export class TypedFactory implements JsonResourceFactory<JsonTypedResource> {
     this._profile = profile;
   }
 
-  wrap(
-    rawJson: any,
-    structure: JsonResourceWrapper<JsonTypedResource>
-  ): JsonTypedResource {
+  wrap(rawJson: any, structure: JsonResourceWrapper<JsonTypedResource>): JsonTypedResource {
     let typeIds: any = rawJson['type'];
     Preconditions.checkNotNull(typeIds, () => 'Type id was null');
     if (!(typeIds instanceof Array)) { typeIds = [typeIds]; }
     const types: Type[] = typeIds.map(typeId => {
       let type = this._profile.getType(typeId);
-      Preconditions.checkNotNull(
-        type,
-        () => 'Type was null for typeId "' + typeId + '"'
-      );
+      Preconditions.checkNotNull(type, () => 'Type was null for typeId "' + typeId + '"');
       return type;
     });
-    return new JsonTypedResource(
-      rawJson,
-      structure,
-      ApplicationProfileUtils.mergeTypes(types)
+    return new JsonTypedResource(rawJson, structure, ApplicationProfileUtils.mergeTypes(types)
     );
   }
 }
