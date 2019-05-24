@@ -2,9 +2,9 @@ import {AttributeModel} from './attribute-model';
 import {Preconditions} from "../../precondition/preconditions";
 
 export class BasicJsonModel implements AttributeModel {
-  private _json: Object;
+  private _json: any;
 
-  constructor (json: Object) {
+  constructor (json: any) {
     Preconditions.checkNotNull(json);
     this._json = json;
   }
@@ -26,11 +26,11 @@ export class BasicJsonModel implements AttributeModel {
     return Object.keys(this._json);
   }
 
-  get json(): Object {
+  get json(): any {
     return this._json;
   }
 
-  set json(value: Object) {
+  set json(value: any) {
     this._json = value;
   }
 
