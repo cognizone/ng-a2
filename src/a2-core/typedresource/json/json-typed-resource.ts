@@ -9,12 +9,12 @@ import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
   public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
-    const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile));
+    const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoot();
   }
 
   public static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
-    const structure = new MultiJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile));
+    const structure = new MultiJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoots();
   }
 
@@ -57,7 +57,7 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
   private getAttribute(attributeId: string): Attribute {
     let attribute = this._type.getAttribute(attributeId);
     Preconditions.checkNotNull(attribute,
-        () => "attribute '" + attributeId + "' not defined for type '" + this._type + "'");
+      () => "attribute '" + attributeId + "' not defined for type '" + this._type + "'");
     return attribute;
   }
 
@@ -72,8 +72,8 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
 
   public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
     return JsonTypedResource.wrap(
-        profile ? profile : this._type.getApplicationProfile(),
-        JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
+      profile ? profile : this._type.getApplicationProfile(),
+      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
     );
   }
 
@@ -100,23 +100,24 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
   }
 }
 
-export class TypedFactory implements JsonResourceFactory<JsonTypedResource> {
+export class TypedFactory {
   private _profile: ApplicationProfile;
 
   constructor(profile: ApplicationProfile) {
     this._profile = profile;
   }
 
-  wrap(rawJson: any, structure: JsonResourceWrapper<JsonTypedResource>): JsonTypedResource {
-    let typeIds: any = rawJson['type'];
-    Preconditions.checkNotNull(typeIds, () => 'Type id was null');
-    if (!(typeIds instanceof Array)) { typeIds = [typeIds]; }
-    const types: Type[] = typeIds.map(typeId => {
-      let type = this._profile.getType(typeId);
-      Preconditions.checkNotNull(type, () => 'Type was null for typeId "' + typeId + '"');
-      return type;
-    });
-    return new JsonTypedResource(rawJson, structure, ApplicationProfileUtils.mergeTypes(types)
-    );
+  get(): (rawJson: any, structure: JsonResourceWrapper<JsonTypedResource>) => JsonTypedResource {
+    return (rawJson, structure) => {
+      let typeIds: any = rawJson['type'];
+      Preconditions.checkNotNull(typeIds, () => 'Type id was null');
+      if (!(typeIds instanceof Array)) { typeIds = [typeIds]; }
+      const types: Type[] = typeIds.map(typeId => {
+        let type = this._profile.getType(typeId);
+        Preconditions.checkNotNull(type, () => 'Type was null for typeId "' + typeId + '"');
+        return type;
+      });
+      return new JsonTypedResource(rawJson, structure, ApplicationProfileUtils.mergeTypes(types));
+    }
   }
 }

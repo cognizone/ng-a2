@@ -34,7 +34,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     }
     Preconditions.checkState(includes instanceof Array);
     includes.forEach(obj =>
-      this.addToMap(this.resourceFactory.wrap(obj, this))
+      this.addToMap(this.resourceFactory(obj, this))
     );
   }
 
@@ -110,7 +110,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
   public addIncluded(resource: T) {
     Preconditions.checkState(!this.uriToResourceMap.has(resource.getUri()));
 
-    const copy = this.resourceFactory.wrap(resource.getRawJson(), this);
+    const copy = this.resourceFactory(resource.getRawJson(), this);
 
     let includes = this._jsonRoot.included;
     if (!includes) {
@@ -130,7 +130,7 @@ export class SingleJsonResourceWrapper<T extends JsonResource> extends JsonResou
 
     Preconditions.checkNotNull(root.data, () => 'data was null');
     Preconditions.checkState(!(root.data instanceof Array), () => 'data was array');
-    this._resourceRoot = this.resourceFactory.wrap(root.data, this);
+    this._resourceRoot = this.resourceFactory(root.data, this);
 
     this.addToMap(this._resourceRoot);
     this.populateMap();
@@ -149,7 +149,7 @@ export class MultiJsonResourceWrapper<T extends JsonResource> extends JsonResour
 
     Preconditions.checkNotNull(root.data, () => 'data was null');
     Preconditions.checkState(root.data instanceof Array, () => 'data was not array');
-    this._resourceRoots = root.data.map(obj => this.resourceFactory.wrap(obj, this));
+    this._resourceRoots = root.data.map(obj => this.resourceFactory(obj, this));
     this._resourceRoots.forEach(root => this.addToMap(root));
     this.populateMap();
   }

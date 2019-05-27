@@ -3,14 +3,16 @@ import {RdfDataType} from '../../rdf/rdf-data-type';
 import {JsonResourceFactory} from './json-resource-factory';
 import {Preconditions} from "../../../precondition/preconditions";
 
+export const BasicJsonResourceFactory: JsonResourceFactory<JsonResource> = (rawJson, structure) => new JsonResource(rawJson, structure);
+
 export class JsonResource {
   public static _wrap(jsonRoot: any = { data: {} }): JsonResource {
-    const structure = new SingleJsonResourceWrapper<JsonResource>(jsonRoot, new BasicJsonResourceFactory());
+    const structure = new SingleJsonResourceWrapper<JsonResource>(jsonRoot, BasicJsonResourceFactory);
     return structure.getRoot();
   }
 
   public static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
-    const structure = new MultiJsonResourceWrapper<JsonResource>(jsonRoot, new BasicJsonResourceFactory());
+    const structure = new MultiJsonResourceWrapper<JsonResource>(jsonRoot, BasicJsonResourceFactory);
     return structure.getRoots();
   }
 
@@ -194,9 +196,3 @@ export class JsonResource {
   }
 }
 
-export class BasicJsonResourceFactory
-    implements JsonResourceFactory<JsonResource> {
-  wrap(rawJson: any, structure: JsonResourceWrapper<JsonResource>): JsonResource {
-    return new JsonResource(rawJson, structure);
-  }
-}
