@@ -2,23 +2,23 @@ import {TypedResource} from '../typed-resource';
 import {JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper} from './json-resource-wrapper';
 import {ApplicationProfile, Attribute, Type} from '../../applicationprofile/application-profile';
 import {ApplicationProfileUtils} from '../../util/application-profile-utils';
-import {JsonResourceFactory} from './json-resource-factory';
 import {RdfDataType} from '../../rdf/rdf-data-type';
 import {JsonResource} from './json-resource';
 import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
-  public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
+
+  static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
     const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoot();
   }
 
-  public static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
+  static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
     const structure = new MultiJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoots();
   }
 
-  public static create(profile: ApplicationProfile, uri: string, type: string[]): JsonTypedResource {
+  static create(profile: ApplicationProfile, uri: string, type: string[]): JsonTypedResource {
     return JsonTypedResource.wrap(profile, { data: { uri: uri, type: type } });
   }
 
@@ -47,7 +47,7 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
   setValue(attributeId: string, value: any): void {
     const attribute = this.getAttribute(attributeId);
     if (attribute.isTypedResource()) {
-      return this.setTypedResource(attribute, value);
+      return this._setTypedResource(attribute, value);
     }
 
     const dataType = attribute.getDataType();
@@ -61,16 +61,16 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     return attribute;
   }
 
-  public getResources(attributeId: string): JsonTypedResource[] {
-    let attribute = this._type.getAttribute(attributeId);
+  getResources(attributeId: string): JsonTypedResource[] {
+    this.getAttribute(attributeId);
     return <JsonTypedResource[]>super.getResources(attributeId);
   }
 
-  public getResource(attributeId: string): JsonTypedResource {
+  getResource(attributeId: string): JsonTypedResource {
     return <JsonTypedResource>super.getResource(attributeId);
   }
 
-  public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
+  getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
     return JsonTypedResource.wrap(
       profile ? profile : this._type.getApplicationProfile(),
       JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
@@ -82,16 +82,18 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     return attribute.isMany() ? this.getResources(attributeId) : this.getResources(attributeId);
   }
 
-  private setTypedResource(attribute: Attribute, resource: JsonResource | JsonResource[]) {
+  private _setTypedResource(attribute: Attribute, resource: JsonResource | JsonResource[]) {
     if (attribute.isMany()) {
-      Preconditions.checkState(resource instanceof Array);
-      this.setReferences(attribute.getAttributeId(), (<JsonResource[]>resource).map(res => res.getUri()));
-      (<JsonResource[]>resource).forEach(res => this.addIncluded(res));
+      if (!(resource instanceof Array)) {
+        Preconditions.checkNotNull(resource.getUri());
+        resource = [resource];
+      }
+      this.setResources(attribute.getAttributeId(), resource);
     }
     else {
       Preconditions.checkState(!(resource instanceof Array));
-      this.setSingleReference(attribute.getAttributeId(), (<JsonResource>resource).getUri());
-      this.addIncluded(<JsonResource>resource);
+      Preconditions.checkNotNull((<JsonResource>resource).getUri());
+      this.setResource(attribute.getAttributeId(), <JsonResource>resource);
     }
   }
 

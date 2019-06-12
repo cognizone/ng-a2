@@ -13,7 +13,5 @@ export interface TypedResource extends AttributeModel {
   getResource(attributeId: string): TypedResource;
 
   // addValue(attributeId: string, value: any): void
-  // setUri(uri: string): void;
-  // setType(type: Type): void;
 }
 
