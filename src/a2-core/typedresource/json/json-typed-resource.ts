@@ -8,17 +8,17 @@ import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
 
-  static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
+  public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
     const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoot();
   }
 
-  static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
+  public static wrapMany(profile: ApplicationProfile, jsonRoot: any = { data: [] }): JsonTypedResource[] {
     const structure = new MultiJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoots();
   }
 
-  static create(profile: ApplicationProfile, uri: string, type: string[]): JsonTypedResource {
+  public static create(profile: ApplicationProfile, uri: string, type: string[]): JsonTypedResource {
     return JsonTypedResource.wrap(profile, { data: { uri: uri, type: type } });
   }
 
@@ -30,11 +30,11 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     this._type = type;
   }
 
-  getType(): Type {
+  public getType(): Type {
     return this._type;
   }
 
-  getValue(attributeId: string): any {
+  public getValue(attributeId: string): any {
     const attribute = this.getAttribute(attributeId);
 
     if (attribute.isTypedResource()) { return this._getResource(attributeId); }
@@ -44,7 +44,7 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     // todo revise logic for rdfs:Literal
   }
 
-  setValue(attributeId: string, value: any): void {
+  public setValue(attributeId: string, value: any): void {
     const attribute = this.getAttribute(attributeId);
     if (attribute.isTypedResource()) {
       return this._setTypedResource(attribute, value);
@@ -54,27 +54,38 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     this.setValueWithDataType(attributeId, value, dataType);
   }
 
+  public addValue(attributeId: string, value: any): void {
+    Preconditions.checkState(!(value instanceof Array));
+
+    const previous = this.getValue(attributeId);
+
+    console.log(previous);
+
+    if (previous instanceof Array) {
+      this.setValue(attributeId, [...previous, value])
+    }
+    else if (!previous) {
+      this.setValue(attributeId, value);
+    }
+    else {
+      this.setValue(attributeId, [previous, value]);
+    }
+  }
+
   private getAttribute(attributeId: string): Attribute {
     let attribute = this._type.getAttribute(attributeId);
     Preconditions.checkNotNull(attribute,
-      () => "attribute '" + attributeId + "' not defined for type '" + this._type + "'");
+      () => "attribute '" + attributeId + "' not defined for type '" + this._type.getClassId() + "'");
     return attribute;
   }
 
-  getResources(attributeId: string): JsonTypedResource[] {
+  public getResources(attributeId: string): JsonTypedResource[] {
     this.getAttribute(attributeId);
     return <JsonTypedResource[]>super.getResources(attributeId);
   }
 
-  getResource(attributeId: string): JsonTypedResource {
+  public getResource(attributeId: string): JsonTypedResource {
     return <JsonTypedResource>super.getResource(attributeId);
-  }
-
-  getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
-    return JsonTypedResource.wrap(
-      profile ? profile : this._type.getApplicationProfile(),
-      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
-    );
   }
 
   private _getResource(attributeId: string): JsonTypedResource | JsonTypedResource[] {
@@ -99,6 +110,17 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
 
   public getStructure(): JsonResourceWrapper<JsonTypedResource> {
     return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+  }
+
+  public extractFullStructure(): JsonResourceWrapper<JsonResource> {
+    return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+  }
+
+  public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
+    return JsonTypedResource.wrap(
+      profile ? profile : this._type.getApplicationProfile(),
+      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
+    );
   }
 }
 

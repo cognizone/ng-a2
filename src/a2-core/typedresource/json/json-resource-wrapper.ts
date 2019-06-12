@@ -99,7 +99,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     return this.uriToResourceMap.get(uri);
   }
 
-  public getAll(): IterableIterator<T> {
+  getAll(): IterableIterator<T> {
     return this.uriToResourceMap.values();
   }
 
@@ -146,7 +146,12 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
       .map(p => p.getUri());
     const remainingParents = this.inverseReferencesMap.get(child)
       .filter(p => parentsToRemove.indexOf(p) < 0);
-    this.inverseReferencesMap.set(child, remainingParents)
+    if (remainingParents.length == 0) {
+      this.inverseReferencesMap.delete(child);
+    }
+    else {
+      this.inverseReferencesMap.set(child, remainingParents);
+    }
   }
 }
 
