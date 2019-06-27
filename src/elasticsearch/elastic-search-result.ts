@@ -22,7 +22,7 @@ export class ElasticSearchResult extends BasicJsonModel {
   }
 
   getHitsTotal(): number {
-    return this.json['hits']['total'];
+    return this.json['hits']['total']['value'];
   }
 
   getHits(): BasicJsonModel[] {
