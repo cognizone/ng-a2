@@ -115,23 +115,28 @@ export class JsonResource {
     return this.__getReferences()[attribute];
   }
 
-  public clearValue(attributeId: string): void {
-    delete this.__getAttributes()[attributeId];
-    this.clearResources(attributeId);
+  public deleteValue(attributeId: string): void {
+    const attr = this.__getAttributes()[attributeId];
+    if (!attr) {
+      this.deleteResources(attributeId);
+    } else {
+      this.__getAttributes()[attributeId] = [];
+    }
   }
 
-  public clearResources(attribute: string) {
-    const existing = this.getResources(attribute);
-    existing.forEach(resource => this.clearResource(attribute, resource.getUri()));
+  public deleteResources(attributeId: string): void {
+    const refs = this.__getReferences()[attributeId];
+    if (!refs) return;
+    this.__getReferences()[attributeId] = [];
   }
 
-  public clearResource(attribute: string, uri: string) {
-    this._clearReference(attribute, uri);
+  public deleteResource(attribute: string, uri: string) {
+    this._deleteReference(attribute, uri);
     this._structure.deleteIfNotReferenced(uri);
   }
 
-  private _clearReference(attribute: string, uri: string) {
-    const refs = this.__getReferences()[attribute];
+  private _deleteReference(attributeId: string, uri: string): void {
+    const refs = this.__getReferences()[attributeId];
     if (!refs) { return; }
 
     if (refs instanceof Array && refs.length > 1) {
@@ -141,10 +146,26 @@ export class JsonResource {
       }
     }
     else {
-      delete this.__getReferences()[attribute];
+      this.__getReferences()[attributeId] = [];
     }
+    this._structure.cleanupReverseReferenceMap(attributeId, uri, this.getUri());
+  }
 
-    this._structure.cleanupReverseReferenceMap(attribute, uri, this.getUri());
+  public clearValue(attributeId: string): void {
+    delete this.__getAttributes()[attributeId];
+    this.clearResources(attributeId);
+  }
+
+  public clearResources(attribute: string) {
+    this._clearReference(attribute);
+  }
+
+  private _clearReference(attribute: string) {
+    const refs = this.__getReferences()[attribute];
+    if (!refs) { return; }
+    delete this.__getReferences()[attribute];
+
+    // this._structure.cleanupReverseReferenceMap(attribute, uri, this.getUri());
 
   }
 
