@@ -91,8 +91,9 @@ export class ApplicationProfileBuilder {
         else throw new Error('Unknown range name ' + valName);
       }
     });
-
-    this.validateState(dataType != null || rangeClassId != null, () => attributeNameMsg() + ' range was not defined');
+    this.validateState(
+      rules.some(rule => rule.name === RuleName.snippet) || dataType != null || rangeClassId != null,
+      () => attributeNameMsg() + ' range was not defined');
     return new Attribute(type, uri, attributeId, dataType, maxC, minC, rangeClassId);
   }
 
@@ -106,6 +107,7 @@ export class ApplicationProfileBuilder {
 }
 
 enum RuleName {
+  snippet = 'snippet',
   range = 'range',
   minCardinality = 'minCardinality',
   maxCardinality = 'maxCardinality'
