@@ -88,7 +88,9 @@ export class ApplicationProfileBuilder {
         }
         else if (valName === 'datatype')
           dataType = RdfDataType.getByUri(valValue);
-        else throw new Error('Unknown range name ' + valName);
+        else if (valName === 'languageIn') {
+          dataType = RdfDataType.TYPES.rdf_langString;
+        } else throw new Error('Unknown range name ' + valName);
       }
     });
     this.validateState(
