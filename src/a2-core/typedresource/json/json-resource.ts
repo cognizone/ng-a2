@@ -153,15 +153,8 @@ export class JsonResource {
 
   public ignoreAttribute(attributeId: string) {
     delete this.__getAttributes()[attributeId];
-
-    const existingUris = this.getResources(attributeId).map(res => res.getUri());
-
+    this.clearResources(attributeId);
     delete this.__getReferences()[attributeId];
-
-    existingUris.forEach(uri => {
-      this._structure.deleteIfNotReferenced(uri);
-      this._structure.cleanupReverseReferenceMap(attributeId, uri, this.getUri());
-    });
   }
 
   public setSingleReference(key: string, uri: string): void {
@@ -194,7 +187,6 @@ export class JsonResource {
   protected _setResource(attribute: string, resource: JsonResource | JsonResource[]): void {
     this.ignoreAttribute(attribute);
 
-    console.log(resource);
     if (resource instanceof Array) {
       this.setReferences(attribute, (<JsonResource[]>resource).map(res => res.getUri()));
       (<JsonResource[]>resource).forEach(res => this._tryAddIncluded(res));
