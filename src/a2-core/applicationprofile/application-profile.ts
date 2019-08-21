@@ -1,5 +1,5 @@
-import { StringUtil } from '../util/string-util';
-import { RdfDataType } from '../rdf/rdf-data-type';
+import {StringUtil} from '../util/string-util';
+import {RdfDataType} from '../rdf/rdf-data-type';
 import {Preconditions} from "../../precondition/preconditions";
 
 export class ApplicationProfile {
@@ -42,6 +42,10 @@ export class Type {
   getClassId(): string {
     return this._classIds[this._classIds.length - 1]; //todo this should return the explicit final sub class
     //now it returns the last defined type (?)
+  }
+
+  hasAttribute(attributeId: string) {
+    return !!this.getAttribute(attributeId);
   }
 }
 

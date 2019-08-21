@@ -11,7 +11,7 @@ export class JsonResource {
     return structure.getRoot();
   }
 
-  public static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
+  public  static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
     const structure = new MultiJsonResourceWrapper<JsonResource>(jsonRoot, BasicJsonResourceFactory);
     return structure.getRoots();
   }
@@ -29,137 +29,189 @@ export class JsonResource {
     this._structure = structure;
   }
 
-  getRawJson() {
+  public getRawJson() {
     return this._json;
   }
 
-  getUri(): string {
+  public getUri(): string {
     return this._json.uri;
   }
 
-  isEmptyResource(): boolean {
+  public isEmptyResource(): boolean {
     return (
-        Object.keys(this._getAttributes()).length == 0 &&
-        Object.keys(this._getReferences()).length == 0
+      Object.keys(this.__getAttributes()).length == 0 &&
+      Object.keys(this.__getReferences()).length == 0
     );
   }
 
-  setUri(uri: string): void {
+  public setUri(uri: string): void {
     this._json['uri'] = uri;
   }
 
-  setType(type: string) {
+  public setType(type: string) {
     this._json['type'] = type;
   }
 
-  getType() {
+  public getType() {
     return this._json.type;
   }
 
-  getValueWithDataType(attributeId: string, dataType?: RdfDataType) {
-    const attrib = this._getAttributes()[attributeId];
+  public getValueWithDataType(attributeId: string, dataType?: RdfDataType) {
+    const attrib = this.__getAttributes()[attributeId];
     if (!attrib) { return null; }
     return dataType ? attrib[dataType.shortened] : Object.values(attrib).pop();
   }
 
-  setValueWithDataType(attributeId: string, value: any, dataType: RdfDataType) {
+  public setValueWithDataType(attributeId: string, value: any, dataType: RdfDataType) {
     if (!this._json.attributes) this._json['attributes'] = {};
     const obj = {};
     obj[dataType.shortened] = value;
-    this._getAttributes()[attributeId] = obj;
+    this.__getAttributes()[attributeId] = obj;
   }
 
-  getLangString(key: string, lang: string): string {
-    const attrib = this.getValueWithDataType(
-        key,
-        RdfDataType.TYPES.rdf_langString
-    );
+  public getLangString(key: string, lang: string): string {
+    const attrib = this.getValueWithDataType(key, RdfDataType.TYPES.rdf_langString);
     return attrib ? attrib[lang] : null;
   }
 
-  getLangStrings(key: string, lang: string): string[] {
+  public getLangStrings(key: string, lang: string): string[] {
     return <string[]>(<unknown>this.getLangString(key, lang));
   }
 
-  getXsdString(key: string): string {
+  public getXsdString(key: string): string {
     return this.getValueWithDataType(key, RdfDataType.TYPES.xsd_string);
   }
 
-  getXsdStrings(key: string): string[] {
+  public getXsdStrings(key: string): string[] {
     return <string[]>(<unknown>this.getXsdString(key));
   }
 
-  clearValue(attributeId: string): void {
-    delete this._getAttributes()[attributeId];
-    delete this._getReferences()[attributeId];
-  }
-
-  getResources(attributeId: string): JsonResource[] {
+  public getResources(attributeId: string): JsonResource[] {
     return this.getStructure().getChildrenByReference(attributeId, this);
   }
 
-  getResource(attributeId: string): JsonResource {
+  public getResource(attributeId: string): JsonResource {
     const children = this.getResources(attributeId);
 
     Preconditions.checkState(children.length <= 1);
     return children.length == 1 ? children[0] : null;
   }
 
-  getParents(attributeId?: string) {
+  public getParents(attributeId?: string) {
     return attributeId
-        ? this._structure.getParentsByReference(attributeId, this)
-        : this._structure.getParents(this);
+      ? this._structure.getParentsByReference(attributeId, this)
+      : this._structure.getParents(this);
   }
 
-  getParent(attributeId: string) {
+  public getParent(attributeId: string) {
     return this._structure.getParentsByReference(attributeId, this).pop();
   }
 
-  addIncluded(resource: JsonResource) {
-    if (this._structure.getByUri(resource.getUri())) { return; }
-    this._structure.addIncluded(resource);
+  public getReference(attribute: string): string {
+    return this.__getReferences()[attribute];
   }
 
-  getReference(reference: string): string {
-    return this._getReferences()[reference];
+  public getReferences(attribute: string): string[] {
+    return this.__getReferences()[attribute];
   }
 
-  getReferences(reference?: string): string[] {
-    return reference
-        ? this._getReferences()[reference]
-        : this.getAllReferences();
+  public clearValue(attributeId: string): void {
+    const attr = this.__getAttributes()[attributeId];
+    if (!attr) {
+      this.clearResources(attributeId);
+    }
+    else {
+      this.__getAttributes()[attributeId] = [];
+    }
   }
 
-  // todo untested
-  deleteReference(key: string, uri?: string): void {
-    const refs = this._getReferences()[key];
+  public clearResources(attributeId: string): void {
+    const existing = this.getResources(attributeId);
+    existing.forEach(resource => this.clearResource(attributeId, resource.getUri()));
+  }
+
+  public clearResource(attributeId: string, uri: string) {
+    this._clearReference(attributeId, uri);
+    this._structure.deleteIfNotReferenced(uri);
+  }
+
+  private _clearReference(attributeId: string, uri: string): void {
+    const refs = this.__getReferences()[attributeId];
     if (!refs) { return; }
 
-    if (uri && refs instanceof Array && refs.length > 1) {
+    if (refs instanceof Array && refs.length > 1) {
       const index = refs.indexOf(uri);
-      if (index >= 0) { refs.splice(index, 1);
+      if (index >= 0) {
+        refs.splice(index, 1);
       }
     }
     else {
-      delete this._getReferences()[key];
+      this.__getReferences()[attributeId] = [];
     }
+    this._structure.cleanupReverseReferenceMap(attributeId, uri, this.getUri());
   }
 
-  setSingleReference(key: string, uri: string): void {
+  public ignoreAttribute(attributeId: string) {
+    delete this.__getAttributes()[attributeId];
+    this.clearResources(attributeId);
+    delete this.__getReferences()[attributeId];
+  }
+
+  public setSingleReference(key: string, uri: string): void {
+    Preconditions.checkNotNull(uri);
+    Preconditions.checkNotNull(key);
+    if (!this._json.references) {
+      this._json['references'] = {};
+    }
+    this.__getReferences()[key] = uri;
+  }
+
+  public setReferences(key: string, uris: string[]): void {
+    uris.forEach(uri => Preconditions.checkNotNull(uri));
+    Preconditions.checkNotNull(key);
     if (!this._json.references) {
       this._json['references'] = {};
     }
 
-    this._getReferences()[key] = uri;
+    this.__getReferences()[key] = uris;
   }
 
-  setReferences(key: string, uris: string[]): void {
-    if (!this._json.references) {
-      this._json['references'] = {};
+  public setResource(attribute: string, resource: JsonResource): void {
+    this._setResource(attribute, resource);
+  }
+
+  public setResources(attribute: string, resources: JsonResource[]): void {
+    this._setResource(attribute, resources);
+  }
+
+  protected _setResource(attribute: string, resource: JsonResource | JsonResource[]): void {
+    this.ignoreAttribute(attribute);
+
+    if (resource instanceof Array) {
+      this.setReferences(attribute, (<JsonResource[]>resource).map(res => res.getUri()));
+      (<JsonResource[]>resource).forEach(res => this._tryAddIncluded(res));
     }
-
-    this._getReferences()[key] = uris;
+    else {
+      this.setSingleReference(attribute, (<JsonResource>resource).getUri());
+      this._tryAddIncluded(<JsonResource>resource);
+    }
   }
+
+  private _tryAddIncluded(resource: JsonResource) {
+    const prev = this._structure.getByUri(resource.getUri());
+    if (prev && prev == resource) return;
+    else if (prev) {
+      throw new Error(
+        'Found different objects with same uri when adding included resource "' + resource.getUri() + '".' +
+        ' (Make sure to delete original before replacing with copy)');
+    }
+    else this.addIncluded(resource);
+  }
+
+  public addIncluded(resource: JsonResource) {
+    this._structure.addIncluded(resource);
+  }
+
 
   public extractFullStructure(): JsonResourceWrapper<JsonResource> {
     return this._structure.getSingleResourceAsFullJson(this);
@@ -173,21 +225,20 @@ export class JsonResource {
     return this._structure;
   }
 
-  private _getReferences(): any {
+  private __getReferences(): any {
     return this._json.references ? this._json.references : {};
   }
 
-  private _getAttributes(): any {
+  private __getAttributes(): any {
     return this._json.attributes ? this._json.attributes : {};
   }
 
-  private getAllReferences(): string[] {
+  public getAllReferences(): Set<string> {
     const allRefSet = new Set<string>();
-    Object.values(this._getReferences()).forEach(refs =>
-        this.getAsArray(refs).forEach(ref => allRefSet.add(ref))
+    Object.values(this.__getReferences()).forEach(refs =>
+      this.getAsArray(refs).forEach(ref => allRefSet.add(ref))
     );
-
-    return Array.from(allRefSet);
+    return allRefSet;
   }
 
   private getAsArray(value: any) {

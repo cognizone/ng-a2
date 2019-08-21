@@ -2,12 +2,12 @@ import {TypedResource} from '../typed-resource';
 import {JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper} from './json-resource-wrapper';
 import {ApplicationProfile, Attribute, Type} from '../../applicationprofile/application-profile';
 import {ApplicationProfileUtils} from '../../util/application-profile-utils';
-import {JsonResourceFactory} from './json-resource-factory';
 import {RdfDataType} from '../../rdf/rdf-data-type';
 import {JsonResource} from './json-resource';
 import {Preconditions} from "../../../precondition/preconditions";
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
+
   public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
     const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoot();
@@ -30,11 +30,11 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     this._type = type;
   }
 
-  getType(): Type {
+  public getType(): Type {
     return this._type;
   }
 
-  getValue(attributeId: string): any {
+  public getValue(attributeId: string): any {
     const attribute = this.getAttribute(attributeId);
 
     if (attribute.isTypedResource()) { return this._getResource(attributeId); }
@@ -44,25 +44,43 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     // todo revise logic for rdfs:Literal
   }
 
-  setValue(attributeId: string, value: any): void {
+  public setValue(attributeId: string, value: any): void {
     const attribute = this.getAttribute(attributeId);
     if (attribute.isTypedResource()) {
-      return this.setTypedResource(attribute, value);
+      return this._setTypedResource(attribute, value);
     }
 
     const dataType = attribute.getDataType();
     this.setValueWithDataType(attributeId, value, dataType);
   }
 
+  public addValue(attributeId: string, value: any): void {
+    Preconditions.checkState(!(value instanceof Array));
+
+    const previous = this.getValue(attributeId);
+
+    console.log(previous);
+
+    if (previous instanceof Array) {
+      this.setValue(attributeId, [...previous, value])
+    }
+    else if (!previous) {
+      this.setValue(attributeId, value);
+    }
+    else {
+      this.setValue(attributeId, [previous, value]);
+    }
+  }
+
   private getAttribute(attributeId: string): Attribute {
     let attribute = this._type.getAttribute(attributeId);
     Preconditions.checkNotNull(attribute,
-      () => "attribute '" + attributeId + "' not defined for type '" + this._type + "'");
+      () => "attribute '" + attributeId + "' not defined for type '" + this._type.getClassId() + "'");
     return attribute;
   }
 
   public getResources(attributeId: string): JsonTypedResource[] {
-    let attribute = this._type.getAttribute(attributeId);
+    this.getAttribute(attributeId);
     return <JsonTypedResource[]>super.getResources(attributeId);
   }
 
@@ -70,33 +88,39 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     return <JsonTypedResource>super.getResource(attributeId);
   }
 
-  public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
-    return JsonTypedResource.wrap(
-      profile ? profile : this._type.getApplicationProfile(),
-      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
-    );
-  }
-
   private _getResource(attributeId: string): JsonTypedResource | JsonTypedResource[] {
     let attribute = this._type.getAttribute(attributeId);
     return attribute.isMany() ? this.getResources(attributeId) : this.getResources(attributeId);
   }
 
-  private setTypedResource(attribute: Attribute, resource: JsonResource | JsonResource[]) {
+  private _setTypedResource(attribute: Attribute, resource: JsonResource | JsonResource[]) {
     if (attribute.isMany()) {
-      Preconditions.checkState(resource instanceof Array);
-      this.setReferences(attribute.getAttributeId(), (<JsonResource[]>resource).map(res => res.getUri()));
-      (<JsonResource[]>resource).forEach(res => this.addIncluded(res));
+      if (!(resource instanceof Array)) {
+        Preconditions.checkNotNull(resource.getUri());
+        resource = [resource];
+      }
+      this.setResources(attribute.getAttributeId(), resource);
     }
     else {
       Preconditions.checkState(!(resource instanceof Array));
-      this.setSingleReference(attribute.getAttributeId(), (<JsonResource>resource).getUri());
-      this.addIncluded(<JsonResource>resource);
+      Preconditions.checkNotNull((<JsonResource>resource).getUri());
+      this.setResource(attribute.getAttributeId(), <JsonResource>resource);
     }
   }
 
   public getStructure(): JsonResourceWrapper<JsonTypedResource> {
     return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+  }
+
+  public extractFullStructure(): JsonResourceWrapper<JsonResource> {
+    return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+  }
+
+  public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
+    return JsonTypedResource.wrap(
+      profile ? profile : this._type.getApplicationProfile(),
+      JSON.parse(JSON.stringify(this.extractFullStructure().getRawJson()))
+    );
   }
 }
 

@@ -17,11 +17,12 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
 
   protected addToMap(obj: T) {
     this.uriToResourceMap.set(obj.getUri(), obj);
-    obj.getReferences().forEach(ref => {
+    obj.getAllReferences().forEach(ref => {
       const list = this.inverseReferencesMap.get(ref);
       if (!list) {
         this.inverseReferencesMap.set(ref, [obj.getUri()]);
-      } else {
+      }
+      else {//todo check for duplicates? (need to consider performance)
         this.inverseReferencesMap.get(ref).push(obj.getUri());
       }
     });
@@ -67,9 +68,9 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     return parents.map(uri => this.uriToResourceMap.get(uri));
   }
 
-  public getParentsByReference(reference: string, child: T): T[] {
+  public getParentsByReference(attribute: string, child: T): T[] {
     return this.getParents(child).filter(parent => {
-      const ref = parent.getReferences(reference);
+      const ref = parent.getReferences(attribute);
       return !!ref && ref.includes(child.getUri());
     });
   }
@@ -88,18 +89,18 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
   }
 
   private addAllReferences(JsonTypedResource: JsonResource, included: any[]) {
-    JsonTypedResource.getReferences().forEach(ref => {
+    JsonTypedResource.getAllReferences().forEach(ref => {
       const child = this.uriToResourceMap.get(ref);
       included.push(child.getRawJson());
       this.addAllReferences(child, included);
     });
   }
 
-  public getByUri(uri: string) {
+  public getByUri(uri: string): T {
     return this.uriToResourceMap.get(uri);
   }
 
-  public getAll(): IterableIterator<T> {
+  getAll(): IterableIterator<T> {
     return this.uriToResourceMap.values();
   }
 
@@ -118,7 +119,43 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     }
 
     includes.push(copy.getRawJson());
-    this.uriToResourceMap.set(copy.getUri(), copy);
+    this.addToMap(copy)
+  }
+
+  public deleteIfNotReferenced(uri: string): boolean {
+    const resource = this.uriToResourceMap.get(uri);
+    if (!resource) return false;
+    if (this.getParents(resource).length > 0) return false;
+    this.uriToResourceMap.delete(uri);
+
+    let includes = this._jsonRoot['included'];
+    for (let i = 0; i < includes.length; i++) {
+      if (includes[i].uri === uri) {
+        includes.splice(i, 1);
+        return true;
+      }
+    }
+    throw new Error('Inconsistent state');
+  }
+
+
+  public cleanupReverseReferenceMap(attribute: string, child: string, parent: string) {
+    const c = this.getByUri(child);
+
+    const parents = this.inverseReferencesMap.get(child);
+    if (!parents) return;
+
+    const remainingParents = parents
+      .map(p => this.uriToResourceMap.get(p))
+      .filter(p => p.getAllReferences().has(c.getUri()))
+      .map(p => p.getUri());
+
+    if (remainingParents.length == 0) {
+      this.inverseReferencesMap.delete(child);
+    }
+    else {
+      this.inverseReferencesMap.set(child, remainingParents);
+    }
   }
 }
 
