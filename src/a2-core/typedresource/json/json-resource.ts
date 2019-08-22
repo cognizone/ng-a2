@@ -116,22 +116,27 @@ export class JsonResource {
   }
 
   public clearValue(attributeId: string): void {
-    delete this.__getAttributes()[attributeId];
-    this.clearResources(attributeId);
+    const attr = this.__getAttributes()[attributeId];
+    if (!attr) {
+      this.clearResources(attributeId);
+    }
+    else {
+      this.__getAttributes()[attributeId] = [];
+    }
   }
 
-  public clearResources(attribute: string) {
-    const existing = this.getResources(attribute);
-    existing.forEach(resource => this.clearResource(attribute, resource.getUri()));
+  public clearResources(attributeId: string): void {
+    const existing = this.getResources(attributeId);
+    existing.forEach(resource => this.clearResource(attributeId, resource.getUri()));
   }
 
-  public clearResource(attribute: string, uri: string) {
-    this._clearReference(attribute, uri);
+  public clearResource(attributeId: string, uri: string) {
+    this._clearReference(attributeId, uri);
     this._structure.deleteIfNotReferenced(uri);
   }
 
-  private _clearReference(attribute: string, uri: string) {
-    const refs = this.__getReferences()[attribute];
+  private _clearReference(attributeId: string, uri: string): void {
+    const refs = this.__getReferences()[attributeId];
     if (!refs) { return; }
 
     if (refs instanceof Array && refs.length > 1) {
@@ -141,11 +146,15 @@ export class JsonResource {
       }
     }
     else {
-      delete this.__getReferences()[attribute];
+      this.__getReferences()[attributeId] = [];
     }
+    this._structure.cleanupReverseReferenceMap(attributeId, uri, this.getUri());
+  }
 
-    this._structure.cleanupReverseReferenceMap(attribute, uri, this.getUri());
-
+  public ignoreAttribute(attributeId: string) {
+    delete this.__getAttributes()[attributeId];
+    this.clearResources(attributeId);
+    delete this.__getReferences()[attributeId];
   }
 
   public setSingleReference(key: string, uri: string): void {
@@ -176,9 +185,8 @@ export class JsonResource {
   }
 
   protected _setResource(attribute: string, resource: JsonResource | JsonResource[]): void {
-    this.clearResources(attribute);
+    this.ignoreAttribute(attribute);
 
-    console.log(resource);
     if (resource instanceof Array) {
       this.setReferences(attribute, (<JsonResource[]>resource).map(res => res.getUri()));
       (<JsonResource[]>resource).forEach(res => this._tryAddIncluded(res));

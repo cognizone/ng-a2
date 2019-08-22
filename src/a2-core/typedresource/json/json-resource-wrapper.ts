@@ -21,7 +21,8 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
       const list = this.inverseReferencesMap.get(ref);
       if (!list) {
         this.inverseReferencesMap.set(ref, [obj.getUri()]);
-      } else {
+      }
+      else {//todo check for duplicates? (need to consider performance)
         this.inverseReferencesMap.get(ref).push(obj.getUri());
       }
     });
@@ -118,14 +119,13 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     }
 
     includes.push(copy.getRawJson());
-    this.uriToResourceMap.set(copy.getUri(), copy);
+    this.addToMap(copy)
   }
 
   public deleteIfNotReferenced(uri: string): boolean {
     const resource = this.uriToResourceMap.get(uri);
     if (!resource) return false;
     if (this.getParents(resource).length > 0) return false;
-
     this.uriToResourceMap.delete(uri);
 
     let includes = this._jsonRoot['included'];
@@ -141,11 +141,15 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
 
   public cleanupReverseReferenceMap(attribute: string, child: string, parent: string) {
     const c = this.getByUri(child);
-    const parentsToRemove = this.getParentsByReference(attribute, c)
-      .filter(p => !p.getAllReferences().has(c.getUri()))
+
+    const parents = this.inverseReferencesMap.get(child);
+    if (!parents) return;
+
+    const remainingParents = parents
+      .map(p => this.uriToResourceMap.get(p))
+      .filter(p => p.getAllReferences().has(c.getUri()))
       .map(p => p.getUri());
-    const remainingParents = this.inverseReferencesMap.get(child)
-      .filter(p => parentsToRemove.indexOf(p) < 0);
+
     if (remainingParents.length == 0) {
       this.inverseReferencesMap.delete(child);
     }
