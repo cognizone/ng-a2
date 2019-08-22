@@ -1,5 +1,5 @@
-import {RestCallBuilder} from "./rest-call";
 import {Injectable} from "@angular/core";
+import {RestCallBuilder} from "./rest-call.service";
 
 
 @Injectable()
