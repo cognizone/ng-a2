@@ -1,8 +1,4 @@
-import {HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {defer, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Preconditions} from "../precondition/preconditions";
-import {RestCallService} from "./rest-call.service";
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 
 export class RestCall {
   private _url: string;
