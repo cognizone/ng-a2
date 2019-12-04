@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {defer, Observable} from "rxjs";
 import {Preconditions} from "../precondition/preconditions";
@@ -94,7 +94,6 @@ export class RestCallBuilder {
     this._body = body;
     return this;
   }
-
 
   public addInterceptor<T>(interceptor: RestCallInterceptor): RestCallBuilder {
     this._interceptors.push(interceptor);

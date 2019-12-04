@@ -50,7 +50,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
 
   private getChildrenInner(parent: T, reference?: string) {
     const child = parent.getReferences(reference);
-    if (!child) {return [];
+    if (!child) { return [];
     }
     else if (child instanceof Array) {
       return child.map(uri => this.uriToResourceMap.get(uri));

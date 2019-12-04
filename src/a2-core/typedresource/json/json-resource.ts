@@ -226,11 +226,11 @@ export class JsonResource {
   }
 
   private __getReferences(): any {
-    return this._json.references ? this._json.references : {};
+    return this._json.references || {};
   }
 
   private __getAttributes(): any {
-    return this._json.attributes ? this._json.attributes : {};
+    return this._json.attributes || {};
   }
 
   public getAllReferences(): Set<string> {

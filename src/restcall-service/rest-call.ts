@@ -7,7 +7,6 @@ export class RestCall {
   private _body: any;
   private _options = new Map<'reportProgress' | 'responseType' | 'withCredentials' | 'observe', any>();
 
-
   constructor(
     url: string,
     parameters: HttpParams,
