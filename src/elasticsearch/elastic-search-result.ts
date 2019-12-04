@@ -1,6 +1,6 @@
 import {BasicJsonModel} from "../a2-core/attribute-model/basic-json-model";
 
-export class ElasticSearchResult extends BasicJsonModel {
+export class  ElasticSearchResult extends BasicJsonModel {
 
   static emptyResult(): ElasticSearchResult {
     return new ElasticSearchResult({

@@ -59,8 +59,6 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
 
     const previous = this.getValue(attributeId);
 
-    console.log(previous);
-
     if (previous instanceof Array) {
       this.setValue(attributeId, [...previous, value])
     }
