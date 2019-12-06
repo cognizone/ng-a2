@@ -6,9 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "build-all": "npm run build",
-    "test": "ng test",
+    "test": "jest",
     "lint": "ng lint",
-    "release": "semantic-release",
+    "release": "npm run test && semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js"
   },
   "private": true,
