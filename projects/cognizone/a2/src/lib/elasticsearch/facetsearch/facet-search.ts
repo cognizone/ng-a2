@@ -130,7 +130,7 @@ export class FacetSearch implements AttributeModel {
 
 }
 
-class SearchFilterBuilder {
+export class SearchFilterBuilder {
 
   private filters = new Map<string, Filter>();
   private fixedFilters = new Map<string, Filter>();

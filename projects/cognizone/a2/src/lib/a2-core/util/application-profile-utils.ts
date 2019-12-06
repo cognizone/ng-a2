@@ -1,6 +1,7 @@
 import {ApplicationProfile, Attribute, Type} from "../applicationprofile/application-profile";
 import {Preconditions} from "../../precondition/preconditions";
 
+// @dynamic
 export class ApplicationProfileUtils {
 
   public static mergeProfiles(uri:string|undefined, ...profiles: ApplicationProfile[]): ApplicationProfile {
