@@ -12,7 +12,7 @@ const npmPlugins = packagesRoots.map(pkgRoot => [
 ]);
 
 module.exports = {
-  branch: "libraryfication",
+  branch: "master",
   plugins: [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
