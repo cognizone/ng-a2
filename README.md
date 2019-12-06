@@ -26,7 +26,7 @@ When you are finished, you can run the next command line in your project root
 npm unlink @cognizone/a2
 ```
 
-### Changing "dest"
+### Changing "dest" for build usage in project
 
 in `projects/cognizone/a2/ng-package.json`, there is the `dest` attribute, you can change this path to something like `/path/to/my/project/frontend/root/node_modules/@cognizone/a2`. After that you can run
 
