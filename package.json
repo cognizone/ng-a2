@@ -5,9 +5,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-all": "npm run build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "release": "semantic-release",
+    "release:sync-versions": "node ./tasks/sync-versions.js"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +31,9 @@
     "@angular/cli": "~8.3.20",
     "@angular/compiler-cli": "~8.2.14",
     "@angular/language-service": "~8.2.14",
+    "@semantic-release/changelog": "^3.0.6",
+    "@semantic-release/exec": "^3.3.8",
+    "@semantic-release/git": "^7.0.18",
     "@types/node": "~8.9.4",
     "ng-packagr": "^5.4.0",
     "ts-node": "~7.0.0",
