@@ -2,26 +2,36 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
-## Development server
+## Using dev code in project environment
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+You might want to use he code of this library directly in your project before making a new release, for that you have 2 solutions
 
-## Code scaffolding
+### Using npm link
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+cd ./projects/cognizone/a2
+npm link
+cd /path/to/my/project/frontend/root
+npm link @cognizone/a2
+```
 
-## Build
+With this, the installed dependency of @cognizone/a2 will be replaced a symlink to the source present here. But keep in mind:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- you are directly targeting the source, so the code will be transpilled using your project config, so you might have errors
+- do not commit the changes made to package.json and package-lock.json made by the npm link
 
-## Running unit tests
+When you are finished, you can run the next command line in your project root
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm unlink @cognizone/a2
+```
 
-## Running end-to-end tests
+### Changing "dest"
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+in `projects/cognizone/a2/ng-package.json`, there is the `dest` attribute, you can change this path to something like `/path/to/my/project/frontend/root/node_modules/@cognizone/a2`. After that you can run
 
-## Further help
+```bash
+npm run build -- --watch
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+and then in you can run `npm start` in your project repository.
