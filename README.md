@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 You might want to use he code of this library directly in your project before making a new release, for that you have 2 solutions
 
-### Using npm link
+### Using npm link for direct source usage
 
 ```bash
 cd ./projects/cognizone/a2
