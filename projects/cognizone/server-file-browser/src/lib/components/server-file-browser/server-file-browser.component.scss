@@ -1,0 +1,29 @@
+a {
+  cursor: pointer;
+}
+
+p {
+  margin: 2px;
+}
+
+.file {
+  color: #498cd1;
+}
+
+.spacer {
+  margin: 20px;
+}
+
+.action-row {
+  display: flex;
+  align-items: baseline;
+
+  .action-button {
+    margin-left: 10px;
+  }
+
+  .path-input {
+    height: 30px;
+    width: 600px;
+  }
+}

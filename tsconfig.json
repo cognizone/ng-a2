@@ -19,12 +19,10 @@
       "dom"
     ],
     "paths": {
-      "@cognizone/a2": [
-        "dist/cognizone/a2"
-      ],
-      "@cognizone/a2/*": [
-        "dist/cognizone/a2/*"
-      ]
+      "@cognizone/a2": ["projects/cognizone/a2"],
+      "@cognizone/a2/*": ["projects/cognizone/a2/*"],
+      "@cognizone/server-file-browser": ["projects/cognizone/server-file-browser"],
+      "@cognizone/server-file-browser/*": ["projects/cognizone/server-file-browser/*"]
     }
   },
   "angularCompilerOptions": {

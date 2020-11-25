@@ -1,0 +1,25 @@
+<p>Path</p>
+<div class="action-row">
+  <input matInput class="path-input" [(ngModel)]="currentPath"/>
+  <button mat-raised-button color="primary" class="action-button" type="submit" (click)="get(this.currentPath)">GO</button>
+  <button mat-raised-button color="accent" class="action-button" type="submit" [disabled]="previousPaths.length === 0" (click)="back()">BACK</button>
+</div>
+
+<div class="spacer"></div>
+
+<p>Download tail of file (lines)</p>
+<input type="checkbox" [(ngModel)]="tailEnabled">&nbsp;<input matInput [disabled]="!tailEnabled" [(ngModel)]="tailLines"/>
+
+<div class="spacer"></div>
+
+<div *ngIf="dir">
+  <p *ngFor="let d of dir.dirs"><a (click)="expand(d)">{{d}}/</a></p>
+  <p *ngFor="let f of dir.files">
+    <a class="file" title="Download"
+       target="_blank"
+       rel="noopener noreferrer"
+       [href]="getLink(f.name)">{{f.name}}
+    </a>
+    ({{f.size}})
+  </p>
+</div>

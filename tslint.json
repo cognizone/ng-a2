@@ -1,0 +1,4 @@
+{
+  "extends": "@cognizone/tslint-config",
+  "rulesDirectory": ["codelyzer"]
+}
