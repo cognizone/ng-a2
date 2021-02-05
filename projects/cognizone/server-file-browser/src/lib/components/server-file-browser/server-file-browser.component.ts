@@ -1,62 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
+import { Subscription } from "rxjs";
+import { tap } from "rxjs/operators";
 
 import { Directory } from "../../models/directory";
 import { ServerFileBrowserService } from "../../services/server-file-browser.service";
 
 @Component({
-	// tslint:disable-next-line:component-selector
-	selector: 'esco-server-file-browser',
-	templateUrl: './server-file-browser.component.html',
-	styleUrls: ['./server-file-browser.component.scss']
+  selector: 'esco-server-file-browser',
+  templateUrl: './server-file-browser.component.html',
+  styleUrls: ['./server-file-browser.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ServerFileBrowserComponent implements OnInit {
-	currentPath: string = undefined;
-	dir: Directory;
-	previousPaths: string[] = [];
-	tailLines: number = 1000;
-	tailEnabled: boolean = false;
+export class ServerFileBrowserComponent implements OnInit, OnDestroy {
+  @Output() failed: EventEmitter<string> = new EventEmitter<string>();
 
-	constructor(private readonly fileBrowseService: ServerFileBrowserService) {}
+  currentPath: string = undefined;
+  dir: Directory;
+  previousPaths: string[] = [];
+  tailLines: number = 1000;
+  tailEnabled: boolean = false;
 
-	ngOnInit(): void {
-		this.get(localStorage.getItem(this.fileBrowseService.storagePath) || '/');
-	}
+  private readonly subSink: Subscription = new Subscription();
 
-	get(path: string): void {
-		const prev = this.currentPath;
-		if (!!prev && path.startsWith(prev)) {
-			this.previousPaths.push(this.currentPath);
-		}
-		else {
-			this.previousPaths = []
-		}
+  constructor(
+    private readonly fileBrowseService: ServerFileBrowserService,
+    private readonly cdr: ChangeDetectorRef
+  ) {
+  }
 
-		this.currentPath = path;
-		localStorage.setItem(this.fileBrowseService.storagePath, path);
+  ngOnInit(): void {
+    const listingFailedSub = this.fileBrowseService.listingFailed$
+      .pipe(
+        tap((failedPath: string) => this.failed.emit(failedPath))
+      )
+      .subscribe();
 
-		// todo: use OnDestroy$ mixin
-		this.fileBrowseService.listFiles(path)
-				.subscribe(res => this.dir = res);
-	}
+    this.subSink.add(listingFailedSub);
 
-	expand(dir: string): void {
-		const pre = this.currentPath.endsWith('/') ? '' : '/';
-		this.get(`${ this.currentPath }${ pre }${ dir }/`);
-	}
+    const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '/';
+    this.addToPreviousPaths(startingPath);
+    this.get(startingPath);
+  }
 
-	back(): void {
-		this.currentPath = this.previousPaths.pop();
+  get(path: string): void {
+    this.currentPath = path;
+    localStorage.setItem(this.fileBrowseService.storagePath, path);
 
-		// todo: use OnDestroy$ mixin
-		this.fileBrowseService.listFiles(this.currentPath)
-				.subscribe(res => this.dir = res);
-	}
+    const listFilesSub = this.fileBrowseService.listFiles(path)
+      .subscribe(res => {
+        this.dir = res;
+        this.cdr.markForCheck();
+      });
 
-	getLink(file: string): string {
-		const slash = this.currentPath.endsWith('/') ? '' : '/';
-		const path = this.currentPath + slash + file;
-		const lines = this.tailEnabled ? this.tailLines : -1;
+    this.subSink.add(listFilesSub);
+  }
 
-		return this.fileBrowseService.getLink(path, lines);
-	}
+  expand(dir: string): void {
+    const pre = this.currentPath.endsWith('/') ? '' : '/';
+    const path = `${ this.currentPath }${ pre }${ dir }/`;
+    this.addToPreviousPaths(path);
+    this.get(path);
+  }
+
+  back(): void {
+    this.currentPath = this.previousPaths.pop();
+
+    const listFilesSub = this.fileBrowseService.listFiles(this.currentPath)
+      .subscribe(res => {
+        this.dir = res;
+        this.cdr.markForCheck();
+      });
+
+    this.subSink.add(listFilesSub);
+  }
+
+  getLink(file: string): string {
+    const slash = this.currentPath.endsWith('/') ? '' : '/';
+    const path = this.currentPath + slash + file;
+    const lines = this.tailEnabled ? this.tailLines : -1;
+
+    return this.fileBrowseService.getLink(path, lines);
+  }
+
+  ngOnDestroy(): void {
+    this.subSink.unsubscribe();
+  }
+
+  private addToPreviousPaths(path: string): void {
+    const prev = this.currentPath;
+    if (!!prev && path.startsWith(prev)) {
+      this.previousPaths = [...this.previousPaths, this.currentPath];
+    }
+    else {
+      this.previousPaths = [];
+    }
+
+    this.cdr.markForCheck();
+  }
 }

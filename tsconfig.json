@@ -7,7 +7,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
@@ -19,10 +19,18 @@
       "dom"
     ],
     "paths": {
-      "@cognizone/a2": ["dist/cognizone/a2"],
-      "@cognizone/a2/*": ["dist/cognizone/a2/*"],
-      "@cognizone/server-file-browser": ["dist/cognizone/server-file-browser"],
-      "@cognizone/server-file-browser/*": ["dist/cognizone/server-file-browser/*"]
+      "@cognizone/a2": [
+        "projects/cognizone/a2"
+      ],
+      "@cognizone/a2/*": [
+        "projects/cognizone/a2/*"
+      ],
+      "@cognizone/server-file-browser": [
+        "projects/cognizone/server-file-browser"
+      ],
+      "@cognizone/server-file-browser/*": [
+        "projects/cognizone/server-file-browser/*"
+      ]
     }
   },
   "angularCompilerOptions": {

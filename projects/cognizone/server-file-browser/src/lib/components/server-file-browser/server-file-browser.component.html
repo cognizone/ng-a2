@@ -1,14 +1,36 @@
-<p>Path</p>
 <div class="action-row">
-  <input matInput class="path-input" [(ngModel)]="currentPath"/>
-  <button mat-raised-button color="primary" class="action-button" type="submit" (click)="get(this.currentPath)">GO</button>
-  <button mat-raised-button color="accent" class="action-button" type="submit" [disabled]="previousPaths.length === 0" (click)="back()">BACK</button>
+  <mat-form-field appearance="outline">
+    <mat-label>File path</mat-label>
+    <input matInput [(ngModel)]="currentPath" placeholder="Enter file path">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="action-button" type="submit"
+          (click)="get(this.currentPath)">
+    GO
+  </button>
+  <button mat-raised-button color="accent" class="action-button" type="submit"
+          [disabled]="previousPaths.length === 0"
+          (click)="back()">
+    BACK
+  </button>
 </div>
 
 <div class="spacer"></div>
 
 <p>Download tail of file (lines)</p>
-<input type="checkbox" [(ngModel)]="tailEnabled">&nbsp;<input matInput [disabled]="!tailEnabled" [(ngModel)]="tailLines"/>
+<div class="tail-container">
+  <mat-checkbox
+      class="tail-input"
+      type="checkbox"
+      [(ngModel)]="tailEnabled"
+      title="{{ tailEnabled ? 'Disable line limit' : 'Enable line limit' }}">
+  </mat-checkbox>
+
+  <mat-form-field appearance="outline" class="tail-input">
+    <mat-label>Last n many lines</mat-label>
+    <input matInput [disabled]="!tailEnabled" [(ngModel)]="tailLines" placeholder="Enter a number">
+  </mat-form-field>
+</div>
 
 <div class="spacer"></div>
 

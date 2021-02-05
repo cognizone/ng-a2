@@ -10,13 +10,22 @@ p {
   color: #498cd1;
 }
 
+.tail-container {
+  @extend %browser-input-elements-alignment;
+  padding-top: 10px;
+
+  .tail-input {
+    padding-right: 10px;
+  }
+}
+
 .spacer {
-  margin: 20px;
+  margin: 10px;
 }
 
 .action-row {
-  display: flex;
-  align-items: baseline;
+  @extend %browser-input-elements-alignment;
+  padding-top: 10px;
 
   .action-button {
     margin-left: 10px;
@@ -26,4 +35,9 @@ p {
     height: 30px;
     width: 600px;
   }
+}
+
+%browser-input-elements-alignment {
+  display: flex;
+  align-items: baseline;
 }
