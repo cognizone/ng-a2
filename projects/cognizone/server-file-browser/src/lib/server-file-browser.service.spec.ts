@@ -6,7 +6,7 @@ describe('ServerFileBrowserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ServerFileBrowserService = TestBed.get(ServerFileBrowserService);
+    const service: ServerFileBrowserService = TestBed.inject(ServerFileBrowserService);
     expect(service).toBeTruthy();
   });
 });
