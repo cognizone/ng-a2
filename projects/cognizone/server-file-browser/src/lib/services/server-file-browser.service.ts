@@ -3,8 +3,8 @@ import { RestCallBuilder, RestCallInterceptor, SpecificHostAccessService } from 
 import { Observable, of, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-import { ServerFileBrowserConfig } from "../models/server-file-browser-config";
 import { Directory } from "../models/directory";
+import { ServerFileBrowserConfig } from "../models/server-file-browser-config";
 import { SERVER_FILE_BROWSER_TOKEN } from "../models/server-file-browser.token";
 import { SPECIFIC_HOST_ACCESS_SERVICE_TOKEN } from "../models/specific-host-access-service.token";
 

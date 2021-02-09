@@ -33,8 +33,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fileBrowseService: ServerFileBrowserService,
     private readonly cdr: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const listingFailedSub = this.fileBrowseService.listingFailed$

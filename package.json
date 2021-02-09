@@ -11,7 +11,8 @@
     "build-libs": "rimraf dist/cognizone && run-s build:*",
     "build:a2": "ng build @cognizone/a2 --prod",
     "build:server-file-browser": "ng build @cognizone/server-file-browser --prod",
-    "test": "jest",
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watchAll",
     "lint": "ng lint",
     "release": "npm run test && semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js"
