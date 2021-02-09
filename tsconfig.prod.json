@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@cognizone/a2": [
+        "dist/cognizone/a2"
+      ],
+      "@cognizone/a2/*": [
+        "dist/cognizone/a2/*"
+      ],
+      "@cognizone/server-file-browser": [
+        "dist/cognizone/server-file-browser"
+      ],
+      "@cognizone/server-file-browser/*": [
+        "dist/cognizone/server-file-browser/*"
+      ]
+    }
+  }
+}

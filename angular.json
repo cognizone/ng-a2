@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/cognizone/a2/tsconfig.lib.json",
             "project": "projects/cognizone/a2/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/a2/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -37,6 +42,47 @@
           }
         }
       }
-    }},
+    },
+    "@cognizone/server-file-browser": {
+      "projectType": "library",
+      "root": "projects/cognizone/server-file-browser",
+      "sourceRoot": "projects/cognizone/server-file-browser/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.json",
+            "project": "projects/cognizone/server-file-browser/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cognizone/server-file-browser/src/test.ts",
+            "tsConfig": "projects/cognizone/server-file-browser/tsconfig.spec.json",
+            "karmaConfig": "projects/cognizone/server-file-browser/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cognizone/server-file-browser/tsconfig.lib.json",
+              "projects/cognizone/server-file-browser/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
   "defaultProject": "@cognizone/a2"
 }
