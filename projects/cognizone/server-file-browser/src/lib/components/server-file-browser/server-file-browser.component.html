@@ -1,7 +1,7 @@
 <div class="action-row">
   <mat-form-field appearance="outline">
     <mat-label>File path</mat-label>
-    <input matInput [(ngModel)]="currentPath" placeholder="Enter file path">
+    <input (keydown.enter)="get(currentPath)" matInput [(ngModel)]="currentPath" placeholder="Enter file path">
   </mat-form-field>
 
   <button mat-raised-button color="primary" class="action-button" type="submit"
