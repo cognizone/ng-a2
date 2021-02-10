@@ -1,3 +1,11 @@
+# [1.1.0](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.0.0...v1.1.0) (2021-02-10)
+
+
+### Features
+
+* **server-file-browser:** init library and add essential functionality ([e7bdabe](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/e7bdabe4249fb77aed2eaea694ca566e9038f906))
+* submit file path on enter click ([ff158bb](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/ff158bbceee851adc47879a3f1edc023524afbb1))
+
 # 1.0.0 (2019-12-06)
 
 
