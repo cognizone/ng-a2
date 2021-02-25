@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
+
+$console-header-bg: #555;
+$console-header-text: #DDD;
+$console-bg: #000;
+$console-green: #63de00;
+
+.console {
+  font-family: 'Fira Mono', monospace, sans-serif;
+  width: 100%;
+  height: 300px;
+  box-sizing: border-box;
+  margin: auto;
+
+  header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color: $console-header-bg;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: $console-header-text;
+  }
+
+  .console-body {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-sizing: border-box;
+    padding: 20px;
+    height: calc(100% - 40px);
+    overflow: auto;
+    background-color: $console-bg;
+    color: $console-green;
+
+    p {
+      line-height: 1.5rem;
+    }
+  }
+
+  .console-input {
+    background: transparent;
+    border: 0;
+    color: $console-green;
+    outline: none;
+    width: 95%;
+    height: 100%;
+  }
+}
+
+.is-bold {
+  font-weight: bold;
+}

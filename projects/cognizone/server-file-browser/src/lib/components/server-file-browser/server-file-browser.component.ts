@@ -10,7 +10,9 @@ import {
 import { Subscription } from "rxjs";
 import { tap } from "rxjs/operators";
 
+import { isCliInteraction } from "../../models/cli-interaction";
 import { Directory } from "../../models/directory";
+import { isRemoteDataSuccess, RemoteData } from "../../models/remote-data";
 import { ServerFileBrowserService } from "../../services/server-file-browser.service";
 
 @Component({
@@ -20,7 +22,8 @@ import { ServerFileBrowserService } from "../../services/server-file-browser.ser
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServerFileBrowserComponent implements OnInit, OnDestroy {
-  @Output() failed: EventEmitter<string> = new EventEmitter<string>();
+  @Output() listingFailed: EventEmitter<string> = new EventEmitter<string>();
+  @Output() commandExecutionFailed: EventEmitter<string> = new EventEmitter<string>();
 
   currentPath: string = undefined;
   dir: Directory;
@@ -31,19 +34,11 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   private readonly subSink: Subscription = new Subscription();
 
   constructor(
-    private readonly fileBrowseService: ServerFileBrowserService,
+    public readonly fileBrowseService: ServerFileBrowserService,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    const listingFailedSub = this.fileBrowseService.listingFailed$
-      .pipe(
-        tap((failedPath: string) => this.failed.emit(failedPath))
-      )
-      .subscribe();
-
-    this.subSink.add(listingFailedSub);
-
     const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '/';
     this.addToPreviousPaths(startingPath);
     this.get(startingPath);
@@ -54,10 +49,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     localStorage.setItem(this.fileBrowseService.storagePath, path);
 
     const listFilesSub = this.fileBrowseService.listFiles(path)
-      .subscribe(res => {
-        this.dir = res;
-        this.cdr.markForCheck();
-      });
+      .subscribe((res: RemoteData<Directory, string>) => this.handleListFilesResponse(res));
 
     this.subSink.add(listFilesSub);
   }
@@ -73,10 +65,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     this.currentPath = this.previousPaths.pop();
 
     const listFilesSub = this.fileBrowseService.listFiles(this.currentPath)
-      .subscribe(res => {
-        this.dir = res;
-        this.cdr.markForCheck();
-      });
+      .subscribe(res => this.handleListFilesResponse(res));
 
     this.subSink.add(listFilesSub);
   }
@@ -89,8 +78,34 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     return this.fileBrowseService.getLink(path, lines);
   }
 
+  submitCommand(command: string): void {
+    const cmdSub = this.fileBrowseService.runCommand(command)
+      .pipe(
+        tap(res => {
+          if (!isCliInteraction(res)) this.commandExecutionFailed.emit(res);
+        })
+      )
+      .subscribe();
+
+    this.subSink.add(cmdSub);
+  }
+
   ngOnDestroy(): void {
     this.subSink.unsubscribe();
+  }
+
+  private handleListFilesResponse(res: RemoteData<Directory, string>): void {
+    if (isRemoteDataSuccess(res)) {
+      const { data } = res;
+      this.dir = data;
+    }
+    else {
+      const { error, fallbackData } = res;
+      this.dir = fallbackData;
+      this.listingFailed.emit(error);
+    }
+
+    this.cdr.markForCheck();
   }
 
   private addToPreviousPaths(path: string): void {

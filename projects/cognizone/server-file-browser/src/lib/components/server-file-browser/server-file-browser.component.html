@@ -1,3 +1,18 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Command line interface
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <esco-cmdline
+      [commandLineHistory]="fileBrowseService.cliHistory$ | async"
+      (submitCommand)="submitCommand($event)">
+    </esco-cmdline>
+  </mat-expansion-panel>
+</mat-accordion>
+
 <div class="action-row">
   <mat-form-field appearance="outline">
     <mat-label>File path</mat-label>
