@@ -5,7 +5,8 @@
       true,
       "attribute",
       "lib",
-      "camelCase"
+      "camelCase",
+      "esco"
     ],
     "component-selector": [
       true,
