@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { RestCallBuilder, RestCallInterceptor, SpecificHostAccessService } from "@cognizone/a2";
-import { BehaviorSubject, Observable, of, Subject } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 
 import { CliInteraction } from "../models/cli-interaction";
 import { Directory } from "../models/directory";
-import { RemoteData, RemoteDataError } from "../models/remote-data";
+import { RemoteData, RemoteDataError, RemoteDataSuccess } from "../models/remote-data";
 import { ServerFileBrowserConfig } from "../models/server-file-browser-config";
 import { SERVER_FILE_BROWSER_TOKEN } from "../models/server-file-browser.token";
 import { SPECIFIC_HOST_ACCESS_SERVICE_TOKEN } from "../models/specific-host-access-service.token";
@@ -48,6 +48,9 @@ export class ServerFileBrowserService {
       .addParams('path', path)
       .GET()
       .pipe(
+        map((res: Directory) => {
+          return { data: res } as RemoteDataSuccess<Directory>
+        }),
         catchError(
           err => {
             const fallbackDirectory: Directory = {
