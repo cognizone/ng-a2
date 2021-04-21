@@ -1,3 +1,10 @@
+## [1.2.2](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.1...v1.2.2) (2021-04-21)
+
+
+### Bug Fixes
+
+* starting path ([be32d64](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/be32d64e434a0eb43f8f12fd7b2ba4ba7a73e1ea))
+
 ## [1.2.1](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.0...v1.2.1) (2021-03-16)
 
 
