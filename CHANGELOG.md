@@ -1,3 +1,17 @@
+## [1.2.1](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.0...v1.2.1) (2021-03-16)
+
+
+### Bug Fixes
+
+* **server-file-browser:** wrap response with RemoteDataSuccess ([e70c50c](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/e70c50cdc96e2d298032c0ac0439d8ae80c93436))
+
+# [1.2.0](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.1.0...v1.2.0) (2021-03-02)
+
+
+### Features
+
+* **server-file-browser:** implement command line ([f3286ed](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/f3286ed4650241e5514deab020f3e5abf1105e4c))
+
 # [1.1.0](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.0.0...v1.1.0) (2021-02-10)
 
 
