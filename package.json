@@ -11,6 +11,7 @@
     "build-libs": "rimraf dist/cognizone && run-s build:*",
     "build:a2": "ng build @cognizone/a2 --prod",
     "build:server-file-browser": "ng build @cognizone/server-file-browser --prod",
+    "build:sse": "ng build @cognizone/sse --prod",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll",
     "lint": "ng lint",
@@ -29,6 +30,7 @@
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
+    "@cognizone/model-utils": "^1.30.2",
     "rxjs": "~6.6.3",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.2"
