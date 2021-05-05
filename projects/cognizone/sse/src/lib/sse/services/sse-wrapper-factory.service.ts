@@ -1,15 +1,18 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Inject, Injectable, NgZone } from "@angular/core";
 import { Many, manyToArray } from "@cognizone/model-utils";
 import { BehaviorSubject, merge, Observable, Subject } from "rxjs";
 import { share } from "rxjs/operators";
 
-import { defaultEventSourceConfig, EventSourceConfig } from "../models/event-source-config";
+import {
+  DEFAULT_EVENT_SOURCE_CONFIG,
+  EventSourceConfig
+} from "../models/event-source-config";
 
 @Injectable({ providedIn: 'root' })
 export class SseWrapperFactory {
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone, @Inject(DEFAULT_EVENT_SOURCE_CONFIG) private defaultConfig: EventSourceConfig) {}
 
-  create<T>(url: string, options: EventSourceConfig = defaultEventSourceConfig): SseWrapper<T> {
+  create<T>(url: string, options: EventSourceConfig = this.defaultConfig): SseWrapper<T> {
     return new SseWrapper<T>(url, this.ngZone, options);
   }
 }
@@ -23,8 +26,8 @@ export class SseWrapper<T> {
     return this._error$.asObservable();
   }
 
-  get reconnecting$(): Observable<void> {
-    return this._reconnecting$.asObservable();
+  get open$(): Observable<void> {
+    return this._open$.asObservable();
   }
 
   get readyState$(): Observable<number> {
@@ -33,7 +36,7 @@ export class SseWrapper<T> {
 
   private _message$: Subject<MessageEvent<T>> = new Subject();
   private _error$: Subject<Event> = new Subject();
-  private _reconnecting$: Subject<void> = new Subject();
+  private _open$: Subject<void> = new Subject();
   private _readyState$: BehaviorSubject<number>;
 
   private eventSource: EventSource;
@@ -43,8 +46,7 @@ export class SseWrapper<T> {
   constructor(private url: string, private ngZone: NgZone, private options: EventSourceConfig) {}
 
   init(): void {
-    const { withCredentials } = this.options;
-    this.eventSource = new EventSource(this.url, { withCredentials });
+    this.eventSource = new EventSource(this.url, this.options.eventSourceInit);
     this._readyState$ = new BehaviorSubject(this.eventSource.readyState);
 
     this.eventSource.onmessage = (messageEvent) => {
@@ -62,7 +64,7 @@ export class SseWrapper<T> {
     };
 
     this.eventSource.onopen = () => {
-      this._reconnecting$.next();
+      this._open$.next();
       this.ngZone.run(() => this.updateReadyState());
     };
   }
