@@ -1,3 +1,10 @@
+# [1.3.0](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.2...v1.3.0) (2021-05-05)
+
+
+### Features
+
+* **sse:** create library for sse handling ([256a07b](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/256a07bd1518b38f0aafb0fe60b092cf8a1d9711))
+
 ## [1.2.2](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.1...v1.2.2) (2021-04-21)
 
 
