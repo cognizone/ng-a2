@@ -30,6 +30,12 @@
       ],
       "@cognizone/server-file-browser/*": [
         "projects/cognizone/server-file-browser/*"
+      ],
+      "@cognizone/sse": [
+        "projects/cognizone/sse"
+      ],
+      "@cognizone/sse/*": [
+        "projects/cognizone/sse/*"
       ]
     }
   },

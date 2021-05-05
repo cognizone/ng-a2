@@ -82,6 +82,46 @@
           }
         }
       }
+    },
+    "@cognizone/sse": {
+      "projectType": "library",
+      "root": "projects/cognizone/sse",
+      "sourceRoot": "projects/cognizone/sse/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/cognizone/sse/tsconfig.lib.json",
+            "project": "projects/cognizone/sse/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/cognizone/sse/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/cognizone/sse/src/test.ts",
+            "tsConfig": "projects/cognizone/sse/tsconfig.spec.json",
+            "karmaConfig": "projects/cognizone/sse/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/cognizone/sse/tsconfig.lib.json",
+              "projects/cognizone/sse/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "@cognizone/a2"
