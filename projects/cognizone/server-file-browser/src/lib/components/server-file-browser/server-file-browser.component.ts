@@ -41,7 +41,6 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '.';
     this.addToPreviousPaths(startingPath);
-    this.get(startingPath);
   }
 
   get(path: string): void {
