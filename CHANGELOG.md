@@ -1,3 +1,10 @@
+## [1.3.1](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.3.0...v1.3.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* no longer fetch list file on page load ([f615f6f](https://bitbucket.org/cognizone/asquare-frontend-core-libs/commits/f615f6fe00cfebb75a62b1e4c48b0f24ea402ad7))
+
 # [1.3.0](https://bitbucket.org/cognizone/asquare-frontend-core-libs/compare/v1.2.2...v1.3.0) (2021-05-05)
 
 
