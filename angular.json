@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "@cognizone/a2"
+  "defaultProject": "@cognizone/a2",
+  "cli": {
+    "analytics": false
+  }
 }
