@@ -1,6 +1,6 @@
-import {JsonResourceFactory} from './json-resource-factory';
-import {JsonResource} from './json-resource';
-import {Preconditions} from "../../../precondition/preconditions";
+import { JsonResourceFactory } from './json-resource-factory';
+import { JsonResource } from './json-resource';
+import { Preconditions } from '../../../precondition/preconditions';
 
 export abstract class JsonResourceWrapper<T extends JsonResource> {
   private _jsonRoot: any;
@@ -21,8 +21,8 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
       const list = this.inverseReferencesMap.get(ref);
       if (!list) {
         this.inverseReferencesMap.set(ref, [obj.getUri()]);
-      }
-      else {//todo check for duplicates? (need to consider performance)
+      } else {
+        //todo check for duplicates? (need to consider performance)
         this.inverseReferencesMap.get(ref).push(obj.getUri());
       }
     });
@@ -34,9 +34,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
       return;
     }
     Preconditions.checkState(includes instanceof Array);
-    includes.forEach(obj =>
-      this.addToMap(this.resourceFactory(obj, this))
-    );
+    includes.forEach(obj => this.addToMap(this.resourceFactory(obj, this)));
   }
 
   public getChildren(parent: T) {
@@ -50,12 +48,11 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
 
   private getChildrenInner(parent: T, reference?: string) {
     const child = parent.getReferences(reference);
-    if (!child) { return [];
-    }
-    else if (child instanceof Array) {
+    if (!child) {
+      return [];
+    } else if (child instanceof Array) {
       return child.map(uri => this.uriToResourceMap.get(uri));
-    }
-    else {
+    } else {
       return [this.uriToResourceMap.get(child as string)];
     }
   }
@@ -119,7 +116,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     }
 
     includes.push(copy.getRawJson());
-    this.addToMap(copy)
+    this.addToMap(copy);
   }
 
   public deleteIfNotReferenced(uri: string): boolean {
@@ -138,7 +135,6 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     throw new Error('Inconsistent state');
   }
 
-
   public cleanupReverseReferenceMap(attribute: string, child: string, parent: string) {
     const c = this.getByUri(child);
 
@@ -152,8 +148,7 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
 
     if (remainingParents.length == 0) {
       this.inverseReferencesMap.delete(child);
-    }
-    else {
+    } else {
       this.inverseReferencesMap.set(child, remainingParents);
     }
   }

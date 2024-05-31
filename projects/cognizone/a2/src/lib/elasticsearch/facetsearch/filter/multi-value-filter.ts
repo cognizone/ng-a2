@@ -1,12 +1,11 @@
-import {Filter} from './filter';
-import {AbstractFilter} from './abstract-filter';
-import {ElasticQueryJson} from '../elastic-query-json';
+import { Filter } from './filter';
+import { AbstractFilter } from './abstract-filter';
+import { ElasticQueryJson } from '../elastic-query-json';
 
 export class MultiValueFilter extends AbstractFilter {
-
   private innerFilter: Filter;
 
-  constructor (innerFilter: Filter) {
+  constructor(innerFilter: Filter) {
     super(null, null, innerFilter.getFilterKey());
     this.innerFilter = innerFilter;
     this.innerFilter.setActive(true);

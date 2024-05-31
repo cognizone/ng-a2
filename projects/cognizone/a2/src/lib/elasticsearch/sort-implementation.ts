@@ -1,8 +1,8 @@
-import {ParamMap} from '@angular/router';
-import {Sort} from './sort';
+import { ParamMap } from '@angular/router';
+
+import { Sort } from './sort';
 
 abstract class AbstractSort implements Sort {
-
   public static builder(): SortBuilder {
     return new SortBuilder();
   }
@@ -25,7 +25,6 @@ abstract class AbstractSort implements Sort {
 }
 
 class PriorityToMostRecentSort extends AbstractSort {
-
   private sortFields: Map<string, SortField> = new Map<string, SortField>();
 
   private _priorityQueue: string[];
@@ -51,10 +50,9 @@ class PriorityToMostRecentSort extends AbstractSort {
   }
 
   setFromQueryParams(params: ParamMap) {
-
     const sortParams: string[] = params.getAll('sort');
     if (sortParams.length > 0) {
-      this.sortFields.forEach(field => field.enabled = false);
+      this.sortFields.forEach(field => (field.enabled = false));
       this._priorityQueue = [];
     }
     sortParams.reverse();
@@ -67,7 +65,7 @@ class PriorityToMostRecentSort extends AbstractSort {
     this._priorityQueue.forEach(key => {
       const sortField = this.sortFields.get(key);
       const keyword = sortField.keyword ? '.keyword' : '';
-      sort[sortField.key + keyword] = {order: sortField.ascending ? 'asc' : 'desc'};
+      sort[sortField.key + keyword] = { order: sortField.ascending ? 'asc' : 'desc' };
     });
     return sort;
   }
@@ -100,7 +98,7 @@ class PriorityToMostRecentSort extends AbstractSort {
   }
 
   private createSortField(key: string): SortField {
-    return {key: key, enabled: false, ascending: false, keyword: false, missingFirst: false};
+    return { key: key, enabled: false, ascending: false, keyword: false, missingFirst: false };
   }
 
   private removeFromQueue(key: string): void {
@@ -124,9 +122,7 @@ class PriorityToMostRecentSort extends AbstractSort {
 }
 
 class SingleSort extends AbstractSort {
-
   private sortFields: Map<string, SortField> = new Map<string, SortField>();
-
 
   activeSortKey: string;
   ascending = false;
@@ -140,7 +136,6 @@ class SingleSort extends AbstractSort {
         this.activeSortKey = value.key;
       }
     });
-
   }
 
   getAscending(key: string): boolean {
@@ -160,14 +155,13 @@ class SingleSort extends AbstractSort {
   }
 
   toElasticQuerySort(): any {
-
     if (!this.activeSortKey) return {};
     const sortField = this.sortFields.get(this.activeSortKey);
     if (!sortField) return {};
 
     const sort = {};
     const keyword = sortField.keyword ? '.keyword' : '';
-    sort[this.activeSortKey + keyword] = {order: this.ascending ? 'asc' : 'desc', missing: sortField.missingFirst ? '_first' : '_last'};
+    sort[this.activeSortKey + keyword] = { order: this.ascending ? 'asc' : 'desc', missing: sortField.missingFirst ? '_first' : '_last' };
     return sort;
   }
 
@@ -198,7 +192,6 @@ interface SortField {
 }
 
 export class SortBuilder {
-
   private filters = new Map<string, SortField>();
 
   public static builder() {
@@ -206,7 +199,7 @@ export class SortBuilder {
   }
 
   addSortField(key: string, keyword = false, enabled = false, ascending = false, missingFirst = false): SortBuilder {
-    this.filters.set(key, {key: key, enabled: enabled, ascending: ascending, keyword: keyword, missingFirst: missingFirst});
+    this.filters.set(key, { key: key, enabled: enabled, ascending: ascending, keyword: keyword, missingFirst: missingFirst });
     return this;
   }
 

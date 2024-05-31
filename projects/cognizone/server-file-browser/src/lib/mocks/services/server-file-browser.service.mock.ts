@@ -1,8 +1,8 @@
-import { Observable, of } from "rxjs";
-import { delay } from "rxjs/operators";
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
-import { Directory } from "../../models/directory";
-import { mockDirectory } from "../data/mock-directories";
+import { Directory } from '../../models/directory';
+import { mockDirectory } from '../data/mock-directories';
 
 export class ServerFileBrowserServiceMock {
   listingFailed$: Observable<string> = of('path');

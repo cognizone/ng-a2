@@ -1,7 +1,7 @@
-import {JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper} from './json-resource-wrapper';
-import {RdfDataType} from '../../rdf/rdf-data-type';
-import {JsonResourceFactory} from './json-resource-factory';
-import {Preconditions} from "../../../precondition/preconditions";
+import { JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper } from './json-resource-wrapper';
+import { RdfDataType } from '../../rdf/rdf-data-type';
+import { JsonResourceFactory } from './json-resource-factory';
+import { Preconditions } from '../../../precondition/preconditions';
 
 export const BasicJsonResourceFactory: JsonResourceFactory<JsonResource> = (rawJson, structure) => new JsonResource(rawJson, structure);
 
@@ -11,7 +11,7 @@ export class JsonResource {
     return structure.getRoot();
   }
 
-  public  static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
+  public static _wrapMany(jsonRoot: any = { data: [] }): JsonResource[] {
     const structure = new MultiJsonResourceWrapper<JsonResource>(jsonRoot, BasicJsonResourceFactory);
     return structure.getRoots();
   }
@@ -38,10 +38,7 @@ export class JsonResource {
   }
 
   public isEmptyResource(): boolean {
-    return (
-      Object.keys(this.__getAttributes()).length == 0 &&
-      Object.keys(this.__getReferences()).length == 0
-    );
+    return Object.keys(this.__getAttributes()).length == 0 && Object.keys(this.__getReferences()).length == 0;
   }
 
   public setUri(uri: string): void {
@@ -58,7 +55,9 @@ export class JsonResource {
 
   public getValueWithDataType(attributeId: string, dataType?: RdfDataType) {
     const attrib = this.__getAttributes()[attributeId];
-    if (!attrib) { return null; }
+    if (!attrib) {
+      return null;
+    }
     return dataType ? attrib[dataType.shortened] : Object.values(attrib).pop();
   }
 
@@ -98,9 +97,7 @@ export class JsonResource {
   }
 
   public getParents(attributeId?: string) {
-    return attributeId
-      ? this._structure.getParentsByReference(attributeId, this)
-      : this._structure.getParents(this);
+    return attributeId ? this._structure.getParentsByReference(attributeId, this) : this._structure.getParents(this);
   }
 
   public getParent(attributeId: string) {
@@ -119,8 +116,7 @@ export class JsonResource {
     const attr = this.__getAttributes()[attributeId];
     if (!attr) {
       this.clearResources(attributeId);
-    }
-    else {
+    } else {
       this.__getAttributes()[attributeId] = [];
     }
   }
@@ -137,15 +133,16 @@ export class JsonResource {
 
   private _clearReference(attributeId: string, uri: string): void {
     const refs = this.__getReferences()[attributeId];
-    if (!refs) { return; }
+    if (!refs) {
+      return;
+    }
 
     if (refs instanceof Array && refs.length > 1) {
       const index = refs.indexOf(uri);
       if (index >= 0) {
         refs.splice(index, 1);
       }
-    }
-    else {
+    } else {
       this.__getReferences()[attributeId] = [];
     }
     this._structure.cleanupReverseReferenceMap(attributeId, uri, this.getUri());
@@ -188,10 +185,12 @@ export class JsonResource {
     this.ignoreAttribute(attribute);
 
     if (resource instanceof Array) {
-      this.setReferences(attribute, (<JsonResource[]>resource).map(res => res.getUri()));
+      this.setReferences(
+        attribute,
+        (<JsonResource[]>resource).map(res => res.getUri())
+      );
       (<JsonResource[]>resource).forEach(res => this._tryAddIncluded(res));
-    }
-    else {
+    } else {
       this.setSingleReference(attribute, (<JsonResource>resource).getUri());
       this._tryAddIncluded(<JsonResource>resource);
     }
@@ -202,16 +201,17 @@ export class JsonResource {
     if (prev && prev == resource) return;
     else if (prev) {
       throw new Error(
-        'Found different objects with same uri when adding included resource "' + resource.getUri() + '".' +
-        ' (Make sure to delete original before replacing with copy)');
-    }
-    else this.addIncluded(resource);
+        'Found different objects with same uri when adding included resource "' +
+          resource.getUri() +
+          '".' +
+          ' (Make sure to delete original before replacing with copy)'
+      );
+    } else this.addIncluded(resource);
   }
 
   public addIncluded(resource: JsonResource) {
     this._structure.addIncluded(resource);
   }
-
 
   public extractFullStructure(): JsonResourceWrapper<JsonResource> {
     return this._structure.getSingleResourceAsFullJson(this);
@@ -235,15 +235,14 @@ export class JsonResource {
 
   public getAllReferences(): Set<string> {
     const allRefSet = new Set<string>();
-    Object.values(this.__getReferences()).forEach(refs =>
-      this.getAsArray(refs).forEach(ref => allRefSet.add(ref))
-    );
+    Object.values(this.__getReferences()).forEach(refs => this.getAsArray(refs).forEach(ref => allRefSet.add(ref)));
     return allRefSet;
   }
 
   private getAsArray(value: any) {
-    if (value instanceof Array) { return value; }
+    if (value instanceof Array) {
+      return value;
+    }
     return [value];
   }
 }
-

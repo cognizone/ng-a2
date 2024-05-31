@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/a2/tsconfig.lib.json",
             "project": "projects/cognizone/a2/ng-package.json"
@@ -50,7 +50,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.json",
             "project": "projects/cognizone/server-file-browser/ng-package.json"

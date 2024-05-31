@@ -7,19 +7,19 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { Subscription } from "rxjs";
-import { tap } from "rxjs/operators";
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import { isCliInteraction } from "../../models/cli-interaction";
-import { Directory } from "../../models/directory";
-import { isRemoteDataSuccess, RemoteData } from "../../models/remote-data";
-import { ServerFileBrowserService } from "../../services/server-file-browser.service";
+import { isCliInteraction } from '../../models/cli-interaction';
+import { Directory } from '../../models/directory';
+import { isRemoteDataSuccess, RemoteData } from '../../models/remote-data';
+import { ServerFileBrowserService } from '../../services/server-file-browser.service';
 
 @Component({
   selector: 'esco-server-file-browser',
   templateUrl: './server-file-browser.component.html',
   styleUrls: ['./server-file-browser.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   @Output() listingFailed: EventEmitter<string> = new EventEmitter<string>();
@@ -47,7 +47,8 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     this.currentPath = path;
     localStorage.setItem(this.fileBrowseService.storagePath, path);
 
-    const listFilesSub = this.fileBrowseService.listFiles(path)
+    const listFilesSub = this.fileBrowseService
+      .listFiles(path)
       .subscribe((res: RemoteData<Directory, string>) => this.handleListFilesResponse(res));
 
     this.subSink.add(listFilesSub);
@@ -55,7 +56,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
 
   expand(dir: string): void {
     const pre = this.currentPath.endsWith('/') ? '' : '/';
-    const path = `${ this.currentPath }${ pre }${ dir }/`;
+    const path = `${this.currentPath}${pre}${dir}/`;
     this.addToPreviousPaths(path);
     this.get(path);
   }
@@ -63,8 +64,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   back(): void {
     this.currentPath = this.previousPaths.pop();
 
-    const listFilesSub = this.fileBrowseService.listFiles(this.currentPath)
-      .subscribe(res => this.handleListFilesResponse(res));
+    const listFilesSub = this.fileBrowseService.listFiles(this.currentPath).subscribe(res => this.handleListFilesResponse(res));
 
     this.subSink.add(listFilesSub);
   }
@@ -78,7 +78,8 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   }
 
   submitCommand(command: string): void {
-    const cmdSub = this.fileBrowseService.runCommand(command)
+    const cmdSub = this.fileBrowseService
+      .runCommand(command)
       .pipe(
         tap(res => {
           if (!isCliInteraction(res)) this.commandExecutionFailed.emit(res);
@@ -97,8 +98,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     if (isRemoteDataSuccess(res)) {
       const { data } = res;
       this.dir = data;
-    }
-    else {
+    } else {
       const { error, fallbackData } = res;
       this.dir = fallbackData;
       this.listingFailed.emit(error);
@@ -111,8 +111,7 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
     const prev = this.currentPath;
     if (!!prev && path.startsWith(prev)) {
       this.previousPaths = [...this.previousPaths, this.currentPath];
-    }
-    else {
+    } else {
       this.previousPaths = [];
     }
 
