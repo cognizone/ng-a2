@@ -1,5 +1,4 @@
 import { ParamMap } from '@angular/router';
-import { isNumber } from 'util';
 import { ElasticQueryJson } from './elastic-query-json';
 import { SimpleTermAggregation } from './aggregation/term/simple-term-aggregation';
 import { GlobalTermAggregation } from './aggregation/term/global-term-aggregation';
@@ -37,7 +36,7 @@ export class FacetSearch implements AttributeModel {
 
   setValue(key: string, value: any) {
     this.filters.get(key).setValue(value);
-    this.filters.get(key).setActive((value != null && value.length > 0) || isNumber(value));
+    this.filters.get(key).setActive((value != null && value.length > 0) || typeof value === 'number');
   }
 
   clearValue(key: string) {
