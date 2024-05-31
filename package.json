@@ -61,7 +61,7 @@
     "typescript": "~4.0.5"
   },
   "volta": {
-    "node": "16.20.2",
+    "node": "18.20.3",
     "npm": "6.14.18"
   },
   "prettier": "@cognizone/prettier-config"
