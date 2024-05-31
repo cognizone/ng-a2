@@ -1,16 +1,16 @@
-import { Inject, Injectable, NgZone } from "@angular/core";
-import { Many, manyToArray } from "@cognizone/model-utils";
-import { BehaviorSubject, merge, Observable, Subject } from "rxjs";
-import { share } from "rxjs/operators";
+import { Inject, Injectable, NgZone } from '@angular/core';
+import { Many, manyToArray } from '@cognizone/model-utils';
+import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
+import { share } from 'rxjs/operators';
 
-import {
-  DEFAULT_EVENT_SOURCE_CONFIG,
-  EventSourceConfig
-} from "../models/event-source-config";
+import { DEFAULT_EVENT_SOURCE_CONFIG, EventSourceConfig } from '../models/event-source-config';
 
 @Injectable({ providedIn: 'root' })
 export class SseWrapperFactory {
-  constructor(private ngZone: NgZone, @Inject(DEFAULT_EVENT_SOURCE_CONFIG) private defaultConfig: EventSourceConfig) {}
+  constructor(
+    private ngZone: NgZone,
+    @Inject(DEFAULT_EVENT_SOURCE_CONFIG) private defaultConfig: EventSourceConfig
+  ) {}
 
   create<T>(url: string, options: EventSourceConfig = this.defaultConfig): SseWrapper<T> {
     return new SseWrapper<T>(url, this.ngZone, options);
@@ -41,22 +41,26 @@ export class SseWrapper<T> {
 
   private eventSource: EventSource;
 
-  private eventTypeMap: {[eventType: string]: Observable<MessageEvent<T>>} = {};
+  private eventTypeMap: { [eventType: string]: Observable<MessageEvent<T>> } = {};
 
-  constructor(private url: string, private ngZone: NgZone, private options: EventSourceConfig) {}
+  constructor(
+    private url: string,
+    private ngZone: NgZone,
+    private options: EventSourceConfig
+  ) {}
 
   init(): void {
     this.eventSource = new EventSource(this.url, this.options.eventSourceInit);
     this._readyState$ = new BehaviorSubject(this.eventSource.readyState);
 
-    this.eventSource.onmessage = (messageEvent) => {
+    this.eventSource.onmessage = messageEvent => {
       this.ngZone.run(() => {
         this._message$.next(messageEvent);
         this.updateReadyState();
       });
     };
 
-    this.eventSource.onerror = (error) => {
+    this.eventSource.onerror = error => {
       this.ngZone.run(() => {
         this._error$.next(error);
         this.updateReadyState();
@@ -81,7 +85,7 @@ export class SseWrapper<T> {
     const allObs$: Observable<MessageEvent<T>>[] = manyToArray(eventType).map(type => {
       if (this.eventTypeMap[type]) return this.eventTypeMap[type];
 
-      return this.eventTypeMap[type] = new Observable((subscriber) => {
+      return (this.eventTypeMap[type] = new Observable(subscriber => {
         const messageEventHandler = (messageEvent: MessageEvent) => {
           this.ngZone.run(() => {
             subscriber.next(messageEvent);
@@ -94,9 +98,9 @@ export class SseWrapper<T> {
           this.readyState$.subscribe(state => {
             if (state === EventSource.CLOSED) subscriber.complete();
           })
-        )
-      }).pipe(share<MessageEvent<T>>())
-    })
+        );
+      }).pipe(share<MessageEvent<T>>()));
+    });
 
     return merge(...allObs$);
   }

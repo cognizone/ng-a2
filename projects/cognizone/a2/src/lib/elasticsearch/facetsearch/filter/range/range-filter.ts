@@ -1,5 +1,5 @@
-import {AbstractFilter} from '../abstract-filter';
-import {ElasticQueryJson} from '../../elastic-query-json';
+import { AbstractFilter } from '../abstract-filter';
+import { ElasticQueryJson } from '../../elastic-query-json';
 
 export class RangeFilter extends AbstractFilter {
   rangeType: string;
@@ -9,7 +9,7 @@ export class RangeFilter extends AbstractFilter {
     this.rangeType = rangeType;
   }
 
-  public addFilterToQuery (query: ElasticQueryJson):void {
+  public addFilterToQuery(query: ElasticQueryJson): void {
     if (this.isActive()) query.query.bool.filter.push(this.toElasticFilter());
   }
 
@@ -18,11 +18,11 @@ export class RangeFilter extends AbstractFilter {
     inner[this.rangeType] = this.getValue();
     const outer = {};
     outer[this.getQueryKey()] = inner;
-    return {range: outer};
+    return { range: outer };
   }
 
   public getValuePretty(): any {
-    return String(this.getValue())
+    return String(this.getValue());
   }
 
   public valueIsArray() {

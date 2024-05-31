@@ -1,18 +1,16 @@
-import {ApplicationProfile, Attribute, Type} from "../applicationprofile/application-profile";
-import {Preconditions} from "../../precondition/preconditions";
+import { Preconditions } from '../../precondition/preconditions';
+import { ApplicationProfile, Attribute, Type } from '../applicationprofile/application-profile';
 
 // @dynamic
 export class ApplicationProfileUtils {
-
-  public static mergeProfiles(uri:string|undefined, ...profiles: ApplicationProfile[]): ApplicationProfile {
+  public static mergeProfiles(uri: string | undefined, ...profiles: ApplicationProfile[]): ApplicationProfile {
     Preconditions.checkState(profiles.length > 0);
     if (profiles.length === 1) return profiles[0];
 
     const mergeMap = new Map<string, Type>();
 
     profiles.forEach(p => {
-      p.getTypes().forEach((t) => {
-
+      p.getTypes().forEach(t => {
         const classId = t.getClassIds()[0];
 
         if (mergeMap.has(classId)) {
@@ -26,18 +24,17 @@ export class ApplicationProfileUtils {
     return new ApplicationProfile(uri, mergeMap);
   }
 
-
- public static mergeTypes(types: Type[]): Type {
+  public static mergeTypes(types: Type[]): Type {
     Preconditions.checkState(types.length > 0);
     if (types.length === 1) return types[0];
 
-    const mergeMap = new Map<string, Attribute> ();
+    const mergeMap = new Map<string, Attribute>();
     let classIds: string[] = [];
 
     types.forEach(t => {
       Preconditions.checkState(!t.getClassIds().some(id => classIds.indexOf(id) >= 0));
       classIds = classIds.concat(t.getClassIds());
-      t.getAttributes().forEach((a) => {
+      t.getAttributes().forEach(a => {
         const id = a.getAttributeId();
         if (mergeMap.has(id)) {
           // console.warn('"' + id + '" defined multiple times, skipping ...');

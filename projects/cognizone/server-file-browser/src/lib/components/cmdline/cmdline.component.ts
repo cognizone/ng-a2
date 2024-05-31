@@ -9,17 +9,17 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
 
-import { CliInteraction } from "../../models/cli-interaction";
+import { CliInteraction } from '../../models/cli-interaction';
 
 @Component({
   selector: 'esco-cmdline',
   templateUrl: './cmdline.component.html',
   styleUrls: ['./cmdline.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CmdlineComponent implements OnChanges, OnDestroy {
   @Input() commandLineHistory: CliInteraction[];

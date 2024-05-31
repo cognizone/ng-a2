@@ -1,19 +1,18 @@
 import { Namespace } from './namespace';
 
 export class RdfDataType {
-
   public static readonly TYPES = {
     rdfs_Resource: RdfDataType.define('Resource', Namespace.RDFS),
-    rdfs_Literal : RdfDataType.define('Literal', Namespace.RDFS),
-    xsd_string : RdfDataType.define('string', Namespace.XSD),
-    xsd_anyURI : RdfDataType.define('anyUri', Namespace.XSD),
-    xsd_boolean : RdfDataType.define('boolean', Namespace.XSD),
-    xsd_float : RdfDataType.define('float', Namespace.XSD),
-    xsd_date : RdfDataType.define('date', Namespace.XSD),
-    xsd_dateTime : RdfDataType.define('dateTime', Namespace.XSD),
-    xsd_decimal : RdfDataType.define('decimal', Namespace.XSD),
-    rdf_langString : RdfDataType.define('langString', Namespace.RDF),
-    xsd_language: RdfDataType.define('language', Namespace.XSD)
+    rdfs_Literal: RdfDataType.define('Literal', Namespace.RDFS),
+    xsd_string: RdfDataType.define('string', Namespace.XSD),
+    xsd_anyURI: RdfDataType.define('anyUri', Namespace.XSD),
+    xsd_boolean: RdfDataType.define('boolean', Namespace.XSD),
+    xsd_float: RdfDataType.define('float', Namespace.XSD),
+    xsd_date: RdfDataType.define('date', Namespace.XSD),
+    xsd_dateTime: RdfDataType.define('dateTime', Namespace.XSD),
+    xsd_decimal: RdfDataType.define('decimal', Namespace.XSD),
+    rdf_langString: RdfDataType.define('langString', Namespace.RDF),
+    xsd_language: RdfDataType.define('language', Namespace.XSD),
     // todo add more types as needed...
   };
 
@@ -26,10 +25,10 @@ export class RdfDataType {
     this.uri = uri;
     this.name = name;
     this.namespace = namespace;
-    this.shortened = (commonPrefix && name) ? (commonPrefix + ':' + name) : (uri);
+    this.shortened = commonPrefix && name ? commonPrefix + ':' + name : uri;
   }
 
-  public equals (dataType: RdfDataType) {
+  public equals(dataType: RdfDataType) {
     return this.uri === dataType.uri;
   }
 
@@ -47,7 +46,7 @@ export class RdfDataType {
   private static readonly uriToDataType = RdfDataType.populateUriToDataType();
   private static populateUriToDataType() {
     const map = {};
-    Object.values(this.TYPES).forEach(val => map[val.uri] = val);
+    Object.values(this.TYPES).forEach(val => (map[val.uri] = val));
     return map;
   }
 }

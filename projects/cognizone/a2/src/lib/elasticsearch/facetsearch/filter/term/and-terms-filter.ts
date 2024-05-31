@@ -1,13 +1,12 @@
-import {ElasticQueryJson} from '../../elastic-query-json';
-import {AbstractTermFilter} from './abstract-term-filter';
+import { ElasticQueryJson } from '../../elastic-query-json';
+import { AbstractTermFilter } from './abstract-term-filter';
 
 export class AndTermsFilter extends AbstractTermFilter {
-
-  public addFilterToQuery (query: ElasticQueryJson):void {
+  public addFilterToQuery(query: ElasticQueryJson): void {
     if (this.isActive()) {
       this.getValue().forEach(val => {
         query.query.bool.filter.push(this.toElasticFilter(val));
-      })
+      });
     }
   }
 

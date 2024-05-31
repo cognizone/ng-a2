@@ -3,17 +3,13 @@
     <p>server-file-browser</p>
   </header>
   <div class="console-body" #commandListContainer>
-    <p>> note: cd won't work, try to use absolute paths </p>
+    <p>> note: cd won't work, try to use absolute paths</p>
 
     <ng-container *ngFor="let command of commandLineHistory">
-      <p *ngIf="command.isCommand" class="is-bold"> > {{ command.value }} </p>
+      <p *ngIf="command.isCommand" class="is-bold">> {{ command.value }}</p>
       <pre *ngIf="!command.isCommand">{{ command.value }} </pre>
     </ng-container>
 
-    <p> > <input class="console-input is-bold"
-                 type="text"
-                 [(ngModel)]="commandInput"
-                 (keydown.enter)="runCommand()">
-    </p>
+    <p>> <input class="console-input is-bold" type="text" [(ngModel)]="commandInput" (keydown.enter)="runCommand()" /></p>
   </div>
 </div>

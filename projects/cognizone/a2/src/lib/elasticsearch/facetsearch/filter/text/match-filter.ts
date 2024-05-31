@@ -1,24 +1,22 @@
-import {AbstractFilter} from '../abstract-filter';
-import {ElasticQueryJson} from '../../elastic-query-json';
+import { AbstractFilter } from '../abstract-filter';
+import { ElasticQueryJson } from '../../elastic-query-json';
 
 export class MatchFilter extends AbstractFilter {
-
   boost: number;
 
-  constructor (queryKey: string, value?: any, filterKey?: string, boost: number = 1) {
-
+  constructor(queryKey: string, value?: any, filterKey?: string, boost: number = 1) {
     super(queryKey, value, filterKey);
 
     this.boost = boost;
   }
 
-  public addFilterToQuery (query: ElasticQueryJson): void {
+  public addFilterToQuery(query: ElasticQueryJson): void {
     if (this.isActive()) query.query.bool.should.push(this.toElasticFilter());
   }
 
   protected toElasticFilter() {
-    const inner = {query: this.getValue(), fuzziness: 'auto', boost: this.boost};
-    const outer = {match : {}};
+    const inner = { query: this.getValue(), fuzziness: 'auto', boost: this.boost };
+    const outer = { match: {} };
     outer.match[this.getQueryKey()] = inner;
     return outer;
   }
@@ -34,5 +32,4 @@ export class MatchFilter extends AbstractFilter {
   setValue(value: any) {
     this.value = value;
   }
-
 }

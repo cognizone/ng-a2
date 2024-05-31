@@ -1,6 +1,6 @@
-import {ApplicationProfile, Attribute, Type} from './application-profile';
-import {RdfDataType} from '../rdf/rdf-data-type';
-import {Preconditions} from "../../precondition/preconditions";
+import { ApplicationProfile, Attribute, Type } from './application-profile';
+import { RdfDataType } from '../rdf/rdf-data-type';
+import { Preconditions } from '../../precondition/preconditions';
 
 export class ApplicationProfileBuilder {
   constructor(private _json: any) {}
@@ -16,8 +16,7 @@ export class ApplicationProfileBuilder {
 
     const ap = new ApplicationProfile(uri, types);
 
-    Object.entries(this._json.types)
-        .forEach(([key, value]) => types.set(key, this.buildType(ap, key, value)));
+    Object.entries(this._json.types).forEach(([key, value]) => types.set(key, this.buildType(ap, key, value)));
 
     return ap;
   }
@@ -32,15 +31,13 @@ export class ApplicationProfileBuilder {
 
     const type = new Type(profile, [key], attributes);
 
-    Object.entries(json.attributes)
-        .forEach(([key, value]) => attributes.set(key, this.buildAttribute(type, key, value, key)));
+    Object.entries(json.attributes).forEach(([key, value]) => attributes.set(key, this.buildAttribute(type, key, value, key)));
 
     return type;
   }
 
   private buildAttribute(type: Type, key: string, json: any, classId: string): Attribute {
-    const attributeNameMsg = () =>
-        'type "' + classId + '", attribute "' + key + '" ';
+    const attributeNameMsg = () => 'type "' + classId + '", attribute "' + key + '" ';
     this.validateNotNull(json, attributeNameMsg);
 
     const uri = json.uri;
@@ -67,13 +64,11 @@ export class ApplicationProfileBuilder {
         this.validateState(minC == null, () => attributeNameMsg() + 'rule "' + name + '" was defined twice ');
         minC = rule.value;
         this.validateNotNull(minC, () => attributeNameMsg() + name);
-      }
-      else if (name === RuleName.maxCardinality) {
+      } else if (name === RuleName.maxCardinality) {
         this.validateState(maxC == null, () => attributeNameMsg() + 'rule "' + name + '" was defined twice ');
         maxC = rule.value;
         this.validateNotNull(maxC, () => attributeNameMsg() + name);
-      }
-      else if (name === RuleName.range) {
+      } else if (name === RuleName.range) {
         const val = rule.value;
         this.validateNotNull(val, () => attributeNameMsg() + name + ' value');
         const valName = val.name;
@@ -85,9 +80,7 @@ export class ApplicationProfileBuilder {
         if (valName === 'classId') {
           rangeClassId = valValue;
           dataType = RdfDataType.TYPES.rdfs_Resource;
-        }
-        else if (valName === 'datatype')
-          dataType = RdfDataType.getByUri(valValue);
+        } else if (valName === 'datatype') dataType = RdfDataType.getByUri(valValue);
         else if (valName === 'languageIn') {
           dataType = RdfDataType.TYPES.rdf_langString;
         } else throw new Error('Unknown range name ' + valName);
@@ -95,7 +88,8 @@ export class ApplicationProfileBuilder {
     });
     this.validateState(
       rules.some(rule => rule.name === RuleName.snippet) || dataType != null || rangeClassId != null,
-      () => attributeNameMsg() + ' range was not defined');
+      () => attributeNameMsg() + ' range was not defined'
+    );
     return new Attribute(type, uri, attributeId, dataType, maxC, minC, rangeClassId);
   }
 
@@ -112,5 +106,5 @@ enum RuleName {
   snippet = 'snippet',
   range = 'range',
   minCardinality = 'minCardinality',
-  maxCardinality = 'maxCardinality'
+  maxCardinality = 'maxCardinality',
 }

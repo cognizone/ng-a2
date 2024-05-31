@@ -1,8 +1,7 @@
-import {AttributeModel} from '../attribute-model/attribute-model';
-import {Type} from '../applicationprofile/application-profile';
+import { AttributeModel } from '../attribute-model/attribute-model';
+import { Type } from '../applicationprofile/application-profile';
 
 export interface TypedResource extends AttributeModel {
-
   getUri(): string;
   getValue(attributeId: string): any;
   setValue(attributeId: string, value: any): void;
@@ -13,4 +12,3 @@ export interface TypedResource extends AttributeModel {
   getResources(attributeId: string): TypedResource[];
   getResource(attributeId: string): TypedResource;
 }
-

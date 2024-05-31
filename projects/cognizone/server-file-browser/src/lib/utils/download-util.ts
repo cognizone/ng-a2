@@ -11,8 +11,7 @@ export class DownloadUtil {
     const url = URL.createObjectURL(blob);
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       window.navigator.msSaveOrOpenBlob(blob, fileName);
-    }
-    else {
+    } else {
       const downloadLink = document.createElement('a');
       downloadLink.href = url;
       downloadLink.download = fileName;

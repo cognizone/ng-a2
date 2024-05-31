@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
-import {defer, Observable} from "rxjs";
-import {Preconditions} from "../precondition/preconditions";
-import {map} from "rxjs/operators";
-import {RestCall} from "./rest-call";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { defer, Observable } from 'rxjs';
+import { Preconditions } from '../precondition/preconditions';
+import { map } from 'rxjs/operators';
+import { RestCall } from './rest-call';
 
 @Injectable()
 export class RestCallService {
-
   constructor(private http: HttpClient) {}
 
   public get(call: RestCall): Observable<any> {
@@ -17,12 +16,12 @@ export class RestCallService {
 
   public post(call: RestCall): Observable<any> {
     Preconditions.checkNotNull(call);
-    return this.http.post(call.url,  call.body, this.getOptions(call));
+    return this.http.post(call.url, call.body, this.getOptions(call));
   }
 
   public put(call: RestCall): Observable<any> {
     Preconditions.checkNotNull(call);
-    return this.http.put(call.url,  call.body, this.getOptions(call));
+    return this.http.put(call.url, call.body, this.getOptions(call));
   }
 
   public delete(call: RestCall): Observable<any> {
@@ -34,9 +33,9 @@ export class RestCallService {
     return new RestCallBuilder(this);
   }
 
-  private getOptions (call: RestCall): any {
-    const options = {headers: call.headers, params: call.parameters};
-    call.options.forEach((v, k) => options[k] = v);
+  private getOptions(call: RestCall): any {
+    const options = { headers: call.headers, params: call.parameters };
+    call.options.forEach((v, k) => (options[k] = v));
     return options;
   }
 }
@@ -65,11 +64,9 @@ export class RestCallBuilder {
     const prev = this._parameters.get(name);
     if (!prev) {
       this._parameters.set(name, value);
-    }
-    else if (prev instanceof Array) {
+    } else if (prev instanceof Array) {
       prev.push(value);
-    }
-    else {
+    } else {
       this._parameters.set(name, [prev, value]);
     }
 
@@ -82,10 +79,7 @@ export class RestCallBuilder {
   }
 
   public withPath(path: string): RestCallBuilder {
-    Preconditions.checkState(
-      path.startsWith('/'),
-      () => `Path must start with '/'`
-    );
+    Preconditions.checkState(path.startsWith('/'), () => `Path must start with '/'`);
     this._path = path;
     return this;
   }
@@ -173,4 +167,3 @@ export interface RestCallInterceptor {
   beforeSubscribe();
   afterSubscribe(o: Observable<HttpResponse<any>>): Observable<HttpResponse<any>>;
 }
-

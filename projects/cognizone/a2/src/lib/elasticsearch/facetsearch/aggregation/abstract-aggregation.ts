@@ -1,7 +1,7 @@
-import {Aggregation} from './aggregation';
-import {ElasticQueryJson} from '../elastic-query-json';
+import { Aggregation } from './aggregation';
+import { ElasticQueryJson } from '../elastic-query-json';
 
-export abstract class AbstractAggregation implements Aggregation{
+export abstract class AbstractAggregation implements Aggregation {
   private _key: string;
 
   constructor(key: string) {
@@ -12,5 +12,5 @@ export abstract class AbstractAggregation implements Aggregation{
     return this._key;
   }
 
-  public abstract addAggregationToQuery(query: ElasticQueryJson): void
+  public abstract addAggregationToQuery(query: ElasticQueryJson): void;
 }

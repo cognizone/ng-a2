@@ -1,9 +1,12 @@
-import {Preconditions} from "../../precondition/preconditions";
-import {RdfDataType} from '../rdf/rdf-data-type';
-import {StringUtil} from '../util/string-util';
+import { Preconditions } from '../../precondition/preconditions';
+import { RdfDataType } from '../rdf/rdf-data-type';
+import { StringUtil } from '../util/string-util';
 
 export class ApplicationProfile {
-  constructor(private readonly _uri: string, private readonly _types: Map<string, Type>) {}
+  constructor(
+    private readonly _uri: string,
+    private readonly _types: Map<string, Type>
+  ) {}
 
   getType(classId: string): Type {
     return this._types.get(classId);
@@ -19,9 +22,11 @@ export class ApplicationProfile {
 }
 
 export class Type {
-  constructor(private readonly _applicationProfile: ApplicationProfile,
-              private readonly _classIds: string[],
-              private readonly _attributes: Map<string, Attribute>) {}
+  constructor(
+    private readonly _applicationProfile: ApplicationProfile,
+    private readonly _classIds: string[],
+    private readonly _attributes: Map<string, Attribute>
+  ) {}
 
   getApplicationProfile(): ApplicationProfile {
     return this._applicationProfile;
@@ -50,13 +55,15 @@ export class Type {
 }
 
 export class Attribute {
-  constructor(private readonly _type: Type,
-              private readonly _uri: string,
-              private readonly _attributeId: string,
-              private readonly _dataType: RdfDataType,
-              private readonly _maxCardinality?: number,
-              private readonly _minCardinality?: number,
-              private readonly _rangeClassId?: string) {}
+  constructor(
+    private readonly _type: Type,
+    private readonly _uri: string,
+    private readonly _attributeId: string,
+    private readonly _dataType: RdfDataType,
+    private readonly _maxCardinality?: number,
+    private readonly _minCardinality?: number,
+    private readonly _rangeClassId?: string
+  ) {}
 
   getType(): Type {
     return this._type;

@@ -1,9 +1,8 @@
-import {ElasticQueryJson} from '../../elastic-query-json';
-import {AbstractTermFilter} from './abstract-term-filter';
+import { ElasticQueryJson } from '../../elastic-query-json';
+import { AbstractTermFilter } from './abstract-term-filter';
 
 export class TermFilter extends AbstractTermFilter {
-
-  public addFilterToQuery (query: ElasticQueryJson): void {
+  public addFilterToQuery(query: ElasticQueryJson): void {
     if (this.isActive()) query.query.bool.filter.push(this.toElasticFilter());
   }
 
@@ -15,7 +14,7 @@ export class TermFilter extends AbstractTermFilter {
     return outer;
   }
 
- public valueIsArray() {
+  public valueIsArray() {
     return false;
   }
 
@@ -26,6 +25,4 @@ export class TermFilter extends AbstractTermFilter {
   setValue(value: any) {
     this.value = value;
   }
-
 }
-

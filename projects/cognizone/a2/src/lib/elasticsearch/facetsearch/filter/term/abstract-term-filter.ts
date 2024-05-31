@@ -1,7 +1,6 @@
-import {AbstractFilter} from '../abstract-filter';
+import { AbstractFilter } from '../abstract-filter';
 
 export abstract class AbstractTermFilter extends AbstractFilter {
-
   private _isKeyword: boolean;
 
   constructor(queryKey: string, isKeyword = false, value?: any, filterKey?: string) {
