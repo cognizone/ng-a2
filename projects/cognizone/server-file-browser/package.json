@@ -5,9 +5,9 @@
     "tslib": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^12.0.0",
-    "@angular/core": "^12.0.0",
-    "@angular/material": "^12.0.0",
+    "@angular/common": "^13.0.0",
+    "@angular/core": "^13.0.0",
+    "@angular/material": "^13.0.0",
     "@cognizone/a2": "^1.0.0"
   }
 }
