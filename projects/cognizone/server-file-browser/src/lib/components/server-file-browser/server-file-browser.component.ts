@@ -5,7 +5,8 @@ import {
   EventEmitter,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  Input
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -22,6 +23,7 @@ import { ServerFileBrowserService } from '../../services/server-file-browser.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServerFileBrowserComponent implements OnInit, OnDestroy {
+  @Input() showCommandLine: boolean = false;
   @Output() listingFailed: EventEmitter<string> = new EventEmitter<string>();
   @Output() commandExecutionFailed: EventEmitter<string> = new EventEmitter<string>();
 
