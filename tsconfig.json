@@ -36,6 +36,12 @@
       ],
       "@cognizone/sse/*": [
         "projects/cognizone/sse/*"
+      ],
+      "@cognizone/global-alert": [
+        "projects/cognizone/global-alert"
+      ],
+      "@cognizone/global-alert/*": [
+        "projects/cognizone/global-alert/*"
       ]
     }
   },

@@ -13,6 +13,12 @@
       ],
       "@cognizone/server-file-browser/*": [
         "dist/cognizone/server-file-browser/*"
+      ],
+      "@cognizone/global-alert": [
+        "projects/cognizone/global-alert"
+      ],
+      "@cognizone/global-alert/*": [
+        "projects/cognizone/global-alert/*"
       ]
     }
   }

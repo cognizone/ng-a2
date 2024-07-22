@@ -1,0 +1,16 @@
+.message {
+  color: white;
+}
+
+.alert-box--dismiss {
+  float: right;
+  color: #e8e8e8;
+  transition: color .15s ease-in;
+  padding-top: 2px;
+
+  padding-left: 6px;
+
+  &:hover {
+    color: white;
+  }
+}
