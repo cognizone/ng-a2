@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ALERTS } from '../models/alerts';
+import { CommonAlerts } from '../models/common-alerts';
 import { AlertSnackComponent } from '../components/alert-snack/alert-snack.component';
 import { ObservedValueOf, of, OperatorFunction } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,13 +13,7 @@ export class GlobalAlertService {
   constructor(private readonly snackBar: MatSnackBar) {}
 
   error(message: string, dominating = false, dismissible = true) {
-    this.openSnackBar(
-      message,
-      ['alert-danger-color'],
-      dominating,
-      dismissible,
-      dismissible ? -1 : 1800
-    );
+    this.openSnackBar(message, ['alert-danger-color'], dominating, dismissible, dismissible ? -1 : 1800);
   }
 
   warn(message: string, dominating = false) {
@@ -31,26 +25,14 @@ export class GlobalAlertService {
   }
 
   success(message: string, dominating = false, mustDismiss = false) {
-    this.openSnackBar(
-      message,
-      ['alert-success-color'],
-      dominating,
-      mustDismiss,
-      mustDismiss ? -1 : 1800
-    );
+    this.openSnackBar(message, ['alert-success-color'], dominating, mustDismiss, mustDismiss ? -1 : 1800);
   }
 
   debug(message: string, dominating = false) {
     this.openSnackBar(message, ['alert-debug-color'], dominating);
   }
 
-  openSnackBar(
-    message: string,
-    panelClass: string[],
-    dominating = false,
-    dismissible = true,
-    duration = -1
-  ) {
+  openSnackBar(message: string, panelClass: string[], dominating = false, dismissible = true, duration = -1) {
     if (this.isCurrentlyOpen && this.isCurrentlyDominating && !dominating) {
       return;
     }
@@ -58,20 +40,21 @@ export class GlobalAlertService {
     this.isCurrentlyOpen = true;
     this.isCurrentlyDominating = dominating;
 
-    this.snackBar.openFromComponent(AlertSnackComponent, {
-      data: { message: message, dismissible: dismissible },
-      panelClass: panelClass,
-      duration: duration
-    })
-    .afterDismissed()
-    .subscribe(() => {
-      this.isCurrentlyOpen = false;
-      this.isCurrentlyDominating = false;
-    });
+    this.snackBar
+      .openFromComponent(AlertSnackComponent, {
+        data: { message: message, dismissible: dismissible },
+        panelClass: panelClass,
+        duration: duration,
+      })
+      .afterDismissed()
+      .subscribe(() => {
+        this.isCurrentlyOpen = false;
+        this.isCurrentlyDominating = false;
+      });
   }
 
-  handleError(err: any, message?: string, includeDetails = true) {
-    const simple = `${message ? message : ALERTS.fail_general}`;
+  handleError(err: unknown, message?: string, includeDetails = true) {
+    const simple = `${message ? message : CommonAlerts.fail_general}`;
 
     const detailed = simple + `${this.getDetailedError(err)}`;
 
@@ -85,45 +68,62 @@ export class GlobalAlertService {
     });
   }
 
-  private getDetailedError(err: any): string {
+  private getDetailedError(err: unknown): string {
     if (!err) {
       return ': Unknown error';
     } else if (err instanceof Error) {
       return `: Javascript error (${err.message})`;
-    } else if (err.error instanceof Error) {
+    } else if (isErrorWrapper(err)) {
       return `: Javascript error (${err.error.message})`;
     }
 
-    switch (err.status) {
+    const status = hasStatus(err) ? err.status : undefined;
+
+    switch (status) {
       case 0:
-        return ` (${ALERTS.no_response_status})`;
+        return ` (${CommonAlerts.no_response})`;
       case undefined:
-        return ` (${ALERTS.no_response_status_unknown})`;
+        return ` (${CommonAlerts.no_response_status_unknown})`;
       case 401:
-        return `: ${ALERTS.not_authenticated} (${err.status})`;
+        return `: ${CommonAlerts.not_authenticated} (${status})`;
       case 403:
-        return `: ${ALERTS.not_authorized} (${err.status})`;
+        return `: ${CommonAlerts.not_authorized} (${status})`;
     }
 
     const backendMessage = this.getBackendMessage(err);
-    return `: ${backendMessage} (${err.status})`;
+    return `: ${backendMessage} (${status})`;
   }
 
-  private getStatus(err: any): string {
-    if (err.status === 0) {
-      return ` (${ALERTS.no_response_status})`;
+  private getStatus(err: unknown): string {
+    const status = hasStatus(err) ? err.status : undefined;
+    if (status === 0) {
+      return ` (${CommonAlerts.no_response})`;
     }
-    return err.status ? ` (${err.status})` : '';
+    return status ? ` (${status})` : '';
   }
 
-  /* this depends on the backend */
-  private getBackendMessage(err: any): string {
-
-    if (err.error && err.error.message) {
+  private getBackendMessage(err: unknown): string {
+    if (hasError(err) && hasErrorMessage(err.error)) {
       return err.error.message;
-    } else if (err.error) {
-      return err.error;
+    } else if (hasError(err)) {
+      return err.error as string;
     }
     return 'No message';
   }
+}
+
+function isErrorWrapper(err: unknown): err is { error: Error } {
+  return typeof err === 'object' && err != null && 'error' in err && (err as { error: unknown }).error instanceof Error;
+}
+
+function hasError(err: unknown): err is { error: unknown } {
+  return typeof err === 'object' && err != null && 'error' in err;
+}
+
+function hasErrorMessage(err: unknown): err is { message: string } {
+  return typeof err === 'object' && err != null && 'message' in err;
+}
+
+function hasStatus(err: unknown): err is { status: unknown } {
+  return typeof err === 'object' && err != null && 'status' in err;
 }
