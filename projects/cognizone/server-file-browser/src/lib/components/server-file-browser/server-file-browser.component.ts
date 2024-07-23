@@ -3,10 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
-  Output,
-  Input
+  Output
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -41,8 +41,9 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '.';
+    const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '/';
     this.addToPreviousPaths(startingPath);
+    this.get(startingPath);
   }
 
   get(path: string): void {

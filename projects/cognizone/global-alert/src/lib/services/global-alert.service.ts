@@ -5,7 +5,9 @@ import { ObservedValueOf, of, OperatorFunction } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GlobalAlertService {
   isCurrentlyOpen = false;
   isCurrentlyDominating = false;
