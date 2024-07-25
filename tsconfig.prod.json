@@ -14,11 +14,11 @@
       "@cognizone/server-file-browser/*": [
         "dist/cognizone/server-file-browser/*"
       ],
-      "@cognizone/global-alert": [
-        "projects/cognizone/global-alert"
+      "@cognizone/esco-shared": [
+        "projects/cognizone/esco-shared"
       ],
-      "@cognizone/global-alert/*": [
-        "projects/cognizone/global-alert/*"
+      "@cognizone/esco-shared/*": [
+        "projects/cognizone/esco-shared/*"
       ]
     }
   }

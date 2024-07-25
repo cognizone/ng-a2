@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CommonAlerts } from '../models/common-alerts';
-import { AlertSnackComponent } from '../components/alert-snack/alert-snack.component';
+import { CommonAlerts } from './common-alerts';
+import { AlertSnackComponent } from './alert-snack.component';
 import { ObservedValueOf, of, OperatorFunction } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
