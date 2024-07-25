@@ -6,11 +6,7 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 
 @NgModule({
   declarations: [AreYouSureComponent],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatLegacyButtonModule
-  ],
-  exports: [AreYouSureComponent]
+  imports: [CommonModule, MatDialogModule, MatLegacyButtonModule],
+  exports: [AreYouSureComponent],
 })
 export class AreYouSureModule {}

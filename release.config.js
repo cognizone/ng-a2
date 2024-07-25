@@ -1,34 +1,34 @@
-const { readdirSync } = require("fs");
-const { join } = require("path");
+const { readdirSync } = require('fs');
+const { join } = require('path');
 
-const libDist = join(__dirname, "dist/cognizone");
+const libDist = join(__dirname, 'dist/cognizone');
 const packagesRoots = readdirSync(libDist).map(dir => join(libDist, dir));
 
 const npmPlugins = packagesRoots.map(pkgRoot => [
-  "@semantic-release/npm",
+  '@semantic-release/npm',
   {
-    pkgRoot
-  }
+    pkgRoot,
+  },
 ]);
 
 module.exports = {
-  branch: "master",
+  branch: 'master',
   plugins: [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    '@semantic-release/changelog',
     ...npmPlugins,
     [
-      "@semantic-release/exec",
+      '@semantic-release/exec',
       {
-        prepareCmd: "npm run release:sync-versions"
-      }
+        prepareCmd: 'npm run release:sync-versions',
+      },
     ],
     [
-      "@semantic-release/git",
+      '@semantic-release/git',
       {
-        assets: ["CHANGELOG.md", "projects/**/package.json"]
-      }
-    ]
-  ]
+        assets: ['CHANGELOG.md', 'projects/**/package.json'],
+      },
+    ],
+  ],
 };

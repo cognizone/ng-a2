@@ -20,7 +20,7 @@ options.libs.forEach(lib => {
     copyfiles(
       [...paths, out],
       {
-        up: 3
+        up: 3,
       },
       err => {
         if (err) {
