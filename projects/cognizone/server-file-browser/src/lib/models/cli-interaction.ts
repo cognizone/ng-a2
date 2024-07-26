@@ -1,6 +1,6 @@
 export type CliInteraction = {
   isCommand: boolean;
-  value: string | string[]
+  value: string | string[];
 };
 
 export function isCliInteraction(object: unknown): object is CliInteraction {

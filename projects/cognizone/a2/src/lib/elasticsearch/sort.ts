@@ -1,7 +1,6 @@
-import {ParamMap} from '@angular/router';
+import { ParamMap } from '@angular/router';
 
 export interface Sort {
-
   getAscending(key: string): boolean;
   setAscending(key: string, ascending: boolean): void;
 
@@ -12,9 +11,8 @@ export interface Sort {
 
   toElasticQuerySort(): any;
 
-  addToQueryParams (params: Object): void;
-  setFromQueryParams (params: ParamMap): void;
+  addToQueryParams(params: Object): void;
+  setFromQueryParams(params: ParamMap): void;
 
   getPriorityQueue(): string[];
-
 }

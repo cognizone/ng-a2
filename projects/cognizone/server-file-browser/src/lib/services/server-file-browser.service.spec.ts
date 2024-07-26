@@ -6,13 +6,15 @@ import { SPECIFIC_HOST_ACCESS_SERVICE_TOKEN } from '../models/specific-host-acce
 import { ServerFileBrowserService } from './server-file-browser.service';
 
 describe('ServerFileBrowserService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    providers: [
-      ServerFileBrowserService,
-      { provide: SPECIFIC_HOST_ACCESS_SERVICE_TOKEN, useValue: {} },
-      { provide: SERVER_FILE_BROWSER_TOKEN, useValue: {} },
-    ]
-  }));
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      providers: [
+        ServerFileBrowserService,
+        { provide: SPECIFIC_HOST_ACCESS_SERVICE_TOKEN, useValue: {} },
+        { provide: SERVER_FILE_BROWSER_TOKEN, useValue: {} },
+      ],
+    })
+  );
 
   it('should be created', () => {
     const service: ServerFileBrowserService = TestBed.inject(ServerFileBrowserService);

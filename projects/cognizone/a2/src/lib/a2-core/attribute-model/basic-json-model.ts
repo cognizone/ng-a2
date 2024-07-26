@@ -1,10 +1,10 @@
-import {AttributeModel} from './attribute-model';
-import {Preconditions} from "../../precondition/preconditions";
+import { AttributeModel } from './attribute-model';
+import { Preconditions } from '../../precondition/preconditions';
 
 export class BasicJsonModel implements AttributeModel {
   private _json: any;
 
-  constructor (json: any) {
+  constructor(json: any) {
     Preconditions.checkNotNull(json);
     this._json = json;
   }
@@ -38,29 +38,25 @@ export class BasicJsonModel implements AttributeModel {
     return 'json';
   }
 
-  public getObjectsByAttributeTrail (trail: string[], filters?: {key: string, value: any}[]): BasicJsonModel[] {
+  public getObjectsByAttributeTrail(trail: string[], filters?: { key: string; value: any }[]): BasicJsonModel[] {
     Preconditions.checkState(trail instanceof Array, () => 'trail must be array');
     if (filters) Preconditions.checkState(filters instanceof Array, () => 'filters must be array');
 
     let objects: BasicJsonModel[] = [this];
-    trail.forEach(p => objects = objects
-        .map(obj => this.getChildObjectsOfProperty(obj, p))
-        .reduce((a, b) => a.concat(b), []));
+    trail.forEach(p => (objects = objects.map(obj => this.getChildObjectsOfProperty(obj, p)).reduce((a, b) => a.concat(b), [])));
 
-    if (filters) filters
-        .forEach(filter => objects = objects.filter(obj => obj.getValue(filter.key) === filter.value));
+    if (filters) filters.forEach(filter => (objects = objects.filter(obj => obj.getValue(filter.key) === filter.value)));
     return objects;
   }
 
-  public getOneObjectByAttributeTrail (trail: string[], filters?: {key: string, value: any}[]): BasicJsonModel {
+  public getOneObjectByAttributeTrail(trail: string[], filters?: { key: string; value: any }[]): BasicJsonModel {
     const objects = this.getObjectsByAttributeTrail(trail, filters);
     if (objects.length === 0) return null;
     Preconditions.checkState(objects.length === 1, () => 'found more than one object');
     return objects[0];
   }
 
-  public getChildObjectsOfProperty (parent: BasicJsonModel, property: string): BasicJsonModel[] {
-
+  public getChildObjectsOfProperty(parent: BasicJsonModel, property: string): BasicJsonModel[] {
     const children = parent.getValue(property);
 
     if (children instanceof Array) return children.map(child => new BasicJsonModel(child));
@@ -69,7 +65,7 @@ export class BasicJsonModel implements AttributeModel {
     throw new Error('Could not find children');
   }
 
-  public getOneChildObjectOfProperty (parent: BasicJsonModel, property: string): BasicJsonModel {
+  public getOneChildObjectOfProperty(parent: BasicJsonModel, property: string): BasicJsonModel {
     const objects = this.getChildObjectsOfProperty(parent, property);
     if (objects.length === 0) return null;
     Preconditions.checkState(objects.length === 1, () => 'found more than one object');

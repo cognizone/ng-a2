@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/a2/tsconfig.lib.json",
             "project": "projects/cognizone/a2/ng-package.json"
@@ -28,18 +28,6 @@
             "tsConfig": "projects/cognizone/a2/tsconfig.spec.json",
             "karmaConfig": "projects/cognizone/a2/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cognizone/a2/tsconfig.lib.json",
-              "projects/cognizone/a2/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -50,7 +38,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.json",
             "project": "projects/cognizone/server-file-browser/ng-package.json"
@@ -67,18 +55,6 @@
             "main": "projects/cognizone/server-file-browser/src/test.ts",
             "tsConfig": "projects/cognizone/server-file-browser/tsconfig.spec.json",
             "karmaConfig": "projects/cognizone/server-file-browser/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cognizone/server-file-browser/tsconfig.lib.json",
-              "projects/cognizone/server-file-browser/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -108,21 +84,11 @@
             "tsConfig": "projects/cognizone/sse/tsconfig.spec.json",
             "karmaConfig": "projects/cognizone/sse/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cognizone/sse/tsconfig.lib.json",
-              "projects/cognizone/sse/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     }
   },
-  "defaultProject": "@cognizone/a2"
+  "cli": {
+    "analytics": false
+  }
 }

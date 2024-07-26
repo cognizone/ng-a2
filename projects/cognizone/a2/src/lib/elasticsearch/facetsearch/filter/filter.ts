@@ -1,8 +1,8 @@
-import {ElasticQueryJson} from '../elastic-query-json';
+import { ElasticQueryJson } from '../elastic-query-json';
 
 export interface Filter {
-  setActive (active: boolean);
-  isActive (): boolean;
+  setActive(active: boolean);
+  isActive(): boolean;
 
   getValue(): any;
   setValue(value: any);
@@ -17,7 +17,3 @@ export interface Filter {
 
   addFilterToQuery(query: ElasticQueryJson);
 }
-
-
-
-

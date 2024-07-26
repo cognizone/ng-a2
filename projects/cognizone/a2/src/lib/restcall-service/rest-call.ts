@@ -1,4 +1,4 @@
-import {HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class RestCall {
   private _url: string;
@@ -12,7 +12,8 @@ export class RestCall {
     parameters: HttpParams,
     headers: HttpHeaders,
     body: any,
-    options: Map<'reportProgress' | 'responseType' | 'withCredentials' | 'observe', any>) {
+    options: Map<'reportProgress' | 'responseType' | 'withCredentials' | 'observe', any>
+  ) {
     this._url = url;
     this._parameters = parameters;
     this._headers = headers;

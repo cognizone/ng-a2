@@ -1,18 +1,16 @@
-import {ParamMap} from '@angular/router';
-import {isNumber} from 'util';
-import {ElasticQueryJson} from './elastic-query-json';
-import {SimpleTermAggregation} from './aggregation/term/simple-term-aggregation';
-import {GlobalTermAggregation} from './aggregation/term/global-term-aggregation';
-import {Filter} from './filter/filter';
-import {TermFilter} from './filter/term/term-filter';
-import {Aggregation} from './aggregation/aggregation';
-import {OrTermsFilter} from './filter/term/or-terms-filter';
-import {AndTermsFilter} from './filter/term/and-terms-filter';
-import {AttributeModel} from "../../a2-core/attribute-model/attribute-model";
-import {Preconditions} from "../../precondition/preconditions";
+import { ParamMap } from '@angular/router';
+import { ElasticQueryJson } from './elastic-query-json';
+import { SimpleTermAggregation } from './aggregation/term/simple-term-aggregation';
+import { GlobalTermAggregation } from './aggregation/term/global-term-aggregation';
+import { Filter } from './filter/filter';
+import { TermFilter } from './filter/term/term-filter';
+import { Aggregation } from './aggregation/aggregation';
+import { OrTermsFilter } from './filter/term/or-terms-filter';
+import { AndTermsFilter } from './filter/term/and-terms-filter';
+import { AttributeModel } from '../../a2-core/attribute-model/attribute-model';
+import { Preconditions } from '../../precondition/preconditions';
 
 export class FacetSearch implements AttributeModel {
-
   constructor(filters: Map<string, Filter>, fixedFilters: Map<string, Filter>, aggregations: Aggregation[]) {
     this.filters = filters;
     this.filterList = [];
@@ -38,7 +36,7 @@ export class FacetSearch implements AttributeModel {
 
   setValue(key: string, value: any) {
     this.filters.get(key).setValue(value);
-    this.filters.get(key).setActive(value != null && value.length > 0 || isNumber(value));
+    this.filters.get(key).setActive((value != null && value.length > 0) || typeof value === 'number');
   }
 
   clearValue(key: string) {
@@ -52,21 +50,18 @@ export class FacetSearch implements AttributeModel {
   }
 
   setFromQueryParams(params: ParamMap) {
-
     this.filters.forEach(filter => {
       filter.setActive(false);
       filter.clearValue();
     });
 
     params.keys.forEach(k => {
-
       const filter = this.filters.get(k);
       if (!filter) return;
 
       if (filter.valueIsArray()) {
         this.setValue(k, params.getAll(k));
-      }
-      else {
+      } else {
         this.setValue(k, params.get(k));
       }
     });
@@ -85,8 +80,7 @@ export class FacetSearch implements AttributeModel {
   }
 
   getPropertyKeys(): string[] {
-    return Array.from(this.filters.keys())
-      .filter(key => this.filters.get(key).isActive());
+    return Array.from(this.filters.keys()).filter(key => this.filters.get(key).isActive());
   }
 
   getFilters(): Filter[] {
@@ -94,21 +88,20 @@ export class FacetSearch implements AttributeModel {
   }
 
   toElasticQuery(withAggs = true): any {
-
     const query: ElasticQueryJson = {
       query: {
         bool: {
           filter: [],
           must: [],
           must_not: [],
-          should: []
-        }
+          should: [],
+        },
       },
       aggs: {
         globalAggs: {
           global: {},
-          aggs: {}
-        }
+          aggs: {},
+        },
       },
     };
 
@@ -121,17 +114,13 @@ export class FacetSearch implements AttributeModel {
   }
 
   addToQueryParams(params: Object) {
-
     this.filters.forEach((value, key) => {
       if (value.isActive()) params[key] = value.getValue();
     });
   }
-
-
 }
 
 export class SearchFilterBuilder {
-
   private filters = new Map<string, Filter>();
   private fixedFilters = new Map<string, Filter>();
   private aggregations: Aggregation[] = [];
@@ -184,4 +173,3 @@ export class SearchFilterBuilder {
     return Array.from(this.filters.values());
   }
 }
-

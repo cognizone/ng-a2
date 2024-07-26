@@ -1,31 +1,21 @@
 <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        Command line interface
-      </mat-panel-title>
+      <mat-panel-title> Command line interface </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <esco-cmdline
-      [commandLineHistory]="fileBrowseService.cliHistory$ | async"
-      (submitCommand)="submitCommand($event)">
-    </esco-cmdline>
+    <esco-cmdline [commandLineHistory]="fileBrowseService.cliHistory$ | async" (submitCommand)="submitCommand($event)"> </esco-cmdline>
   </mat-expansion-panel>
 </mat-accordion>
 
 <div class="action-row">
   <mat-form-field appearance="outline">
     <mat-label>File path</mat-label>
-    <input (keydown.enter)="get(currentPath)" matInput [(ngModel)]="currentPath" placeholder="Enter file path">
+    <input (keydown.enter)="get(currentPath)" matInput [(ngModel)]="currentPath" placeholder="Enter file path" />
   </mat-form-field>
 
-  <button mat-raised-button color="primary" class="action-button" type="submit"
-          (click)="get(this.currentPath)">
-    GO
-  </button>
-  <button mat-raised-button color="accent" class="action-button" type="submit"
-          [disabled]="previousPaths.length === 0"
-          (click)="back()">
+  <button mat-raised-button color="primary" class="action-button" type="submit" (click)="get(this.currentPath)">GO</button>
+  <button mat-raised-button color="accent" class="action-button" type="submit" [disabled]="previousPaths.length === 0" (click)="back()">
     BACK
   </button>
 </div>
@@ -35,28 +25,27 @@
 <p>Download tail of file (lines)</p>
 <div class="tail-container">
   <mat-checkbox
-      class="tail-input"
-      type="checkbox"
-      [(ngModel)]="tailEnabled"
-      title="{{ tailEnabled ? 'Disable line limit' : 'Enable line limit' }}">
+    class="tail-input"
+    type="checkbox"
+    [(ngModel)]="tailEnabled"
+    title="{{ tailEnabled ? 'Disable line limit' : 'Enable line limit' }}"
+  >
   </mat-checkbox>
 
   <mat-form-field appearance="outline" class="tail-input">
     <mat-label>Last n many lines</mat-label>
-    <input matInput [disabled]="!tailEnabled" [(ngModel)]="tailLines" placeholder="Enter a number">
+    <input matInput [disabled]="!tailEnabled" [(ngModel)]="tailLines" placeholder="Enter a number" />
   </mat-form-field>
 </div>
 
 <div class="spacer"></div>
 
 <div *ngIf="dir">
-  <p *ngFor="let d of dir.dirs"><a (click)="expand(d)">{{d}}/</a></p>
+  <p *ngFor="let d of dir.dirs">
+    <a (click)="expand(d)">{{ d }}/</a>
+  </p>
   <p *ngFor="let f of dir.files">
-    <a class="file" title="Download"
-       target="_blank"
-       rel="noopener noreferrer"
-       [href]="getLink(f.name)">{{f.name}}
-    </a>
-    ({{f.size}})
+    <a class="file" title="Download" target="_blank" rel="noopener noreferrer" [href]="getLink(f.name)">{{ f.name }} </a>
+    ({{ f.size }})
   </p>
 </div>

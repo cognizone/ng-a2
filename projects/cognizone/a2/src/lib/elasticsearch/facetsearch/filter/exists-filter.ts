@@ -1,14 +1,12 @@
-import {AbstractFilter} from './abstract-filter';
-import {ElasticQueryJson} from '../elastic-query-json';
+import { AbstractFilter } from './abstract-filter';
+import { ElasticQueryJson } from '../elastic-query-json';
 
 export class ExistsFilter extends AbstractFilter {
-
   public addFilterToQuery(query: ElasticQueryJson): void {
     if (this.isActive()) {
       this.getValue().forEach(val => {
-        val === 'true' ? query.query.bool.must.push(this.toElasticFilter())
-          : query.query.bool.must_not.push(this.toElasticFilter());
-      })
+        val === 'true' ? query.query.bool.must.push(this.toElasticFilter()) : query.query.bool.must_not.push(this.toElasticFilter());
+      });
     }
   }
 
@@ -33,4 +31,3 @@ export class ExistsFilter extends AbstractFilter {
     this.value = [];
   }
 }
-

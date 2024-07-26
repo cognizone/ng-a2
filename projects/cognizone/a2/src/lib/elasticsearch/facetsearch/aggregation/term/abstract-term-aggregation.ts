@@ -1,7 +1,6 @@
-import {AbstractAggregation} from '../abstract-aggregation';
+import { AbstractAggregation } from '../abstract-aggregation';
 
-export abstract class AbstractTermAggregation extends AbstractAggregation{
-
+export abstract class AbstractTermAggregation extends AbstractAggregation {
   private _isKeyword: boolean;
 
   constructor(key: string, isKeyword = false) {

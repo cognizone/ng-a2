@@ -10,4 +10,3 @@ export * from './lib/models/server-file-browser-config';
 export * from './lib/models/directory';
 export * from './lib/models/server-file-browser.token';
 export * from './lib/models/specific-host-access-service.token';
-export * from './lib/utils/download-util';

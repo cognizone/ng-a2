@@ -1,13 +1,12 @@
-import {BasicJsonModel} from "../a2-core/attribute-model/basic-json-model";
+import { BasicJsonModel } from '../a2-core/attribute-model/basic-json-model';
 
-export class  ElasticSearchResult extends BasicJsonModel {
-
+export class ElasticSearchResult extends BasicJsonModel {
   static emptyResult(): ElasticSearchResult {
     return new ElasticSearchResult({
       hits: {
-        hits : []
-      }
-    })
+        hits: [],
+      },
+    });
   }
 
   hits: BasicJsonModel[];
@@ -33,20 +32,16 @@ export class  ElasticSearchResult extends BasicJsonModel {
     if (!this.json['aggregations']) return [];
 
     if (this.json['aggregations'][key]) {
-      return this.json['aggregations'][key]['buckets']
-        .map(rawBucket => this.elasticBucketToBucket(rawBucket));
-    }
-    else if (this.json['aggregations']['globalAggs'][key]) {
-      return this.json['aggregations']['globalAggs'][key]['buckets']['buckets']
-        .map(rawBucket => this.elasticBucketToBucket(rawBucket));
-    }
-    else return [];
+      return this.json['aggregations'][key]['buckets'].map(rawBucket => this.elasticBucketToBucket(rawBucket));
+    } else if (this.json['aggregations']['globalAggs'][key]) {
+      return this.json['aggregations']['globalAggs'][key]['buckets']['buckets'].map(rawBucket => this.elasticBucketToBucket(rawBucket));
+    } else return [];
   }
 
   private elasticBucketToBucket(elasticBucket: any): Bucket {
     return {
       count: elasticBucket['doc_count'],
-      value: elasticBucket['key_as_string'] ? elasticBucket['key_as_string'] : elasticBucket['key']
+      value: elasticBucket['key_as_string'] ? elasticBucket['key_as_string'] : elasticBucket['key'],
     };
   }
 }

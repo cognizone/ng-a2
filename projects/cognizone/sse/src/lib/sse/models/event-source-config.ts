@@ -1,4 +1,4 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 
 export interface EventSourceConfig {
   eventSourceInit?: EventSourceInit;
@@ -6,10 +6,10 @@ export interface EventSourceConfig {
 
 export const defaultEventSourceConfig: EventSourceConfig = {
   eventSourceInit: {
-    withCredentials: true
-  }
+    withCredentials: true,
+  },
 };
 
 export const DEFAULT_EVENT_SOURCE_CONFIG = new InjectionToken('DEFAULT_EVENT_SOURCE_CONFIG', {
-  factory: () => defaultEventSourceConfig
-})
+  factory: () => defaultEventSourceConfig,
+});

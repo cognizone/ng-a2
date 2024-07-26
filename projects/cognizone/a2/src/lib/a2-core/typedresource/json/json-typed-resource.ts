@@ -1,13 +1,12 @@
-import {TypedResource} from '../typed-resource';
-import {JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper} from './json-resource-wrapper';
-import {ApplicationProfile, Attribute, Type} from '../../applicationprofile/application-profile';
-import {ApplicationProfileUtils} from '../../util/application-profile-utils';
-import {RdfDataType} from '../../rdf/rdf-data-type';
-import {JsonResource} from './json-resource';
-import {Preconditions} from "../../../precondition/preconditions";
+import { TypedResource } from '../typed-resource';
+import { JsonResourceWrapper, MultiJsonResourceWrapper, SingleJsonResourceWrapper } from './json-resource-wrapper';
+import { ApplicationProfile, Attribute, Type } from '../../applicationprofile/application-profile';
+import { ApplicationProfileUtils } from '../../util/application-profile-utils';
+import { RdfDataType } from '../../rdf/rdf-data-type';
+import { JsonResource } from './json-resource';
+import { Preconditions } from '../../../precondition/preconditions';
 
 export class JsonTypedResource extends JsonResource implements TypedResource {
-
   public static wrap(profile: ApplicationProfile, jsonRoot: any): JsonTypedResource {
     const structure = new SingleJsonResourceWrapper<JsonTypedResource>(jsonRoot, new TypedFactory(profile).get());
     return structure.getRoot();
@@ -37,7 +36,9 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
   public getValue(attributeId: string): any {
     const attribute = this.getAttribute(attributeId);
 
-    if (attribute.isTypedResource()) { return this._getResource(attributeId); }
+    if (attribute.isTypedResource()) {
+      return this._getResource(attributeId);
+    }
 
     const dataType = attribute.getDataType();
     return this.getValueWithDataType(attributeId, dataType.equals(RdfDataType.TYPES.rdfs_Literal) ? null : dataType);
@@ -60,20 +61,17 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
     const previous = this.getValue(attributeId);
 
     if (previous instanceof Array) {
-      this.setValue(attributeId, [...previous, value])
-    }
-    else if (!previous) {
+      this.setValue(attributeId, [...previous, value]);
+    } else if (!previous) {
       this.setValue(attributeId, value);
-    }
-    else {
+    } else {
       this.setValue(attributeId, [previous, value]);
     }
   }
 
   private getAttribute(attributeId: string): Attribute {
     let attribute = this._type.getAttribute(attributeId);
-    Preconditions.checkNotNull(attribute,
-      () => "attribute '" + attributeId + "' not defined for type '" + this._type.getClassId() + "'");
+    Preconditions.checkNotNull(attribute, () => "attribute '" + attributeId + "' not defined for type '" + this._type.getClassId() + "'");
     return attribute;
   }
 
@@ -98,8 +96,7 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
         resource = [resource];
       }
       this.setResources(attribute.getAttributeId(), resource);
-    }
-    else {
+    } else {
       Preconditions.checkState(!(resource instanceof Array));
       Preconditions.checkNotNull((<JsonResource>resource).getUri());
       this.setResource(attribute.getAttributeId(), <JsonResource>resource);
@@ -107,11 +104,11 @@ export class JsonTypedResource extends JsonResource implements TypedResource {
   }
 
   public getStructure(): JsonResourceWrapper<JsonTypedResource> {
-    return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+    return <JsonResourceWrapper<JsonTypedResource>>(<unknown>super.getStructure());
   }
 
   public extractFullStructure(): JsonResourceWrapper<JsonResource> {
-    return <JsonResourceWrapper<JsonTypedResource>>((<unknown>super.getStructure()));
+    return <JsonResourceWrapper<JsonTypedResource>>(<unknown>super.getStructure());
   }
 
   public getDeepCopy(profile?: ApplicationProfile): JsonTypedResource {
@@ -133,13 +130,15 @@ export class TypedFactory {
     return (rawJson, structure) => {
       let typeIds: any = rawJson['type'];
       Preconditions.checkNotNull(typeIds, () => 'Type id was null');
-      if (!(typeIds instanceof Array)) { typeIds = [typeIds]; }
+      if (!(typeIds instanceof Array)) {
+        typeIds = [typeIds];
+      }
       const types: Type[] = typeIds.map(typeId => {
         let type = this._profile.getType(typeId);
         Preconditions.checkNotNull(type, () => 'Type was null for typeId "' + typeId + '"');
         return type;
       });
       return new JsonTypedResource(rawJson, structure, ApplicationProfileUtils.mergeTypes(types));
-    }
+    };
   }
 }
