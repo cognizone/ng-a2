@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output
@@ -22,6 +23,7 @@ import { ServerFileBrowserService } from '../../services/server-file-browser.ser
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ServerFileBrowserComponent implements OnInit, OnDestroy {
+  @Input() showCommandLine: boolean = false;
   @Output() listingFailed: EventEmitter<string> = new EventEmitter<string>();
   @Output() commandExecutionFailed: EventEmitter<string> = new EventEmitter<string>();
 
@@ -39,8 +41,9 @@ export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '.';
+    const startingPath = localStorage.getItem(this.fileBrowseService.storagePath) || '/';
     this.addToPreviousPaths(startingPath);
+    this.get(startingPath);
   }
 
   get(path: string): void {

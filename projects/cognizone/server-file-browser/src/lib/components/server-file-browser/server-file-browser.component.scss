@@ -31,9 +31,8 @@ p {
     margin-left: 10px;
   }
 
-  .path-input {
-    height: 30px;
-    width: 600px;
+  mat-form-field {
+    width: 90%;
   }
 }
 
