@@ -11,32 +11,17 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@cognizone/a2": [
-        "projects/cognizone/a2"
-      ],
-      "@cognizone/a2/*": [
-        "projects/cognizone/a2/*"
-      ],
-      "@cognizone/server-file-browser": [
-        "projects/cognizone/server-file-browser"
-      ],
-      "@cognizone/server-file-browser/*": [
-        "projects/cognizone/server-file-browser/*"
-      ],
-      "@cognizone/sse": [
-        "projects/cognizone/sse"
-      ],
-      "@cognizone/sse/*": [
-        "projects/cognizone/sse/*"
-      ]
+      "@cognizone/a2": ["projects/cognizone/a2"],
+      "@cognizone/a2/*": ["projects/cognizone/a2/*"],
+      "@cognizone/server-file-browser": ["projects/cognizone/server-file-browser"],
+      "@cognizone/server-file-browser/*": ["projects/cognizone/server-file-browser/*"],
+      "@cognizone/sse": ["projects/cognizone/sse"],
+      "@cognizone/sse/*": ["projects/cognizone/sse/*"],
+      "@cognizone/esco-shared": ["projects/cognizone/esco-shared"],
+      "@cognizone/esco-shared/*": ["projects/cognizone/esco-shared/*"]
     }
   },
   "angularCompilerOptions": {
