@@ -5,10 +5,9 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AreYouSureService {
-
   constructor(private readonly dialog: MatDialog) {}
 
   ask(text = 'Please confirm this action: ', execute = 'Execute', cancel = 'Cancel'): Observable<boolean> {
