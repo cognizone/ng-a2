@@ -87,30 +87,33 @@
         }
       }
     },
-    "@cognizone/global-alert": {
+    "@cognizone/esco-shared": {
       "projectType": "library",
-      "root": "projects/cognizone/global-alert",
-      "sourceRoot": "projects/cognizone/global-alert/src",
+      "root": "projects/cognizone/esco-shared",
+      "sourceRoot": "projects/cognizone/esco-shared/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/cognizone/global-alert/tsconfig.lib.json",
-            "project": "projects/cognizone/global-alert/ng-package.json"
+            "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.json",
+            "project": "projects/cognizone/esco-shared/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/cognizone/global-alert/tsconfig.lib.prod.json"
+              "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/cognizone/global-alert/src/test.ts",
-            "tsConfig": "projects/cognizone/global-alert/tsconfig.spec.json",
-            "karmaConfig": "projects/cognizone/global-alert/karma.conf.js"
+            "tsConfig": "projects/cognizone/esco-shared/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }

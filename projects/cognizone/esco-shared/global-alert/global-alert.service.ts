@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CommonAlerts } from '../models/common-alerts';
-import { AlertSnackComponent } from '../components/alert-snack/alert-snack.component';
+import { CommonAlerts } from './common-alerts';
+import { AlertSnackComponent } from './alert-snack.component';
 import { ObservedValueOf, of, OperatorFunction } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
@@ -18,16 +18,16 @@ export class GlobalAlertService {
     this.openSnackBar(message, ['alert-danger-color'], dominating, dismissible, dismissible ? -1 : 1800);
   }
 
-  warn(message: string, dominating = false) {
-    this.openSnackBar(message, ['alert-warning-color'], dominating, false, 2000);
+  warn(message: string, dominating = false, duration = 2000) {
+    this.openSnackBar(message, ['alert-warning-color'], dominating, false, duration);
   }
 
-  info(message: string, dominating = false) {
-    this.openSnackBar(message, ['alert-info-color'], dominating, false, -1);
+  info(message: string, dominating = false, duration = 2000) {
+    this.openSnackBar(message, ['alert-info-color'], dominating, false, duration);
   }
 
-  success(message: string, dominating = false, mustDismiss = false) {
-    this.openSnackBar(message, ['alert-success-color'], dominating, mustDismiss, mustDismiss ? -1 : 1800);
+  success(message: string, dominating = false, mustDismiss = false, duration = 2000) {
+    this.openSnackBar(message, ['alert-success-color'], dominating, mustDismiss, mustDismiss ? -1 : duration);
   }
 
   debug(message: string, dominating = false) {
