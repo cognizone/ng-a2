@@ -15,7 +15,7 @@ export class AlertSnackComponent {
   dismissible: boolean;
 
   constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: any,
+    @Inject(MAT_SNACK_BAR_DATA) public data: { message: string; dismissible: boolean },
     private snackBarRef: MatSnackBarRef<SimpleSnackBar>
   ) {
     this.message = data.message;
