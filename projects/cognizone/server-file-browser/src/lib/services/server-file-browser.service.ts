@@ -15,8 +15,8 @@ import { SPECIFIC_HOST_ACCESS_SERVICE_TOKEN } from '../models/specific-host-acce
 })
 export class ServerFileBrowserService {
   storagePath: string = window.location.hostname;
-  fileBrowserApiPath: string = '/api/admin/file-browser';
-  commandRunningApiPath: string = '/api/admin/file-browser/run';
+  fileBrowserApiPath: string;
+  commandRunningApiPath: string;
   readonly cliHistory$: Observable<CliInteraction[]>;
 
   private readonly _cliHistory$: BehaviorSubject<CliInteraction[]>;
@@ -31,9 +31,7 @@ export class ServerFileBrowserService {
     const calculatedStoragePathSuffix = (this.config && this.config.storagePath) || '-file-browser-path';
 
     this.storagePath = window.location.hostname + calculatedStoragePathSuffix;
-    if (config.listFilesApiEndpoint) {
-      this.fileBrowserApiPath = config.listFilesApiEndpoint;
-    }
+    this.fileBrowserApiPath = config.listFilesApiEndpoint;
     if (config.commandRunningApiEndpoint) {
       this.commandRunningApiPath = config.commandRunningApiEndpoint;
     }
@@ -104,7 +102,7 @@ export class ServerFileBrowserService {
 
   getLink(filePath: string, lines: number): string {
     const encoded = encodeURIComponent(filePath);
-    return `${this.accessService.getHost()}/api/admin/file-browser/file?filePath=${encoded}&lines=${lines}`;
+    return `${this.accessService.getHost()}${this.fileBrowserApiPath}/file?filePath=${encoded}&lines=${lines}`;
   }
 
   private getBuilder(interceptors: RestCallInterceptor[]): RestCallBuilder {
