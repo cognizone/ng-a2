@@ -5,7 +5,9 @@ import { Preconditions } from '../precondition/preconditions';
 import { map } from 'rxjs/operators';
 import { RestCall } from './rest-call';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class RestCallService {
   constructor(private http: HttpClient) {}
 
