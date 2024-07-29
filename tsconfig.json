@@ -21,7 +21,9 @@
       "@cognizone/sse": ["projects/cognizone/sse"],
       "@cognizone/sse/*": ["projects/cognizone/sse/*"],
       "@cognizone/esco-shared": ["projects/cognizone/esco-shared"],
-      "@cognizone/esco-shared/*": ["projects/cognizone/esco-shared/*"]
+      "@cognizone/esco-shared/*": ["projects/cognizone/esco-shared/*"],
+      "@cognizone/tree-browser": ["projects/cognizone/tree-browser"],
+      "@cognizone/tree-browser/*": ["projects/cognizone/tree-browser/*"]
     }
   },
   "angularCompilerOptions": {
