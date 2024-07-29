@@ -101,6 +101,11 @@ export abstract class JsonResourceWrapper<T extends JsonResource> {
     return this.uriToResourceMap.values();
   }
 
+  public getAllIncluded(): T[] {
+    const included = this._jsonRoot.included;
+    return included ? included.map(obj => this.resourceFactory(obj, this)) : [];
+  }
+
   public getRawJson(): any {
     return this._jsonRoot;
   }
