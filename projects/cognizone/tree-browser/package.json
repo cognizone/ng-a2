@@ -1,12 +1,13 @@
 {
-  "name": "@cognizone/esco-shared",
+  "name": "@cognizone/tree-browser",
   "version": "2.2.1",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0",
-    "@angular/material": "^16.0.0"
+    "@cognizone/a2": "^2.0.0",
+    "@cognizone/ng-core": "^3.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.0.0"
   }
 }

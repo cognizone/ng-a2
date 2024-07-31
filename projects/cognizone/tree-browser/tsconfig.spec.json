@@ -1,0 +1,8 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "lib", "camelCase", "esco"],
+    "component-selector": [true, "element", "lib", "kebab-case", "esco"]
+  }
+}

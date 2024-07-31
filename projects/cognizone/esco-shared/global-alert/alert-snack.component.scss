@@ -2,13 +2,14 @@
   color: white;
 }
 
-.alert-box--dismiss {
+.my-dismiss {
   float: right;
   color: #e8e8e8;
   transition: color 0.15s ease-in;
   padding-top: 2px;
-
   padding-left: 6px;
+  background-color: inherit;
+  border: none;
 
   &:hover {
     color: white;
