@@ -4,6 +4,5 @@
       "severity": "warning"
     }
   },
-  "extends": "@cognizone/tslint-config",
   "rulesDirectory": ["codelyzer"]
 }
