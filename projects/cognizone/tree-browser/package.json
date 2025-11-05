@@ -1,13 +1,13 @@
 {
   "name": "@cognizone/tree-browser",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "peerDependencies": {
-    "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0",
-    "@cognizone/a2": "^2.0.0",
-    "@cognizone/ng-core": "^3.0.0"
+    "@angular/common": "^20.3.9",
+    "@angular/core": "^20.3.9",
+    "@cognizone/a2": "^2.3.0",
+    "@cognizone/ng-core": "^7.0.0-beta.2"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.6.2"
   }
 }
