@@ -19,6 +19,7 @@ import { AbstractLimitIncreaseComponent, AbstractNodeTemplateComponent } from '.
       </div>
     </div>
   `,
+  standalone: false,
 })
 export class DefaultNodeTemplateComponent extends AbstractNodeTemplateComponent<any> {
   collapsed = true;
@@ -36,5 +37,6 @@ export class DefaultNodeTemplateComponent extends AbstractNodeTemplateComponent<
 @Component({
   selector: 'tb-default-limit-increase',
   template: ` <button (click)="clickAction()">See more</button> `,
+  standalone: false,
 })
 export class DefaultLimitIncreaseComponent extends AbstractLimitIncreaseComponent {}

@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   selector: 'app-are-you-sure',
   templateUrl: './are-you-sure.component.html',
   styleUrls: ['./are-you-sure.component.scss'],
+  standalone: false,
 })
 export class AreYouSureComponent {
   constructor(

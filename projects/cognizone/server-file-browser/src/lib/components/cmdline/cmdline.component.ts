@@ -20,6 +20,7 @@ import { CliInteraction } from '../../models/cli-interaction';
   templateUrl: './cmdline.component.html',
   styleUrls: ['./cmdline.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class CmdlineComponent implements OnChanges, OnDestroy {
   @Input() commandLineHistory: CliInteraction[];

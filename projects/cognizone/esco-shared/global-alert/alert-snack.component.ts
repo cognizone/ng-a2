@@ -5,6 +5,7 @@ import { SimpleSnackBar, MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/mat
   selector: 'app-alert-snack',
   templateUrl: './alert-snack.component.html',
   styleUrls: ['./alert-snack.component.scss'],
+  standalone: false,
 })
 export class AlertSnackComponent {
   message: string;

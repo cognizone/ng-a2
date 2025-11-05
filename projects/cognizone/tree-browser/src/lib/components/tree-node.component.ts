@@ -36,6 +36,7 @@ import { OnDestroy$ } from '@cognizone/ng-core';
     </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TreeNodeComponent<T> extends OnDestroy$ implements AfterViewInit, OnInit {
   @Input() treeModel: TreeModel<T>;
