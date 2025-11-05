@@ -67,6 +67,13 @@
     "tslint": "~6.1.0",
     "typescript": "~5.9.3"
   },
+  "overrides": {
+    "@cognizone/tslint-config": {
+      "tslint": "~6.1.0"
+    },
+    "@semantic-release/changelog": "^3.0.6",
+    "semantic-release": "^19.0.3"
+  },
   "volta": {
     "node": "20.19.5",
     "npm": "10.9.4"
