@@ -1,12 +1,13 @@
-<mat-accordion *ngIf="showCommandLine">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> Command line interface </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <esco-cmdline [commandLineHistory]="fileBrowseService.cliHistory$ | async" (submitCommand)="submitCommand($event)"> </esco-cmdline>
-  </mat-expansion-panel>
-</mat-accordion>
+@if (showCommandLine) {
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Command line interface </mat-panel-title>
+      </mat-expansion-panel-header>
+      <esco-cmdline [commandLineHistory]="fileBrowseService.cliHistory$ | async" (submitCommand)="submitCommand($event)"> </esco-cmdline>
+    </mat-expansion-panel>
+  </mat-accordion>
+}
 
 <div class="action-row">
   <mat-form-field appearance="outline">
@@ -40,12 +41,18 @@
 
 <div class="spacer"></div>
 
-<div *ngIf="dir">
-  <p *ngFor="let d of dir.dirs">
-    <a (click)="expand(d)">{{ d }}/</a>
-  </p>
-  <p *ngFor="let f of dir.files">
-    <a class="file" title="Download" target="_blank" rel="noopener noreferrer" [href]="getLink(f.name)">{{ f.name }} </a>
-    ({{ f.size }})
-  </p>
-</div>
+@if (dir) {
+  <div>
+    @for (d of dir.dirs; track d) {
+      <p>
+        <a (click)="expand(d)">{{ d }}/</a>
+      </p>
+    }
+    @for (f of dir.files; track f) {
+      <p>
+        <a class="file" title="Download" target="_blank" rel="noopener noreferrer" [href]="getLink(f.name)">{{ f.name }} </a>
+        ({{ f.size }})
+      </p>
+    }
+  </div>
+}

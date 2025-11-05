@@ -19,20 +19,21 @@ import { OnDestroy$ } from '@cognizone/ng-core';
     </ng-container>
 
     <ng-template #internalTemplate let-nodeWrapper="nodeWrapper">
-      <tb-tree-node
-        *ngFor="let child of nodeWrapper.children; let i = index; let c = count"
-        [nodeWrapper]="wrap(child, i, c)"
-        [treeModel]="treeModel"
-        [nodeTemplate]="nodeTemplate"
-        [childLimit]="childLimit"
-        [childLimitIncreaseAmount]="childLimitIncreaseAmount"
-        [limitIncreaseTemplate]="limitIncreaseTemplate"
-        [refreshEvents$]="refreshEvents$"
-      ></tb-tree-node>
+      @for (child of nodeWrapper.children; track child; let i = $index; let c = $count) {
+        <tb-tree-node
+          [nodeWrapper]="wrap(child, i, c)"
+          [treeModel]="treeModel"
+          [nodeTemplate]="nodeTemplate"
+          [childLimit]="childLimit"
+          [childLimitIncreaseAmount]="childLimitIncreaseAmount"
+          [limitIncreaseTemplate]="limitIncreaseTemplate"
+          [refreshEvents$]="refreshEvents$"
+        ></tb-tree-node>
+      }
 
-      <ng-container *ngIf="nodeWrapper.isLimitingChildren()">
+      @if (nodeWrapper.isLimitingChildren()) {
         <ng-container *ngTemplateOutlet="limitIncreaseTemplate; context: { clickAction: limitIncrease() }"></ng-container>
-      </ng-container>
+      }
     </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

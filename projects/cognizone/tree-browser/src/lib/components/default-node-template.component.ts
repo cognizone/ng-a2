@@ -4,20 +4,30 @@ import { AbstractLimitIncreaseComponent, AbstractNodeTemplateComponent } from '.
 @Component({
   selector: 'tb-default-node-template',
   template: `
-    <div *ngIf="nodeWrapper.isRoot()">
-      Root
-      <div style="margin-left: 10px">
-        <tb-internal-children-template [nodeWrapper]="nodeWrapper" [internalTemplate]="internalTemplate"></tb-internal-children-template>
+    @if (nodeWrapper.isRoot()) {
+      <div>
+        Root
+        <div style="margin-left: 10px">
+          <tb-internal-children-template [nodeWrapper]="nodeWrapper" [internalTemplate]="internalTemplate"></tb-internal-children-template>
+        </div>
       </div>
-    </div>
-    <div *ngIf="!nodeWrapper.isRoot()">
-      Node #{{ nodeWrapper.index }}
-      <button *ngIf="nodeWrapper.hasChildren()" (click)="toggle()">{{ collapsed ? 'expand' : 'collapse' }}</button>
-
-      <div style="margin-left: 10px" *ngIf="!collapsed">
-        <tb-internal-children-template [nodeWrapper]="nodeWrapper" [internalTemplate]="internalTemplate"></tb-internal-children-template>
+    }
+    @if (!nodeWrapper.isRoot()) {
+      <div>
+        Node #{{ nodeWrapper.index }}
+        @if (nodeWrapper.hasChildren()) {
+          <button (click)="toggle()">{{ collapsed ? 'expand' : 'collapse' }}</button>
+        }
+        @if (!collapsed) {
+          <div style="margin-left: 10px">
+            <tb-internal-children-template
+              [nodeWrapper]="nodeWrapper"
+              [internalTemplate]="internalTemplate"
+            ></tb-internal-children-template>
+          </div>
+        }
       </div>
-    </div>
+    }
   `,
   standalone: false,
 })
