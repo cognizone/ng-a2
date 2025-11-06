@@ -8,8 +8,7 @@
     @for (command of commandLineHistory; track command) {
       @if (command.isCommand) {
         <p class="is-bold">> {{ command.value }}</p>
-      }
-      @if (!command.isCommand) {
+      } @else {
         <pre>{{ command.value }} </pre>
       }
     }

@@ -2,8 +2,8 @@
   "name": "@cognizone/tree-browser",
   "version": "2.3.0",
   "peerDependencies": {
-    "@angular/common": "^20.3.9",
-    "@angular/core": "^20.3.9",
+    "@angular/common": ">=20.0.0",
+    "@angular/core": ">=20.0.0",
     "@cognizone/a2": "^2.3.0",
     "@cognizone/ng-core": "^7.0.0-beta.2"
   },
