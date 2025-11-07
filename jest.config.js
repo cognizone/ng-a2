@@ -20,6 +20,27 @@ const config = {
     '@cognizone/sse': '<rootDir>/projects/cognizone/sse/src/public-api.ts',
     '@cognizone/sse/(.*)': '<rootDir>/projects/cognizone/sse/src/public-api.ts',
   },
+  collectCoverage: false,
+  collectCoverageFrom: [
+    'projects/**/*.{ts,tsx}',
+    '!projects/**/*.spec.{ts,tsx}',
+    '!projects/**/*.d.ts',
+    '!projects/**/index.ts',
+    '!projects/**/public-api.ts',
+    '!projects/**/*.module.ts',
+    '!projects/**/cypress/**',
+    '!projects/**/*.cy.ts',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['html', 'text', 'text-summary', 'lcov'],
+  coverageThreshold: {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
+    },
+  },
 };
 
 module.exports = config;
