@@ -24,7 +24,7 @@ describe('JsonResourceWrapper', () => {
   });
 
   it('should throw error when root is null', () => {
-    expect(() => new TestableJsonResourceWrapper(null, factory)).toThrow();
+    expect(() => new TestableJsonResourceWrapper(null as unknown as Record<string, unknown>, factory)).toThrow();
   });
 
   it('getByUri should return resource when it exists', () => {

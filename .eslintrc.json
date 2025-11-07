@@ -3,6 +3,35 @@
   "ignorePatterns": ["dist/**/*", "node_modules/**/*"],
   "overrides": [
     {
+      "files": ["*.spec.ts"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "project": [
+          "tsconfig.spec.json",
+          "projects/cognizone/a2/tsconfig.spec.json",
+          "projects/cognizone/esco-shared/tsconfig.spec.json",
+          "projects/cognizone/sse/tsconfig.spec.json",
+          "projects/cognizone/tree-browser/tsconfig.spec.json",
+          "projects/cognizone/server-file-browser/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
