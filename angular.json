@@ -345,6 +345,47 @@
           }
         }
       }
+    },
+    "cypress-test-app": {
+      "projectType": "application",
+      "root": "projects/cypress-test-app",
+      "sourceRoot": "projects/cypress-test-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/cypress-test-app",
+            "index": "projects/cypress-test-app/src/index.html",
+            "browser": "projects/cypress-test-app/src/main.ts",
+            "polyfills": [],
+            "tsConfig": "projects/cypress-test-app/tsconfig.app.json",
+            "assets": [],
+            "styles": [],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {},
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "cypress-test-app:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "cypress-test-app:build:production"
+            },
+            "development": {
+              "buildTarget": "cypress-test-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
     }
   },
   "cli": {
