@@ -20,6 +20,53 @@
               "tsConfig": "projects/cognizone/a2/tsconfig.lib.prod.json"
             }
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2:serve",
+            "configFile": "projects/cognizone/a2/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/a2/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/a2:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/a2:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/a2:serve:production"
+            }
+          }
         }
       }
     },
@@ -40,6 +87,53 @@
               "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.prod.json"
             }
           }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/server-file-browser:serve",
+            "configFile": "projects/cognizone/server-file-browser/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/server-file-browser:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/server-file-browser/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/server-file-browser:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/server-file-browser:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/server-file-browser:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/server-file-browser:serve:production"
+            }
+          }
         }
       }
     },
@@ -58,6 +152,53 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/cognizone/sse/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/sse:serve",
+            "configFile": "projects/cognizone/sse/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/sse:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/sse/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/sse:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/sse:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/sse:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/sse:serve:production"
             }
           }
         }
@@ -84,6 +225,53 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/esco-shared:serve",
+            "configFile": "projects/cognizone/esco-shared/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/esco-shared:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/esco-shared/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/esco-shared:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/esco-shared:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/esco-shared:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/esco-shared:serve:production"
+            }
+          }
         }
       }
     },
@@ -108,12 +296,60 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/tree-browser:serve",
+            "configFile": "projects/cognizone/tree-browser/cypress.config.js"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/tree-browser:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/cognizone/tree-browser/cypress.config.js"
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/tree-browser:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "@cognizone/tree-browser:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "@cognizone/tree-browser:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "@cognizone/tree-browser:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@cypress/schematic", "@schematics/angular"]
   },
   "schematics": {
     "@schematics/angular:component": {
