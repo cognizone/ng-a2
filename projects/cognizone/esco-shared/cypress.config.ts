@@ -17,5 +17,6 @@ export default defineConfig({
       },
     },
     specPattern: '**/*.cy.ts',
+    supportFile: path.resolve(__dirname, '../../../cypress/support/component.ts'),
   },
 });
