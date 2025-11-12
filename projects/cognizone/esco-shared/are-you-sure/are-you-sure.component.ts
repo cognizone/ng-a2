@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,13 +8,5 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   standalone: false,
 })
 export class AreYouSureComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      header?: string;
-      text?: string;
-      cancel: string;
-      execute: string;
-    }
-  ) {}
+  data = inject<{ header?: string; text?: string; cancel: string; execute: string }>(MAT_DIALOG_DATA);
 }

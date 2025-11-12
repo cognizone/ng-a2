@@ -1,6 +1,3 @@
-// added to fix error: Property 'mount' does not exist on type 'cy & CyEventEmitter'.ts(2339)
-/// <reference path="../cypress/support/component.ts" />
-
 import { LoadingStairsComponent } from './loading-stairs.component';
 import { LoadingStairsModule } from './loading-stairs.module';
 

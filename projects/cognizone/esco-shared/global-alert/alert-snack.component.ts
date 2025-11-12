@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SimpleSnackBar, MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
@@ -8,15 +8,14 @@ import { SimpleSnackBar, MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/mat
   standalone: false,
 })
 export class AlertSnackComponent {
+  data = inject<{ message: string; dismissible: boolean }>(MAT_SNACK_BAR_DATA);
+  private snackBarRef = inject(MatSnackBarRef<SimpleSnackBar>);
   message: string;
   dismissible: boolean;
 
-  constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: { message: string; dismissible: boolean },
-    private snackBarRef: MatSnackBarRef<SimpleSnackBar>
-  ) {
-    this.message = data.message;
-    this.dismissible = data.dismissible;
+  constructor() {
+    this.message = this.data.message;
+    this.dismissible = this.data.dismissible;
   }
 
   dismiss() {

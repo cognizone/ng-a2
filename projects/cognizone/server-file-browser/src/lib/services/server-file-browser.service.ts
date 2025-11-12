@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { RestCallBuilder, RestCallInterceptor, SpecificHostAccessService } from '@cognizone/a2';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -14,6 +14,8 @@ import { SPECIFIC_HOST_ACCESS_SERVICE_TOKEN } from '../models/specific-host-acce
   providedIn: 'root',
 })
 export class ServerFileBrowserService {
+  private accessService = inject<SpecificHostAccessService>(SPECIFIC_HOST_ACCESS_SERVICE_TOKEN);
+  private config = inject<ServerFileBrowserConfig>(SERVER_FILE_BROWSER_TOKEN);
   storagePath: string = window.location.hostname;
   fileBrowserApiPath: string;
   commandRunningApiPath: string;
@@ -21,10 +23,7 @@ export class ServerFileBrowserService {
 
   private readonly _cliHistory$: BehaviorSubject<CliInteraction[]>;
 
-  constructor(
-    @Inject(SPECIFIC_HOST_ACCESS_SERVICE_TOKEN) private accessService: SpecificHostAccessService,
-    @Inject(SERVER_FILE_BROWSER_TOKEN) private config: ServerFileBrowserConfig
-  ) {
+  constructor() {
     this._cliHistory$ = new BehaviorSubject<CliInteraction[]>([]);
     this.cliHistory$ = this._cliHistory$.asObservable();
 
