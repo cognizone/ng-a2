@@ -1,3 +1,5 @@
+/// <reference path="../cypress/support/component.ts" />
+
 import { AreYouSureComponent } from './are-you-sure.component';
 import { AreYouSureModule } from './are-you-sure.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +15,7 @@ describe('AreYouSureComponent', () => {
 
   it('should display all data fields when provided', () => {
     cy.mount(AreYouSureComponent, {
-      imports: [AreYouSureModule, NoopAnimationsModule],
+      imports: [AreYouSureModule],
       providers: [
         {
           provide: MAT_DIALOG_DATA,
@@ -172,5 +174,43 @@ describe('AreYouSureComponent', () => {
     cy.get('.my-modal-panel').should('exist');
     cy.get('.my-button-container').should('exist');
     cy.get('.my-action-button').should('have.length', 2);
+  });
+
+  it('should have correct button styles', () => {
+    cy.mount(AreYouSureComponent, {
+      imports: [AreYouSureModule, NoopAnimationsModule],
+      providers: [
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: defaultData,
+        },
+        {
+          provide: MatDialogRef,
+          useValue: {
+            close: cy.stub(),
+          },
+        },
+      ],
+    });
+
+    // Check button container styles
+    cy.get('.my-button-container')
+      .should('have.css', 'display', 'flex')
+      .and('have.css', 'flex-direction', 'row')
+      .and('have.css', 'justify-content', 'center');
+
+    // Check button styles
+    cy.get('.my-action-button').should('have.length', 2);
+    cy.get('.my-action-button').each($button => {
+      cy.wrap($button).should('have.class', 'my-action-button').and('have.class', 'mat-mdc-raised-button');
+    });
+
+    // Check that execute button has primary color
+    // In Angular Material MDC, color="primary" is applied via directive (not a class).
+    // We verify by checking button order: first button = primary (per template)
+    cy.get('button.my-action-button').first().should('contain', defaultData.execute);
+
+    // Check that cancel button does not have primary color (it's the second button)
+    cy.get('button.my-action-button').eq(1).should('contain', defaultData.cancel);
   });
 });

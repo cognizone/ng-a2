@@ -12,11 +12,13 @@ export default defineConfig({
       bundler: 'webpack',
       options: {
         projectConfig: {
-          root: path.resolve(__dirname, '../../..'),
+          root: path.resolve(__dirname, 'src'),
+          sourceRoot: path.resolve(__dirname, 'src'),
+          buildOptions: {
+            tsConfig: path.resolve(__dirname, 'tsconfig.json'),
+          },
         },
       },
     },
-    specPattern: '**/*.cy.ts',
-    supportFile: path.resolve(__dirname, '../../../cypress/support/component.ts'),
   },
 });

@@ -1,7 +1,6 @@
 import { AlertSnackComponent } from './alert-snack.component';
 import { GlobalAlertModule } from './global-alert.module';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { SimpleSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AlertSnackComponent', () => {
@@ -12,7 +11,7 @@ describe('AlertSnackComponent', () => {
 
   it('should display message when provided', () => {
     cy.mount(AlertSnackComponent, {
-      imports: [GlobalAlertModule, NoopAnimationsModule],
+      imports: [GlobalAlertModule],
       providers: [
         {
           provide: MAT_SNACK_BAR_DATA,

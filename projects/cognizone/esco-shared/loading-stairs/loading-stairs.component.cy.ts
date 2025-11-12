@@ -1,9 +1,12 @@
+// added to fix error: Property 'mount' does not exist on type 'cy & CyEventEmitter'.ts(2339)
+/// <reference path="../cypress/support/component.ts" />
+
 import { LoadingStairsComponent } from './loading-stairs.component';
 import { LoadingStairsModule } from './loading-stairs.module';
 
 describe('LoadingStairsComponent', () => {
   it('should display loading animation without message', () => {
-    cy.mount(LoadingStairsComponent, {
+    cy.mount<LoadingStairsComponent>(LoadingStairsComponent, {
       imports: [LoadingStairsModule],
     });
 
@@ -40,13 +43,17 @@ describe('LoadingStairsComponent', () => {
       componentProperties: {
         message: 'Initial message',
       },
-    }).then(wrapper => {
-      cy.get('.loader-label').should('contain', 'Initial message');
-
-      // Update the message
-      wrapper.component.setInput('message', 'Updated message');
-      cy.get('.loader-label').should('contain', 'Updated message');
     });
+    cy.get('.loader-label').should('contain', 'Initial message');
+
+    // Update the message by remounting with new properties
+    cy.mount(LoadingStairsComponent, {
+      imports: [LoadingStairsModule],
+      componentProperties: {
+        message: 'Updated message',
+      },
+    });
+    cy.get('.loader-label').should('contain', 'Updated message');
   });
 
   it('should have correct CSS classes for styling', () => {
