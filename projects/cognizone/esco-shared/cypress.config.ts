@@ -16,6 +16,7 @@ export default defineConfig({
           sourceRoot: path.resolve(__dirname, 'src'),
           buildOptions: {
             tsConfig: path.resolve(__dirname, 'tsconfig.json'),
+            styles: [path.resolve(__dirname, '../../cypress-test-app/src/styles.scss')],
           },
         },
       },

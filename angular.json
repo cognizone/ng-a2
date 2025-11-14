@@ -361,7 +361,7 @@
             "polyfills": [],
             "tsConfig": "projects/cypress-test-app/tsconfig.app.json",
             "assets": [],
-            "styles": [],
+            "styles": ["projects/cypress-test-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
