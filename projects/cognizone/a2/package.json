@@ -1,11 +1,11 @@
 {
   "name": "@cognizone/a2",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0"
+    "@angular/common": ">=20.0.0",
+    "@angular/core": ">=20.0.0"
   }
 }

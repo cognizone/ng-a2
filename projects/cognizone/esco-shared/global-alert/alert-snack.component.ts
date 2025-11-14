@@ -1,14 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import {
-  LegacySimpleSnackBar as SimpleSnackBar,
-  MAT_LEGACY_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA,
-  MatLegacySnackBarRef as MatSnackBarRef,
-} from '@angular/material/legacy-snack-bar';
+import { SimpleSnackBar, MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alert-snack',
   templateUrl: './alert-snack.component.html',
   styleUrls: ['./alert-snack.component.scss'],
+  standalone: false,
 })
 export class AlertSnackComponent {
   message: string;

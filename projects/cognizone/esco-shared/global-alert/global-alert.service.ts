@@ -3,7 +3,7 @@ import { CommonAlerts } from './common-alerts';
 import { AlertSnackComponent } from './alert-snack.component';
 import { ObservedValueOf, of, OperatorFunction } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',

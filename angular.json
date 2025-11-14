@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/a2/tsconfig.lib.json",
             "project": "projects/cognizone/a2/ng-package.json"
@@ -22,7 +22,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/cognizone/a2/src/test.ts",
             "tsConfig": "projects/cognizone/a2/tsconfig.spec.json",
@@ -38,7 +38,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/server-file-browser/tsconfig.lib.json",
             "project": "projects/cognizone/server-file-browser/ng-package.json"
@@ -50,7 +50,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/cognizone/server-file-browser/src/test.ts",
             "tsConfig": "projects/cognizone/server-file-browser/tsconfig.spec.json",
@@ -66,7 +66,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/sse/tsconfig.lib.json",
             "project": "projects/cognizone/sse/ng-package.json"
@@ -78,7 +78,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "projects/cognizone/sse/src/test.ts",
             "tsConfig": "projects/cognizone/sse/tsconfig.spec.json",
@@ -94,7 +94,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.json",
             "project": "projects/cognizone/esco-shared/ng-package.json"
@@ -110,7 +110,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/cognizone/esco-shared/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -125,7 +125,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "projects/cognizone/tree-browser/tsconfig.lib.json",
             "project": "projects/cognizone/tree-browser/ng-package.json"
@@ -141,7 +141,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/cognizone/tree-browser/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
@@ -152,5 +152,31 @@
   },
   "cli": {
     "analytics": false
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
+    }
   }
 }

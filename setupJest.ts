@@ -1,2 +1,3 @@
-// tslint:disable-next-line: no-import-side-effect
-import 'jest-preset-angular';
+import { setupZoneTestEnv } from 'jest-preset-angular/setup-env/zone/index.mjs';
+
+setupZoneTestEnv();

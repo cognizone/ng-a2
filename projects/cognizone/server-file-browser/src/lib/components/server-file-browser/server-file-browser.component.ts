@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -21,6 +12,7 @@ import { ServerFileBrowserService } from '../../services/server-file-browser.ser
   templateUrl: './server-file-browser.component.html',
   styleUrls: ['./server-file-browser.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ServerFileBrowserComponent implements OnInit, OnDestroy {
   @Input() showCommandLine: boolean = false;

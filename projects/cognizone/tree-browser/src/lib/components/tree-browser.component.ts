@@ -28,6 +28,7 @@ import { OnDestroy$ } from '@cognizone/ng-core';
     </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TreeBrowserComponent<T> extends OnDestroy$ implements AfterViewInit, OnInit {
   @Input() refreshEvents$: Observable<TreeModel<T>> = new Observable();
