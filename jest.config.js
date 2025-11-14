@@ -12,6 +12,7 @@ const config = {
     ],
   },
   modulePathIgnorePatterns: ['<rootDir>/dist/cognizone/a2/*', '<rootDir>/dist/cognizone/server-file-browser/*'],
+  testPathIgnorePatterns: ['/cypress/', '/node_modules/'],
   moduleNameMapper: {
     '@cognizone/a2': '<rootDir>/projects/cognizone/a2/src/public-api.ts',
     '@cognizone/a2/(.*)': '<rootDir>/projects/cognizone/a2/src/public-api.ts',
