@@ -16,6 +16,8 @@
     "build:tree-browser": "ng build @cognizone/tree-browser --configuration production",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll",
+    "test:coverage": "jest --runInBand --coverage",
+    "test:coverage:watch": "jest --runInBand --coverage --watchAll",
     "lint": "ng lint",
     "release": "npm run test && semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js",
