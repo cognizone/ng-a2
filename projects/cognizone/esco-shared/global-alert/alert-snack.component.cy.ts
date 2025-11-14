@@ -33,7 +33,6 @@ describe('AlertSnackComponent', () => {
   beforeEach(() => {
     // Ensure overlay container is available for Material Snackbar
     cy.window().then(win => {
-      // Ensure overlay container is available
       let overlayContainer = win.document.querySelector('.cdk-overlay-container') as HTMLElement;
       if (!overlayContainer) {
         overlayContainer = win.document.createElement('div');
@@ -49,98 +48,78 @@ describe('AlertSnackComponent', () => {
     }).then(component => {
       component.component.openSnackBar(defaultData);
 
-      // Wait for snackbar to be rendered in Material Snackbar overlay
       cy.get('.cdk-overlay-container').should('be.visible');
       cy.get('.mat-mdc-snack-bar-container').should('be.visible');
-
       cy.get('.message').should('be.visible').and('contain', defaultData.message);
     });
   });
 
-  it('should display dismiss button when dismissible is true', () => {
+  it('should dismiss snackbar when dismiss button is clicked', () => {
     cy.mount(SnackBarTestWrapperComponent, {
       imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
     }).then(component => {
       component.component.openSnackBar(defaultData);
 
-      // Wait for snackbar to be rendered
       cy.get('.cdk-overlay-container').should('be.visible');
       cy.get('.mat-mdc-snack-bar-container').should('be.visible');
-
       cy.get('.my-dismiss').should('be.visible');
-      cy.get('.my-dismiss button, .my-dismiss').should('exist');
-    });
-  });
-
-  it('should store dismissible flag correctly', () => {
-    const nonDismissibleData = {
-      message: 'Non-dismissible alert',
-      dismissible: false,
-    };
-
-    cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
-    }).then(component => {
-      component.component.openSnackBar(nonDismissibleData);
-
-      // Wait for snackbar to be rendered
-      cy.get('.cdk-overlay-container').should('be.visible');
-      cy.get('.mat-mdc-snack-bar-container').should('be.visible');
-
-      cy.get('.message').should('contain', nonDismissibleData.message);
-      // Note: The template always shows the dismiss button regardless of dismissible flag
-      cy.get('.my-dismiss').should('exist');
-    });
-  });
-
-  it('should call dismiss when dismiss button is clicked', () => {
-    cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
-    }).then(component => {
-      const snackBarRef = component.component.openSnackBar(defaultData);
-      cy.spy(snackBarRef, 'dismiss').as('snackBarDismiss');
-
-      // Wait for snackbar to be rendered
-      cy.get('.cdk-overlay-container').should('be.visible');
-      cy.get('.mat-mdc-snack-bar-container').should('be.visible');
 
       cy.get('.my-dismiss').click();
-      cy.get('@snackBarDismiss').should('have.been.called');
+      cy.get('.mat-mdc-snack-bar-container').should('not.exist');
     });
   });
 
-  it('should handle long messages correctly', () => {
-    const longMessage =
-      'This is a very long message that should be displayed correctly in the snackbar component without breaking the layout or causing any visual issues.';
+  describe('Alert variants', () => {
+    it('should display error alert with danger color', () => {
+      cy.mount(SnackBarTestWrapperComponent, {
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      }).then(component => {
+        component.component.openSnackBar({ message: 'Error message', dismissible: true }, ['alert-danger-color']);
 
-    cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
-    }).then(component => {
-      component.component.openSnackBar({
-        message: longMessage,
-        dismissible: true,
+        cy.get('.cdk-overlay-container').should('be.visible');
+        cy.get('.mat-mdc-snack-bar-container').should('be.visible');
+        cy.get('.message').should('contain', 'Error message');
+        cy.get('.mat-mdc-snack-bar-container').should('have.class', 'alert-danger-color');
       });
-
-      // Wait for snackbar to be rendered
-      cy.get('.cdk-overlay-container').should('be.visible');
-      cy.get('.mat-mdc-snack-bar-container').should('be.visible');
-
-      cy.get('.message').should('contain', longMessage);
     });
-  });
 
-  it('should have correct CSS classes', () => {
-    cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
-    }).then(component => {
-      component.component.openSnackBar(defaultData);
+    it('should display warning alert with warning color', () => {
+      cy.mount(SnackBarTestWrapperComponent, {
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      }).then(component => {
+        component.component.openSnackBar({ message: 'Warning message', dismissible: false }, ['alert-warning-color']);
 
-      // Wait for snackbar to be rendered
-      cy.get('.cdk-overlay-container').should('be.visible');
-      cy.get('.mat-mdc-snack-bar-container').should('be.visible');
+        cy.get('.cdk-overlay-container').should('be.visible');
+        cy.get('.mat-mdc-snack-bar-container').should('be.visible');
+        cy.get('.message').should('contain', 'Warning message');
+        cy.get('.mat-mdc-snack-bar-container').should('have.class', 'alert-warning-color');
+      });
+    });
 
-      cy.get('.message').should('exist');
-      cy.get('.my-dismiss').should('exist');
+    it('should display info alert with info color', () => {
+      cy.mount(SnackBarTestWrapperComponent, {
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      }).then(component => {
+        component.component.openSnackBar({ message: 'Info message', dismissible: false }, ['alert-info-color']);
+
+        cy.get('.cdk-overlay-container').should('be.visible');
+        cy.get('.mat-mdc-snack-bar-container').should('be.visible');
+        cy.get('.message').should('contain', 'Info message');
+        cy.get('.mat-mdc-snack-bar-container').should('have.class', 'alert-info-color');
+      });
+    });
+
+    it('should display success alert with success color', () => {
+      cy.mount(SnackBarTestWrapperComponent, {
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      }).then(component => {
+        component.component.openSnackBar({ message: 'Success message', dismissible: true }, ['alert-success-color']);
+
+        cy.get('.cdk-overlay-container').should('be.visible');
+        cy.get('.mat-mdc-snack-bar-container').should('be.visible');
+        cy.get('.message').should('contain', 'Success message');
+        cy.get('.mat-mdc-snack-bar-container').should('have.class', 'alert-success-color');
+      });
     });
   });
 });

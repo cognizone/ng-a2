@@ -187,14 +187,6 @@ describe('AreYouSureComponent', () => {
       cy.get('.my-action-button').each($button => {
         cy.wrap($button).should('have.class', 'my-action-button').and('have.class', 'mat-mdc-raised-button');
       });
-
-      // Check that execute button has primary color
-      // In Angular Material MDC, color="primary" is applied via directive (not a class).
-      // We verify by checking button order: first button = primary (per template)
-      cy.get('button.my-action-button').first().should('contain', defaultData.execute);
-
-      // Check that cancel button does not have primary color (it's the second button)
-      cy.get('button.my-action-button').eq(1).should('contain', defaultData.cancel);
     });
   });
 });

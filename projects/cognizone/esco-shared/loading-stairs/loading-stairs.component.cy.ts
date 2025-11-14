@@ -68,4 +68,58 @@ describe('LoadingStairsComponent', () => {
     cy.get('.loader__ball').should('exist');
     cy.get('.loader-label').should('exist');
   });
+
+  it('should have correct layout and centering', () => {
+    cy.mount(LoadingStairsComponent, {
+      imports: [LoadingStairsModule],
+      componentProperties: {
+        message: 'Loading...',
+      },
+    });
+
+    // Verify flexbox layout
+    cy.get('.loader-wrapper')
+      .should('have.css', 'display', 'flex')
+      .and('have.css', 'flex-direction', 'column')
+      .and('have.css', 'align-items', 'center')
+      .and('have.css', 'justify-content', 'center');
+  });
+
+  it('should have correct loader dimensions', () => {
+    cy.mount(LoadingStairsComponent, {
+      imports: [LoadingStairsModule],
+    });
+
+    // Verify loader dimensions
+    cy.get('.loader').should('have.css', 'width', '75px').and('have.css', 'height', '100px');
+  });
+
+  it('should have correct colors for message and loader elements', () => {
+    cy.mount(LoadingStairsComponent, {
+      imports: [LoadingStairsModule],
+      componentProperties: {
+        message: 'Loading data...',
+      },
+    });
+
+    // Verify message color (#048cc8)
+    cy.get('.loader-label').then($label => {
+      const color = window.getComputedStyle($label[0]).color;
+      expect(color).to.include('rgb(4, 140, 200)');
+    });
+
+    // Verify bar color (#0492d0)
+    cy.get('.loader__bar')
+      .first()
+      .then($bar => {
+        const bgColor = window.getComputedStyle($bar[0]).backgroundColor;
+        expect(bgColor).to.include('rgb(4, 146, 208)');
+      });
+
+    // Verify ball color (#0492d0)
+    cy.get('.loader__ball').then($ball => {
+      const bgColor = window.getComputedStyle($ball[0]).backgroundColor;
+      expect(bgColor).to.include('rgb(4, 146, 208)');
+    });
+  });
 });

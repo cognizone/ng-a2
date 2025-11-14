@@ -44,3 +44,6 @@ body {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
+
+// Import global alert styles for testing
+@import '../../cognizone/esco-shared/global-alert/styles/global-alert';
