@@ -21,5 +21,6 @@ export default defineConfig({
         },
       },
     },
+    supportFile: path.resolve(__dirname, '../../cypress-test-app/cypress/support/component.ts'),
   },
 });

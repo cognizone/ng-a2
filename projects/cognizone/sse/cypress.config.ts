@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+import * as path from 'path';
 
 export default defineConfig({
   e2e: {
@@ -11,5 +12,6 @@ export default defineConfig({
       bundler: 'webpack',
     },
     specPattern: '**/*.cy.ts',
+    supportFile: path.resolve(__dirname, '../../cypress-test-app/cypress/support/component.ts'),
   },
 });
