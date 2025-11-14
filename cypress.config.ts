@@ -8,7 +8,7 @@ export default defineConfig({
       bundler: 'webpack',
     },
     specPattern: '**/*.cy.ts',
-    indexHtmlFile: path.resolve(__dirname, 'projects/cypress-test-app/cypress/support/component-index.html'),
+    indexHtmlFile: path.resolve(__dirname, 'projects/cypress-test-app/src/index.html'),
     supportFile: path.resolve(__dirname, 'projects/cypress-test-app/cypress/support/component.ts'),
   },
 });
