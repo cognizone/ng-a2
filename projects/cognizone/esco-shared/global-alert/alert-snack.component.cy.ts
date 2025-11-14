@@ -1,4 +1,4 @@
-/// <reference path="../cypress/support/component.ts" />
+/// <reference path="../../../cypress-test-app/cypress/support/component.ts" />
 
 import { Component, inject } from '@angular/core';
 import { AlertSnackComponent } from './alert-snack.component';

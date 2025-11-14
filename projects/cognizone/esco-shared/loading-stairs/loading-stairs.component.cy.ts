@@ -1,3 +1,5 @@
+/// <reference path="../../../cypress-test-app/cypress/support/component.ts" />
+
 import { LoadingStairsComponent } from './loading-stairs.component';
 import { LoadingStairsModule } from './loading-stairs.module';
 

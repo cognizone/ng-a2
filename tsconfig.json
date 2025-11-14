@@ -30,11 +30,12 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   },
-  "include": ["src/**/*.ts", "angular.json", "tsconfig.json"],
   "exclude": [
-    "src/**/*.spec.ts", // Exclude specs here; re-include them in tsconfig.spec.json
+    "**/*.spec.ts", // Exclude all spec files; re-include them in tsconfig.spec.json
     "**/*.cy.ts", // Exclude all Cypress files
     "cypress/**/*.ts", // Also exclude the whole Cypress folder
-    "e2e/**/*.ts" // If you have an old e2e folder
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/out-tsc/**"
   ]
 }
