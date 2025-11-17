@@ -27,11 +27,18 @@ const config = {
     '!projects/**/index.ts',
     '!projects/**/public-api.ts',
     '!projects/**/*.module.ts',
+    // Exclude Angular components (tested with e2e/Cypress)
+    '!projects/**/*.component.ts',
+    '!projects/**/*.component.html',
+    '!projects/**/*.component.scss',
+    // Exclude Cypress test files
     '!projects/**/cypress/**',
     '!projects/**/*.cy.ts',
+    // Exclude test app
+    '!projects/cypress-test-app/**',
   ],
   coverageDirectory: 'coverage',
-  coverageReporters: ['html', 'text', 'text-summary', 'lcov'],
+  coverageReporters: ['html', 'text', 'text-summary', 'json', 'lcov', 'json-summary'],
   coverageThreshold: {
     global: {
       branches: 0,

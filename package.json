@@ -17,6 +17,7 @@
     "test:watch": "jest --runInBand --watchAll",
     "test:coverage": "jest --runInBand --coverage",
     "test:coverage:watch": "jest --runInBand --coverage --watchAll",
+    "test:coverage:open": "jest --runInBand --coverage && node -e \"require('child_process').exec(process.platform === 'win32' ? 'start coverage/index.html' : process.platform === 'darwin' ? 'open coverage/index.html' : 'xdg-open coverage/index.html')\"",
     "lint": "ng lint",
     "release": "npm run test && semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js",
