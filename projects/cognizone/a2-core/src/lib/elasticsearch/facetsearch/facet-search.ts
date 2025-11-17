@@ -7,7 +7,7 @@ import { TermFilter } from './filter/term/term-filter';
 import { Aggregation } from './aggregation/aggregation';
 import { OrTermsFilter } from './filter/term/or-terms-filter';
 import { AndTermsFilter } from './filter/term/and-terms-filter';
-import { AttributeModel } from '../../a2-core/attribute-model/attribute-model';
+import { AttributeModel } from '../../core/attribute-model/attribute-model';
 import { Preconditions } from '../../precondition/preconditions';
 
 export class FacetSearch implements AttributeModel {
