@@ -4,21 +4,21 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Code scaffolding
 
-Run `ng generate component component-name --project esco-shared` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project esco-shared`.
+Run `ng generate component component-name --project a2-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project a2-ui`.
 
-> Note: Don't forget to add `--project esco-shared` or else it will be added to the default project in your `angular.json` file.
+> Note: Don't forget to add `--project a2-ui` or else it will be added to the default project in your `angular.json` file.
 
 ## Build
 
-Run `ng build esco-shared` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `ng build a2-ui` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build esco-shared`, go to the dist folder `cd dist/esco-shared` and run `npm publish`.
+After building your library with `ng build a2-ui`, go to the dist folder `cd dist/a2-ui` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test esco-shared` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test a2-ui` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 

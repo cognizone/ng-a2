@@ -4,7 +4,7 @@
 
 ## Setting up
 
-- Install the package with `npm install @cognizone/sse @cognizone/model-utils`
+- Install the package with `npm install @cognizone/a2-sse @cognizone/model-utils`
 - Provide the `SseWrapperFactory` service into the module where you'll use the SSE functionality (in the `providers` array)
 - Create a handler service to communicate with the sse functionality, e.g. `log-listener.service.ts`
 
@@ -12,7 +12,7 @@ Inside that service;
 
 ```
 // import the Sse wrapper classes
-import { SseWrapper, SseWrapperFactory } from '@cognizone/sse';
+import { SseWrapper, SseWrapperFactory } from '@cognizone/a2-sse';
 ```
 
 ```

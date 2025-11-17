@@ -16,8 +16,8 @@
     "paths": {
       "@cognizone/a2-core": ["projects/cognizone/a2-core"],
       "@cognizone/a2-core/*": ["projects/cognizone/a2-core/*"],
-      "@cognizone/sse": ["projects/cognizone/sse"],
-      "@cognizone/sse/*": ["projects/cognizone/sse/*"],
+      "@cognizone/a2-sse": ["projects/cognizone/a2-sse"],
+      "@cognizone/a2-sse/*": ["projects/cognizone/a2-sse/*"],
       "@cognizone/a2-ui": ["projects/cognizone/a2-ui"],
       "@cognizone/a2-ui/*": ["projects/cognizone/a2-ui/*"],
       "@cognizone/tree-browser": ["projects/cognizone/tree-browser"],

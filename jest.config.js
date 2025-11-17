@@ -16,8 +16,8 @@ const config = {
   moduleNameMapper: {
     '@cognizone/a2-core': '<rootDir>/projects/cognizone/a2-core/src/public-api.ts',
     '@cognizone/a2-core/(.*)': '<rootDir>/projects/cognizone/a2-core/src/public-api.ts',
-    '@cognizone/sse': '<rootDir>/projects/cognizone/sse/src/public-api.ts',
-    '@cognizone/sse/(.*)': '<rootDir>/projects/cognizone/sse/src/public-api.ts',
+    '@cognizone/a2-sse': '<rootDir>/projects/cognizone/a2-sse/src/public-api.ts',
+    '@cognizone/a2-sse/(.*)': '<rootDir>/projects/cognizone/a2-sse/src/public-api.ts',
   },
   collectCoverage: false,
   collectCoverageFrom: [
