@@ -10,7 +10,7 @@
     "build-all": "npm run build-libs",
     "build-libs": "rimraf dist/cognizone && run-s build:*",
     "build:a2-core": "ng build @cognizone/a2-core --configuration production",
-    "build:esco-shared": "ng build @cognizone/esco-shared --configuration production",
+    "build:a2-ui": "ng build @cognizone/a2-ui --configuration production",
     "build:sse": "ng build @cognizone/sse --configuration production",
     "build:tree-browser": "ng build @cognizone/tree-browser --configuration production",
     "test": "jest --runInBand",

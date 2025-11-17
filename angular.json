@@ -137,24 +137,24 @@
         }
       }
     },
-    "@cognizone/esco-shared": {
+    "@cognizone/a2-ui": {
       "projectType": "library",
-      "root": "projects/cognizone/esco-shared",
-      "sourceRoot": "projects/cognizone/esco-shared/src",
+      "root": "projects/cognizone/a2-ui",
+      "sourceRoot": "projects/cognizone/a2-ui/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.json",
-            "project": "projects/cognizone/esco-shared/ng-package.json"
+            "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-ui/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.prod.json"
+              "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/cognizone/esco-shared/tsconfig.lib.json"
+              "tsConfig": "projects/cognizone/a2-ui/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -162,12 +162,12 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/esco-shared:serve",
-            "configFile": "projects/cognizone/esco-shared/cypress.config.js"
+            "devServerTarget": "@cognizone/a2-ui:serve",
+            "configFile": "projects/cognizone/a2-ui/cypress.config.js"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/esco-shared:serve:production"
+              "devServerTarget": "@cognizone/a2-ui:serve:production"
             }
           }
         },
@@ -176,33 +176,33 @@
           "options": {
             "watch": true,
             "headless": false,
-            "configFile": "projects/cognizone/esco-shared/cypress.config.js"
+            "configFile": "projects/cognizone/a2-ui/cypress.config.js"
           }
         },
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/esco-shared:serve",
+            "devServerTarget": "@cognizone/a2-ui:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "@cognizone/esco-shared:serve:development"
+              "devServerTarget": "@cognizone/a2-ui:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/esco-shared:serve",
+            "devServerTarget": "@cognizone/a2-ui:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/esco-shared:serve:production"
+              "devServerTarget": "@cognizone/a2-ui:serve:production"
             }
           }
         }

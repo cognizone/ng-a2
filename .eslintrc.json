@@ -9,7 +9,7 @@
         "project": [
           "tsconfig.spec.json",
           "projects/cognizone/a2-core/tsconfig.spec.json",
-          "projects/cognizone/esco-shared/tsconfig.spec.json",
+          "projects/cognizone/a2-ui/tsconfig.spec.json",
           "projects/cognizone/sse/tsconfig.spec.json",
           "projects/cognizone/tree-browser/tsconfig.spec.json"
         ],

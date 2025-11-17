@@ -1,5 +1,5 @@
 {
-  "name": "@cognizone/esco-shared",
+  "name": "@cognizone/a2-ui",
   "version": "2.3.0",
   "peerDependencies": {
     "@angular/common": ">=20.0.0",

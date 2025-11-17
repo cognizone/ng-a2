@@ -9,9 +9,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppComponent } from './app.component';
 
 // Import all library modules for testing
-import { LoadingStairsModule } from '../../../cognizone/esco-shared/loading-stairs/loading-stairs.module';
-import { AreYouSureModule } from '../../../cognizone/esco-shared/are-you-sure/are-you-sure.module';
-import { GlobalAlertModule } from '../../../cognizone/esco-shared/global-alert/global-alert.module';
+import { LoadingStairsModule } from '../../../cognizone/a2-ui/loading-stairs/loading-stairs.module';
+import { AreYouSureModule } from '../../../cognizone/a2-ui/are-you-sure/are-you-sure.module';
+import { GlobalAlertModule } from '../../../cognizone/a2-ui/global-alert/global-alert.module';
 
 @NgModule({
   declarations: [AppComponent],
