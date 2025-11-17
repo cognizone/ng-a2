@@ -1,5 +1,5 @@
 /*
- * Public API Surface of tree-browser
+ * Public API Surface of a2-tree-browser
  */
 
 export * from './lib/components/abstract-node-template.component';
@@ -11,4 +11,4 @@ export * from './lib/components/tree-node.component';
 export * from './lib/model/node-wrapper';
 export * from './lib/model/tree-model';
 
-export * from './lib/tree-browser.module';
+export * from './lib/a2-tree-browser.module';

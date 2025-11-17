@@ -6,8 +6,8 @@
       "@cognizone/a2-core/*": ["dist/cognizone/a2-core/*"],
       "@cognizone/a2-ui": ["projects/cognizone/a2-ui"],
       "@cognizone/a2-ui/*": ["projects/cognizone/a2-ui/*"],
-      "@cognizone/tree-browser": ["projects/cognizone/tree-browser"],
-      "@cognizone/tree-browser/*": ["projects/cognizone/tree-browser/*"]
+      "@cognizone/a2-tree-browser": ["projects/cognizone/a2-tree-browser"],
+      "@cognizone/a2-tree-browser/*": ["projects/cognizone/a2-tree-browser/*"]
     }
   }
 }

@@ -12,7 +12,7 @@
     "build:a2-core": "ng build @cognizone/a2-core --configuration production",
     "build:a2-ui": "ng build @cognizone/a2-ui --configuration production",
     "build:a2-sse": "ng build @cognizone/a2-sse --configuration production",
-    "build:tree-browser": "ng build @cognizone/tree-browser --configuration production",
+    "build:a2-tree-browser": "ng build @cognizone/a2-tree-browser --configuration production",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watchAll",
     "test:coverage": "jest --runInBand --coverage",

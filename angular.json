@@ -208,24 +208,24 @@
         }
       }
     },
-    "@cognizone/tree-browser": {
+    "@cognizone/a2-tree-browser": {
       "projectType": "library",
-      "root": "projects/cognizone/tree-browser",
-      "sourceRoot": "projects/cognizone/tree-browser/src",
+      "root": "projects/cognizone/a2-tree-browser",
+      "sourceRoot": "projects/cognizone/a2-tree-browser/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/cognizone/tree-browser/tsconfig.lib.json",
-            "project": "projects/cognizone/tree-browser/ng-package.json"
+            "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-tree-browser/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/cognizone/tree-browser/tsconfig.lib.prod.json"
+              "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/cognizone/tree-browser/tsconfig.lib.json"
+              "tsConfig": "projects/cognizone/a2-tree-browser/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -233,12 +233,12 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/tree-browser:serve",
-            "configFile": "projects/cognizone/tree-browser/cypress.config.js"
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
+            "configFile": "projects/cognizone/a2-tree-browser/cypress.config.js"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/tree-browser:serve:production"
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:production"
             }
           }
         },
@@ -247,33 +247,33 @@
           "options": {
             "watch": true,
             "headless": false,
-            "configFile": "projects/cognizone/tree-browser/cypress.config.js"
+            "configFile": "projects/cognizone/a2-tree-browser/cypress.config.js"
           }
         },
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/tree-browser:serve",
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "@cognizone/tree-browser:serve:development"
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/tree-browser:serve",
+            "devServerTarget": "@cognizone/a2-tree-browser:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/tree-browser:serve:production"
+              "devServerTarget": "@cognizone/a2-tree-browser:serve:production"
             }
           }
         }

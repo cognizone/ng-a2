@@ -16,4 +16,4 @@ import { InternalChildrenTemplateComponent } from './components/internal-childre
   ],
   exports: [TreeBrowserComponent, InternalChildrenTemplateComponent],
 })
-export class TreeBrowserModule {}
+export class A2TreeBrowserModule {}

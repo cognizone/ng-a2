@@ -1,5 +1,5 @@
 {
-  "name": "@cognizone/tree-browser",
+  "name": "@cognizone/a2-tree-browser",
   "version": "2.3.0",
   "peerDependencies": {
     "@angular/common": ">=20.0.0",
