@@ -84,8 +84,10 @@
   },
   "overrides": {
     "@cognizone/eslint-config": {
-      "eslint": "8.57.1"
+      "eslint": "8.57.1",
+      "eslint-plugin-unicorn": "^55.0.0"
     },
+    "eslint-plugin-unicorn": "^55.0.0",
     "@semantic-release/changelog": "^3.0.6",
     "semantic-release": "^19.0.3"
   },
