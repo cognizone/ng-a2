@@ -4,8 +4,6 @@
     "paths": {
       "@cognizone/a2": ["dist/cognizone/a2"],
       "@cognizone/a2/*": ["dist/cognizone/a2/*"],
-      "@cognizone/server-file-browser": ["dist/cognizone/server-file-browser"],
-      "@cognizone/server-file-browser/*": ["dist/cognizone/server-file-browser/*"],
       "@cognizone/esco-shared": ["projects/cognizone/esco-shared"],
       "@cognizone/esco-shared/*": ["projects/cognizone/esco-shared/*"],
       "@cognizone/tree-browser": ["projects/cognizone/tree-browser"],

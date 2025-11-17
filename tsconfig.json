@@ -16,8 +16,6 @@
     "paths": {
       "@cognizone/a2": ["projects/cognizone/a2"],
       "@cognizone/a2/*": ["projects/cognizone/a2/*"],
-      "@cognizone/server-file-browser": ["projects/cognizone/server-file-browser"],
-      "@cognizone/server-file-browser/*": ["projects/cognizone/server-file-browser/*"],
       "@cognizone/sse": ["projects/cognizone/sse"],
       "@cognizone/sse/*": ["projects/cognizone/sse/*"],
       "@cognizone/esco-shared": ["projects/cognizone/esco-shared"],
