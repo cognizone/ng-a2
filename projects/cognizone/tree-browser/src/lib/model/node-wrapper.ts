@@ -1,5 +1,5 @@
 import { TreeModel } from './tree-model';
-import { Preconditions } from 'projects/cognizone/a2-core';
+import { Preconditions } from '@cognizone/a2-core';
 
 export class NodeWrapper<T> {
   private readonly _node: T;
