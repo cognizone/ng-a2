@@ -1,5 +1,5 @@
 /*
- * Public API Surface of a2
+ * Public API Surface of a2-core
  */
 
 export * from './lib/a2-core';

@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@cognizone/a2": ["dist/cognizone/a2"],
-      "@cognizone/a2/*": ["dist/cognizone/a2/*"],
+      "@cognizone/a2-core": ["dist/cognizone/a2-core"],
+      "@cognizone/a2-core/*": ["dist/cognizone/a2-core/*"],
       "@cognizone/esco-shared": ["projects/cognizone/esco-shared"],
       "@cognizone/esco-shared/*": ["projects/cognizone/esco-shared/*"],
       "@cognizone/tree-browser": ["projects/cognizone/tree-browser"],

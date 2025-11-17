@@ -3,33 +3,33 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "@cognizone/a2": {
+    "@cognizone/a2-core": {
       "projectType": "library",
-      "root": "projects/cognizone/a2",
-      "sourceRoot": "projects/cognizone/a2/src",
+      "root": "projects/cognizone/a2-core",
+      "sourceRoot": "projects/cognizone/a2-core/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/cognizone/a2/tsconfig.lib.json",
-            "project": "projects/cognizone/a2/ng-package.json"
+            "tsConfig": "projects/cognizone/a2-core/tsconfig.lib.json",
+            "project": "projects/cognizone/a2-core/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/cognizone/a2/tsconfig.lib.prod.json"
+              "tsConfig": "projects/cognizone/a2-core/tsconfig.lib.prod.json"
             }
           }
         },
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/a2:serve",
-            "configFile": "projects/cognizone/a2/cypress.config.js"
+            "devServerTarget": "@cognizone/a2-core:serve",
+            "configFile": "projects/cognizone/a2-core/cypress.config.js"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/a2:serve:production"
+              "devServerTarget": "@cognizone/a2-core:serve:production"
             }
           }
         },
@@ -38,33 +38,33 @@
           "options": {
             "watch": true,
             "headless": false,
-            "configFile": "projects/cognizone/a2/cypress.config.js"
+            "configFile": "projects/cognizone/a2-core/cypress.config.js"
           }
         },
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/a2:serve",
+            "devServerTarget": "@cognizone/a2-core:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "@cognizone/a2:serve:development"
+              "devServerTarget": "@cognizone/a2-core:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "@cognizone/a2:serve",
+            "devServerTarget": "@cognizone/a2-core:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "@cognizone/a2:serve:production"
+              "devServerTarget": "@cognizone/a2-core:serve:production"
             }
           }
         }
