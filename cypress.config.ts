@@ -11,4 +11,12 @@ export default defineConfig({
     indexHtmlFile: path.resolve(__dirname, 'projects/cypress-test-app/src/index.html'),
     supportFile: path.resolve(__dirname, 'projects/cypress-test-app/cypress/support/component.ts'),
   },
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true,
+    timestamp: false,
+  },
 });

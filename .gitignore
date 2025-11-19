@@ -42,6 +42,11 @@ yarn-error.log
 testem.log
 /typings
 
+# Cypress reports - ignore generated files (HTML reports are regenerated on each run)
+cypress/reports/*
+cypress/screenshots/*
+
+
 # System Files
 .DS_Store
 Thumbs.db

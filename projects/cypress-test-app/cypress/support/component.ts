@@ -14,6 +14,7 @@
 // ***********************************************************
 
 import { mount } from 'cypress/angular';
+import 'cypress-mochawesome-reporter/register';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
