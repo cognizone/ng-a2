@@ -15,6 +15,8 @@ function writeJson(path, content) {
 }
 
 const angularVersion = '>=20.0.0';
+const cognizoneVersion = '>=7.0.0';
+const a2Version = '>=1.0.0';
 
 const rootPackage = readJson(join(__dirname, '../package.json'));
 
@@ -39,6 +41,10 @@ packageFiles.forEach(packageFile => {
     Object.keys(package[dependencyType] ?? {}).forEach(key => {
       if (key.startsWith('@angular/')) {
         package[dependencyType][key] = angularVersion;
+      } else if (key.startsWith('@cognizone/a2')) {
+        package[dependencyType][key] = a2Version;
+      } else if (key.startsWith('@cognizone/')) {
+        package[dependencyType][key] = cognizoneVersion;
       }
     });
   });
