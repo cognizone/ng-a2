@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/cognizone/ng-a2/compare/v1.0.3...v1.0.4) (2025-11-21)
+
+### Bug Fixes
+
+- **a2-ui:** correct background color for snackbar ([69d2711](https://github.com/cognizone/ng-a2/commit/69d27111682f0458335afa8c302037d684138c4d))
+
 ## [1.0.3](https://github.com/cognizone/ng-a2/compare/v1.0.2...v1.0.3) (2025-11-21)
 
 ### Bug Fixes
