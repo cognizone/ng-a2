@@ -8,5 +8,12 @@
   },
   "dependencies": {
     "tslib": "^2.6.2"
+  },
+  "repository": {
+    "directory": "projects/cognizone/a2-ui"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public"
   }
 }

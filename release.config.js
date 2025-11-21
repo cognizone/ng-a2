@@ -12,7 +12,7 @@ const npmPlugins = packagesRoots.map(pkgRoot => [
 ]);
 
 module.exports = {
-  branch: 'master',
+  branches: ['main'],
   plugins: [
     '@semantic-release/commit-analyzer',
     '@semantic-release/release-notes-generator',
@@ -27,7 +27,7 @@ module.exports = {
     [
       '@semantic-release/git',
       {
-        assets: ['CHANGELOG.md', 'projects/**/package.json'],
+        assets: ['CHANGELOG.md', 'projects/cognizone/**/package.json'],
       },
     ],
   ],

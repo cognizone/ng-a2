@@ -19,8 +19,9 @@
     "test:coverage:watch": "jest --runInBand --coverage --watchAll",
     "test:coverage:open": "jest --runInBand --coverage && node -e \"require('child_process').exec(process.platform === 'win32' ? 'start coverage/index.html' : process.platform === 'darwin' ? 'open coverage/index.html' : 'xdg-open coverage/index.html')\"",
     "lint": "ng lint",
-    "release": "npm run test && semantic-release",
+    "release": "npx --package semantic-release@25 --package @semantic-release/exec@7 --package @semantic-release/commit-analyzer@13 semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js",
+    "release:sync-package-metadata": "node ./tasks/sync-package-metadata.js",
     "prepare": "husky install",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
@@ -41,6 +42,7 @@
     "@angular/router": "^20.3.9",
     "@cognizone/model-utils": "^7.0.0-beta.2",
     "@cognizone/ng-core": "^7.0.0-beta.2",
+    "rxjs": "~7.8.0",
     "tslib": "^2.6.2",
     "zone.js": "~0.15.1"
   },
@@ -59,15 +61,11 @@
     "@cognizone/eslint-config": "^7.0.0-beta.2",
     "@cognizone/prettier-config": "^7.0.0-beta.2",
     "@cypress/schematic": "^4.1.4",
-    "@semantic-release/changelog": "^3.0.6",
-    "@semantic-release/exec": "^3.3.8",
-    "@semantic-release/git": "^7.0.18",
     "@types/jest": "^29.5.14",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "7.11.0",
     "@typescript-eslint/parser": "7.11.0",
     "angular-eslint": "^20.5.1",
-    "copyfiles": "^2.4.1",
     "cypress": "^15.6.0",
     "cypress-mochawesome-reporter": "^3.8.4",
     "eslint": "8.57.1",
@@ -81,10 +79,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.6.2",
     "rimraf": "^3.0.2",
-    "rxjs": "~7.8.0",
-    "semantic-release": "^19.0.3",
-    "shelljs": "^0.8.5",
-    "ts-node": "~7.0.0",
     "typescript": "~5.9.3"
   },
   "overrides": {
@@ -97,7 +91,7 @@
     "semantic-release": "^19.0.3"
   },
   "volta": {
-    "node": "20.19.5",
+    "node": "22.21.1",
     "npm": "10.9.4"
   },
   "prettier": "@cognizone/prettier-config",

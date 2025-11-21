@@ -7,5 +7,12 @@
   "peerDependencies": {
     "@angular/common": ">=20.0.0",
     "@angular/core": ">=20.0.0"
+  },
+  "repository": {
+    "directory": "projects/cognizone/a2-core"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public"
   }
 }
