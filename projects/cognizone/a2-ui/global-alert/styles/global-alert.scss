@@ -1,20 +1,15 @@
-$alert-danger: #e8402c;
-$alert-warning: #f59805;
-$alert-info: #040911;
-$alert-success: #56c82b;
-
 .alert-danger-color {
-  background-color: $alert-danger;
+  --mat-snack-bar-container-color: #e8402c;
 }
 
 .alert-warning-color {
-  background-color: $alert-warning;
+  --mat-snack-bar-container-color: #f59805;
 }
 
 .alert-info-color {
-  background-color: $alert-info;
+  --mat-snack-bar-container-color: #040911;
 }
 
 .alert-success-color {
-  background-color: $alert-success;
+  --mat-snack-bar-container-color: #56c82b;
 }
