@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/cognizone/ng-a2/compare/v1.0.0...v1.0.1) (2025-11-21)
+
+### Bug Fixes
+
+- adapt peer deps to [@cognizone](https://github.com/cognizone) v7.0.0 release ([156171f](https://github.com/cognizone/ng-a2/commit/156171f389229b9c0a848044097fe10b91a50022))
+
 # 1.0.0 (2025-11-21)
 
 ### Features
