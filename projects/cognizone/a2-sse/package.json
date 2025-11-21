@@ -1,6 +1,6 @@
 {
   "name": "@cognizone/a2-sse",
-  "version": "2.3.0",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": ">=20.0.0",
     "@angular/core": ">=20.0.0",
