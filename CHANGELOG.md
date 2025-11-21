@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/cognizone/ng-a2/compare/v1.0.2...v1.0.3) (2025-11-21)
+
+### Bug Fixes
+
+- git push for ci, part 1 ([9e90bf7](https://github.com/cognizone/ng-a2/commit/9e90bf707de6d2c3e28b8aaf55ddabc3465c4e4c))
+
 ## [1.0.1](https://github.com/cognizone/ng-a2/compare/v1.0.0...v1.0.1) (2025-11-21)
 
 ### Bug Fixes
