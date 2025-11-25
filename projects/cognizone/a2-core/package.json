@@ -1,6 +1,6 @@
 {
   "name": "@cognizone/a2-core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "dependencies": {
     "tslib": "^2.6.2"
   },

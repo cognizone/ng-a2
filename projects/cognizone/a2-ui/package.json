@@ -1,6 +1,6 @@
 {
   "name": "@cognizone/a2-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "peerDependencies": {
     "@angular/common": ">=20.0.0",
     "@angular/core": ">=20.0.0",

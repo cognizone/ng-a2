@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/cognizone/ng-a2/compare/v1.0.4...v1.0.5) (2025-11-25)
+
+### Bug Fixes
+
+- **a2-ui:** add margin for are-you-sure modal panel ([99d6abb](https://github.com/cognizone/ng-a2/commit/99d6abb2218ef237665550796dac54c5b1f287cc))
+
 ## [1.0.4](https://github.com/cognizone/ng-a2/compare/v1.0.3...v1.0.4) (2025-11-21)
 
 ### Bug Fixes

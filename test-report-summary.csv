@@ -1,0 +1,63 @@
+Library;Module;Submodule;Feature;Test case;Test case description (short);Type of test;Result;Report
+a2-core;core;application profil;Creating and Retrieving Application Profiles;Profile Creation and Retrieval;Tests ApplicationProfile creation with URI and types map, and retrieval of all types from profile;Unit test;PASS;All 2 test cases passed
+a2-core;core;application profil;Creating and Retrieving Types;Creation and Retrieval of Type;Tests Type creation with attributes map and class ID retrieval from type hierarchy;Unit test;PASS;All 2 test cases passed
+a2-core;core;application profil;Creating and Retrieving Attributes;Creation and Retrieval of Attribute;Tests Attribute creation with literal and resource properties, and error handling for range class ID access;Unit test;PASS;All 2 test cases passed
+a2-core;core;application profil;Building Application Profiles from JSON;Profile Building;Tests ApplicationProfile building from valid JSON and validation error handling;Unit test;PASS;All 6 test cases passed
+a2-core;core;attribute-model;Managing JSON Model Values and Attributes;Basic JSON Model Operations;Tests BasicJsonModel creation, value operations, attribute IDs, deep copy, and clear functionality;Unit test;PASS;All 10 test cases passed
+a2-core;core;attribute-model;Navigating and Filtering Attribute Trails;Attribute Trail Operations;Tests navigation through nested objects, filtering, and child object retrieval;Unit test;PASS;All 7 test cases passed
+a2-core;core;rdf;Creating and Managing RDF Data Types;RDF Data Type Management;Tests RdfDataType creation, type definition, equality comparison, and type retrieval by URI;Unit test;PASS;All 8 test cases passed
+a2-core;core;rdf;Creating and Managing RDF Namespaces;RDF Namespace Management;Tests Namespace creation and predefined namespaces (RDF, RDFS, XSD);Unit test;PASS;All 4 test cases passed
+a2-core;core;typedresource / json;Retrieving Resources from JSON Structure;JSON Resource Structure;Tests error handling for null root and resource retrieval by URI;Unit test;PASS;All 2 test cases passed
+a2-core;core;typedresource / json;Wrapping Single JSON Resources;JSON Single Resource Handling;Tests single resource wrapper creation and error handling for array data in single wrapper;Unit test;PASS;All 2 test cases passed
+a2-core;core;typedresource / json;Wrapping Multiple JSON Resources;JSON Multiple Resources Handling;Tests multiple resource wrapper creation and error handling for non-array data in multi wrapper;Unit test;PASS;All 2 test cases passed
+a2-core;core;typedresource / json;Retrieving Resource Relationships;JSON Resource Relationships;Tests child resource retrieval by reference and parent resource retrieval;Unit test;PASS;All 2 test cases passed
+a2-core;core;typedresource / json;Wrapping JSON into Typed Resources;JSON Resource Wrapping;Tests wrapping JSON data into typed resource, value getter and setter operations, and adding values to arrays;Unit test;PASS;All 3 test cases passed
+a2-core;core;typedresource / json;Creating Typed Resource Factories;JSON Factory Creation;Tests factory function creation and retrieval, and error handling for non-existent types;Unit test;PASS;All 2 test cases passed
+a2-core;core;util;Merging Application Profiles;Profile Merging;Tests merging multiple application profiles into one, and error handling when no profiles provided;Unit test;PASS;All 2 test cases passed
+a2-core;core;util;Merging Types;Type Merging;Tests merging multiple types into one, and error handling when empty array provided;Unit test;PASS;All 2 test cases passed
+a2-core;core;util;Filtering Literal Attributes;Retrieval of Literal Attributes;Tests filtering literal attributes from type;Unit test;PASS;All 1 test case passed
+a2-core;core;util;Filtering Resource Attributes;getResourceAttributes;Tests filtering resource attributes from type;Unit test;PASS;All 1 test case passed
+a2-core;core;util;Validating String Format;String Validation;Tests uppercase string validation utility;Unit test;PASS;All 1 test case passed
+a2-core;core;util;Converting Attribute IDs to Labels;Attribute Label Conversion;Tests conversion of attribute IDs to readable labels with proper word separation and capitalization;Unit test;PASS;All 6 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation / term;Creating Global Term Aggregations;Global Term Aggregation;Tests GlobalTermAggregation creation, global aggregation query generation, and filter exclusion logic;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation / term;Creating Simple Term Aggregations;Term Aggregation;Tests SimpleTermAggregation creation, keyword suffix support, and term aggregation query generation;Unit test;PASS;All 3 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation;Creating Max Aggregations;Max Aggregation;Tests MaxAggregation creation and max aggregation query generation;Unit test;PASS;All 2 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation;Creating Min Aggregations;Min Aggregation;Tests MinAggregation creation and min aggregation query generation;Unit test;PASS;All 2 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation;Creating Missing Aggregations;Missing Aggregation;Tests MissingAggregation creation and missing aggregation query generation;Unit test;PASS;All 2 test cases passed
+a2-core;elasticsearch;facetsearch / aggregation;Creating Range Aggregations;Range Aggregation;Tests RangeAggregation creation with ranges and range aggregation query generation;Unit test;PASS;All 2 test cases passed
+a2-core;elasticsearch;facetsearch / filter / range;Creating and Formatting Date Range Filters;Date Range Filtering;Tests DateRangeFilter creation, default ISO string formatting, and custom date formatter usage;Unit test;PASS;All 3 test cases passed
+a2-core;elasticsearch;facetsearch / filter / range;Creating and Managing Numeric Range Filters;Numeric Range Filtering;Tests RangeFilter creation, active/inactive filter handling, and value setting and clearing;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / filter / term;Creating and Managing Term Filters;Single Term Filter;Tests single term filter query generation, active/inactive state handling, keyword suffix support, and value operations;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / filter / term;Creating AND Terms Filters;Multiple Term Filters (AND);Tests multiple term filter query generation (one filter per value), active/inactive state handling, and value operations;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / filter / term;Creating OR Terms Filters;Terms Filter (OR);Tests terms filter query generation (single filter with multiple values), active/inactive state handling, and value operations;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / filter / text;Creating Exists Filters;Exists Filtering;Tests ExistsFilter creation, field existence checking with must/must_not query generation, and value operations;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;facetsearch / filter / text;Creating Text Match Filters;Text Match Filtering;Tests MatchFilter creation with boost support, text matching query generation, and value operations;Unit test;PASS;All 3 test cases passed
+a2-core;elasticsearch;facetsearch;Building Facet Search Queries;Facet Search Management;Tests FacetSearch creation, filter value operations, Elasticsearch query generation, and query parameter integration;Unit test;PASS;All 10 test cases passed
+a2-core;elasticsearch;facetsearch;Building Search Filters and Aggregations;Search Filter Builder;Tests SearchFilterBuilder creation with filters and aggregations, fixed filters, and facet methods;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;result;Parsing Elasticsearch Results;Result Parsing;Tests creation of empty search result and creation of result with hits data;Unit test;PASS;All 2 test cases passed
+a2-core;elasticsearch;result;Extracting Aggregation Buckets;Aggregation Buckets;Tests bucket extraction from regular and global aggregations, empty result handling, and key_as_string preference;Unit test;PASS;All 4 test cases passed
+a2-core;elasticsearch;sort;Building Sort Queries;Sort Management;Tests SortBuilder creation, sort field configuration, ascending/descending order management, Elasticsearch query format generation, and query parameter handling;Unit test;PASS;All 10 test cases passed
+a2-core;precondition;precondition;Validating Null/NotNull Preconditions;Precondition - nullNotnull;Tests checkNotNull validation methods with error handling;Unit test;PASS;All 6 test cases passed
+a2-core;precondition;precondition;Validating State Preconditions;Precondition- checkState;Tests checkState validation methods with error handling;Unit test;PASS;All 3 test cases passed
+a2-core;restcall-service;;Executing HTTP Requests;HTTP Methods;Tests GET, POST, PUT, DELETE HTTP request methods with proper error handling;Unit test;PASS;All 5 test cases passed
+a2-core;restcall-service;;Building REST Call Requests;REST Call Builder;Tests RestCallBuilder with host, path, headers, parameters, and query building;Unit test;PASS;All 10 test cases passed
+a2-core;restcall-service;;Creating REST Call Objects;REST Call Creation;Tests RestCall class creation with all properties;Unit test;PASS;All 1 test case passed
+a2-sse;sse;;Creating SSE Wrapper Factory Service;Service Creation;Tests SseWrapperFactory service creation;Unit test;PASS;All 1 test case passed
+a2-sse;sse;;Creating SSE Wrappers from Factory;Wrapper Creation;Tests SseWrapper instance creation from factory;Unit test;PASS;All 1 test case passed
+a2-sse;sse;;Initializing EventSource Connections;Initialization;Tests EventSource initialization with configuration;Unit test;PASS;All 1 test case passed
+a2-sse;sse;;Handling SSE Messages;Message Handling;Tests message emission when EventSource receives messages;Unit test;PASS;All 1 test case passed
+a2-sse;sse;;Closing SSE Connections;Connection Management;Tests EventSource connection closing;Unit test;PASS;All 1 test case passed
+a2-tree-browser;tree browser;;Rendering Tree Structures;Tree Rendering;Tests tree rendering with root only and root with children;E2E (lib);PASS;All 2 test cases passed
+a2-tree-browser;tree browser;;Expanding and Collapsing Tree Nodes;Node Expansion and Collapse;Tests node expand and collapse functionality;E2E (lib);PASS;All 1 test case passed
+a2-tree-browser;tree browser;;Managing Child Display Limits;Child Limits;Tests child limit display, "See more" button visibility, and limit increase on click;E2E (lib);PASS;All 3 test cases passed
+a2-tree-browser;tree browser;;Rendering Nested Tree Structures;Nested Structures;Tests rendering of deeply nested tree structures;E2E (lib);PASS;All 1 test case passed
+a2-tree-browser;tree browser;;Handling Empty Trees;Empty Tree Handling;Tests handling of trees with leaf nodes and no children;E2E (lib);PASS;All 1 test case passed
+a2-tree-browser;tree browser;;Rendering Limit Increase Buttons;Button Rendering;Tests "See more" button rendering;E2E (lib);PASS;All 1 test case passed
+a2-tree-browser;tree browser;;Handling Limit Increase Button Clicks;Click Action Handling;Tests click action handling for single and multiple clicks;E2E (lib);PASS;All 2 test cases passed
+a2-ui;are you sure modal;;Displaying Confirmation Dialogs;Dialog Display;Tests dialog display with all fields, without header, and without text;E2E (lib);PASS;All 3 test cases passed
+a2-ui;are you sure modal;;Handling Dialog Interactions;Dialog Interaction;Tests execute button closes dialog with true and cancel button closes dialog;E2E (lib);PASS;All 2 test cases passed
+a2-ui;are you sure modal;;Styling Dialog Components;Dialog Styling;Tests dialog CSS classes and DOM structure, and button container and button styling;E2E (lib);PASS;All 2 test cases passed
+a2-ui;global alert;;Displaying Alert Messages;Alert Display;Tests snackbar message display and snackbar dismissal functionality;E2E (lib);PASS;All 2 test cases passed
+a2-ui;global alert;;Displaying Alert Variants;Alert variants;Tests error, warning, info, and success alert variants with appropriate styling;E2E (lib);PASS;All 4 test cases passed
+a2-ui;loading stairs;;Displaying Loading Indicators;Loader Display;Tests loader display without message, with message, and dynamic message updates;E2E (lib);PASS;All 3 test cases passed
+a2-ui;loading stairs;;Styling Loading Indicators;Loader Styling;Tests loader CSS classes and structure, flexbox layout and centering, loader dimensions, and color values for elements;E2E (lib);PASS;All 4 test cases passed
