@@ -14,17 +14,19 @@ describe('ApplicationProfile', () => {
     typesMap.set('Class1', type);
   });
 
-  it('should create with uri and types', () => {
-    expect(applicationProfile.uri).toBe('http://example.org/profile');
-    expect(applicationProfile.getType('Class1')).toBe(type);
-  });
+  describe('Profile Creation and Retrieval', () => {
+    it('should create with uri and types', () => {
+      expect(applicationProfile.uri).toBe('http://example.org/profile');
+      expect(applicationProfile.getType('Class1')).toBe(type);
+    });
 
-  it('getTypes should return all types', () => {
-    expect(applicationProfile.getTypes().length).toBe(1);
+    it('getTypes should return all types', () => {
+      expect(applicationProfile.getTypes().length).toBe(1);
+    });
   });
 });
 
-describe('Type', () => {
+describe('Creation and Retrieval of Type', () => {
   let applicationProfile: ApplicationProfile;
   let type: Type;
   let attribute: Attribute;
@@ -39,17 +41,19 @@ describe('Type', () => {
     attributesMap.set('attr1', attribute);
   });
 
-  it('should create with attributes', () => {
-    expect(type.getAttribute('attr1')).toBe(attribute);
-    expect(type.hasAttribute('attr1')).toBe(true);
-  });
+  describe('Creation and Retrieval of Type', () => {
+    it('should create with attributes', () => {
+      expect(type.getAttribute('attr1')).toBe(attribute);
+      expect(type.hasAttribute('attr1')).toBe(true);
+    });
 
-  it('getClassId should return last classId', () => {
-    expect(type.getClassId()).toBe('TestClass');
+    it('getClassId should return last classId', () => {
+      expect(type.getClassId()).toBe('TestClass');
+    });
   });
 });
 
-describe('Attribute', () => {
+describe('Creation and Retrieval of Attribute', () => {
   let type: Type;
   let literalAttribute: Attribute;
   let resourceAttribute: Attribute;
@@ -72,13 +76,15 @@ describe('Attribute', () => {
     );
   });
 
-  it('should create with properties', () => {
-    expect(literalAttribute.getAttributeId()).toBe('literalAttr');
-    expect(literalAttribute.isLiteral()).toBe(true);
-    expect(resourceAttribute.isTypedResource()).toBe(true);
-  });
+  describe('Creation and Retrieval of Attribute', () => {
+    it('should create with properties', () => {
+      expect(literalAttribute.getAttributeId()).toBe('literalAttr');
+      expect(literalAttribute.isLiteral()).toBe(true);
+      expect(resourceAttribute.isTypedResource()).toBe(true);
+    });
 
-  it('getRangeClassId should throw error when not present', () => {
-    expect(() => literalAttribute.getRangeClassId()).toThrow();
+    it('getRangeClassId should throw error when not present', () => {
+      expect(() => literalAttribute.getRangeClassId()).toThrow();
+    });
   });
 });

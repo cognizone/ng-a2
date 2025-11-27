@@ -34,13 +34,17 @@ describe('SseWrapperFactory', () => {
     service = TestBed.inject(SseWrapperFactory);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  describe('Service Creation', () => {
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
   });
 
-  it('create should return SseWrapper instance', () => {
-    const wrapper = service.create('http://test-url');
-    expect(wrapper).toBeInstanceOf(SseWrapper);
+  describe('Wrapper Creation', () => {
+    it('create should return SseWrapper instance', () => {
+      const wrapper = service.create('http://test-url');
+      expect(wrapper).toBeInstanceOf(SseWrapper);
+    });
   });
 });
 
@@ -65,33 +69,39 @@ describe('SseWrapper', () => {
     jest.restoreAllMocks();
   });
 
-  it('init should initialize EventSource', () => {
-    const wrapper = new SseWrapper('http://test-url', ngZone, config);
-    wrapper.init();
-    expect(EventSource).toHaveBeenCalledWith('http://test-url', config.eventSourceInit);
-  });
-
-  it('message$ should emit when EventSource receives message', done => {
-    const wrapper = new SseWrapper('http://test-url', ngZone, config);
-    wrapper.init();
-
-    const testMessage = new MessageEvent('message', { data: 'test data' });
-    wrapper.message$.subscribe(message => {
-      expect(message).toBe(testMessage);
-      done();
+  describe('Initialization', () => {
+    it('init should initialize EventSource', () => {
+      const wrapper = new SseWrapper('http://test-url', ngZone, config);
+      wrapper.init();
+      expect(EventSource).toHaveBeenCalledWith('http://test-url', config.eventSourceInit);
     });
-
-    if (mockEventSource.onmessage) {
-      mockEventSource.onmessage(testMessage);
-    }
   });
 
-  it('close should close EventSource', () => {
-    const wrapper = new SseWrapper('http://test-url', ngZone, config);
-    wrapper.init();
-    const closeSpy = jest.spyOn(mockEventSource, 'close');
+  describe('Message Handling', () => {
+    it('message$ should emit when EventSource receives message', done => {
+      const wrapper = new SseWrapper('http://test-url', ngZone, config);
+      wrapper.init();
 
-    wrapper.close();
-    expect(closeSpy).toHaveBeenCalled();
+      const testMessage = new MessageEvent('message', { data: 'test data' });
+      wrapper.message$.subscribe(message => {
+        expect(message).toBe(testMessage);
+        done();
+      });
+
+      if (mockEventSource.onmessage) {
+        mockEventSource.onmessage(testMessage);
+      }
+    });
+  });
+
+  describe('Connection Management', () => {
+    it('close should close EventSource', () => {
+      const wrapper = new SseWrapper('http://test-url', ngZone, config);
+      wrapper.init();
+      const closeSpy = jest.spyOn(mockEventSource, 'close');
+
+      wrapper.close();
+      expect(closeSpy).toHaveBeenCalled();
+    });
   });
 });

@@ -2,7 +2,7 @@ import { ApplicationProfileUtils } from './application-profile-utils';
 import { ApplicationProfile, Type, Attribute } from '../applicationprofile/application-profile';
 import { RdfDataType } from '../rdf/rdf-data-type';
 
-describe('ApplicationProfileUtils', () => {
+describe('Creation and Retrieval of ApplicationProfileUtils', () => {
   let applicationProfile1: ApplicationProfile;
   let applicationProfile2: ApplicationProfile;
   let type1: Type;
@@ -24,7 +24,7 @@ describe('ApplicationProfileUtils', () => {
     typesMap2.set('Class2', type2);
   });
 
-  describe('mergeProfiles', () => {
+  describe('Profile Merging', () => {
     it('should merge multiple profiles', () => {
       const merged = ApplicationProfileUtils.mergeProfiles('http://merged', applicationProfile1, applicationProfile2);
       expect(merged.getTypes().length).toBe(2);
@@ -35,7 +35,7 @@ describe('ApplicationProfileUtils', () => {
     });
   });
 
-  describe('mergeTypes', () => {
+  describe('Type Merging', () => {
     it('should merge multiple types', () => {
       const attributesMap3 = new Map<string, Attribute>();
       const attribute3 = new Attribute(type1, 'http://example.org/attr3', 'attr3', RdfDataType.TYPES.xsd_string);
@@ -51,35 +51,37 @@ describe('ApplicationProfileUtils', () => {
     });
   });
 
-  describe('getLiteralAttributes', () => {
-    it('should return only literal attributes', () => {
-      const attributesMap = new Map<string, Attribute>();
-      const literalAttr = new Attribute(type1, 'http://example.org/literal', 'literalAttr', RdfDataType.TYPES.xsd_string);
-      attributesMap.set('literalAttr', literalAttr);
-      const testType = new Type(applicationProfile1, ['TestClass'], attributesMap);
+  describe('Attribute Filtering', () => {
+    describe('Retrieval of Literal Attributes', () => {
+      it('should return only literal attributes', () => {
+        const attributesMap = new Map<string, Attribute>();
+        const literalAttr = new Attribute(type1, 'http://example.org/literal', 'literalAttr', RdfDataType.TYPES.xsd_string);
+        attributesMap.set('literalAttr', literalAttr);
+        const testType = new Type(applicationProfile1, ['TestClass'], attributesMap);
 
-      const result = ApplicationProfileUtils.getLiteralAttributes(testType);
-      expect(result.every(a => a.isLiteral())).toBe(true);
+        const result = ApplicationProfileUtils.getLiteralAttributes(testType);
+        expect(result.every(a => a.isLiteral())).toBe(true);
+      });
     });
-  });
 
-  describe('getResourceAttributes', () => {
-    it('should return only resource attributes', () => {
-      const attributesMap = new Map<string, Attribute>();
-      const resourceAttr = new Attribute(
-        type1,
-        'http://example.org/resource',
-        'resourceAttr',
-        RdfDataType.TYPES.rdfs_Resource,
-        undefined,
-        undefined,
-        'RangeClassId'
-      );
-      attributesMap.set('resourceAttr', resourceAttr);
-      const testType = new Type(applicationProfile1, ['TestClass'], attributesMap);
+    describe('getResourceAttributes', () => {
+      it('should return only resource attributes', () => {
+        const attributesMap = new Map<string, Attribute>();
+        const resourceAttr = new Attribute(
+          type1,
+          'http://example.org/resource',
+          'resourceAttr',
+          RdfDataType.TYPES.rdfs_Resource,
+          undefined,
+          undefined,
+          'RangeClassId'
+        );
+        attributesMap.set('resourceAttr', resourceAttr);
+        const testType = new Type(applicationProfile1, ['TestClass'], attributesMap);
 
-      const result = ApplicationProfileUtils.getResourceAttributes(testType);
-      expect(result.every(a => a.isTypedResource())).toBe(true);
+        const result = ApplicationProfileUtils.getResourceAttributes(testType);
+        expect(result.every(a => a.isTypedResource())).toBe(true);
+      });
     });
   });
 });

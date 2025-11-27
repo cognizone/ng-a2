@@ -52,3 +52,7 @@ cypress/screenshots/*
 Thumbs.db
 
 .npmrc
+
+# test manual files
+test-report-summary.csv
+
