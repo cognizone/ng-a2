@@ -19,41 +19,43 @@ describe('JsonTypedResource', () => {
     typesMap.set('TestClass', type);
   });
 
-  it('wrap should create JsonTypedResource', () => {
-    const jsonRoot = {
-      data: {
-        uri: 'test-uri',
-        type: 'TestClass',
-        attributes: {
-          attr1: { 'xsd:string': 'test-value' },
+  describe('Resource Wrapping', () => {
+    it('wrap should create JsonTypedResource', () => {
+      const jsonRoot = {
+        data: {
+          uri: 'test-uri',
+          type: 'TestClass',
+          attributes: {
+            attr1: { 'xsd:string': 'test-value' },
+          },
         },
-      },
-    };
-    const resource = JsonTypedResource.wrap(applicationProfile, jsonRoot);
-    expect(resource.getUri()).toBe('test-uri');
-    expect(resource.getType()).toBe(type);
-  });
+      };
+      const resource = JsonTypedResource.wrap(applicationProfile, jsonRoot);
+      expect(resource.getUri()).toBe('test-uri');
+      expect(resource.getType()).toBe(type);
+    });
 
-  it('getValue and setValue should work', () => {
-    const jsonRoot = {
-      data: {
-        uri: 'test-uri',
-        type: 'TestClass',
-        attributes: {
-          attr1: { 'xsd:string': 'test-value' },
+    it('getValue and setValue should work', () => {
+      const jsonRoot = {
+        data: {
+          uri: 'test-uri',
+          type: 'TestClass',
+          attributes: {
+            attr1: { 'xsd:string': 'test-value' },
+          },
         },
-      },
-    };
-    const resource = JsonTypedResource.wrap(applicationProfile, jsonRoot);
-    resource.setValue('attr1', 'new-value');
-    expect(resource.getValue('attr1')).toBe('new-value');
-  });
+      };
+      const resource = JsonTypedResource.wrap(applicationProfile, jsonRoot);
+      resource.setValue('attr1', 'new-value');
+      expect(resource.getValue('attr1')).toBe('new-value');
+    });
 
-  it('addValue should add value to array', () => {
-    const resource = JsonTypedResource.create(applicationProfile, 'test-uri', ['TestClass']);
-    resource.setValue('attr1', ['value1']);
-    resource.addValue('attr1', 'value2');
-    expect(resource.getValue('attr1')).toEqual(['value1', 'value2']);
+    it('addValue should add value to array', () => {
+      const resource = JsonTypedResource.create(applicationProfile, 'test-uri', ['TestClass']);
+      resource.setValue('attr1', ['value1']);
+      resource.addValue('attr1', 'value2');
+      expect(resource.getValue('attr1')).toEqual(['value1', 'value2']);
+    });
   });
 });
 
@@ -70,30 +72,32 @@ describe('TypedFactory', () => {
     typesMap.set('TestClass', type);
   });
 
-  it('get should return factory function', () => {
-    const factory = new TypedFactory(applicationProfile);
-    const factoryFn = factory.get();
+  describe('Factory Creation', () => {
+    it('get should return factory function', () => {
+      const factory = new TypedFactory(applicationProfile);
+      const factoryFn = factory.get();
 
-    const rawJson = {
-      uri: 'test-uri',
-      type: 'TestClass',
-    };
-    const wrapper = new SingleJsonResourceWrapper({ data: rawJson }, factoryFn);
-    const resource = factoryFn(rawJson, wrapper);
+      const rawJson = {
+        uri: 'test-uri',
+        type: 'TestClass',
+      };
+      const wrapper = new SingleJsonResourceWrapper({ data: rawJson }, factoryFn);
+      const resource = factoryFn(rawJson, wrapper);
 
-    expect(resource.getUri()).toBe('test-uri');
-    expect(resource.getType()).toBe(type);
-  });
+      expect(resource.getUri()).toBe('test-uri');
+      expect(resource.getType()).toBe(type);
+    });
 
-  it('get should throw error when type does not exist', () => {
-    const factory = new TypedFactory(applicationProfile);
-    const factoryFn = factory.get();
+    it('get should throw error when type does not exist', () => {
+      const factory = new TypedFactory(applicationProfile);
+      const factoryFn = factory.get();
 
-    const rawJson = {
-      uri: 'test-uri',
-      type: 'NonExistentClass',
-    };
+      const rawJson = {
+        uri: 'test-uri',
+        type: 'NonExistentClass',
+      };
 
-    expect(() => new SingleJsonResourceWrapper({ data: rawJson }, factoryFn)).toThrow();
+      expect(() => new SingleJsonResourceWrapper({ data: rawJson }, factoryFn)).toThrow();
+    });
   });
 });

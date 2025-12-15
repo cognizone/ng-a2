@@ -9,46 +9,50 @@ import { A2TreeBrowserModule } from '../a2-tree-browser.module';
  */
 
 describe('DefaultLimitIncreaseComponent', () => {
-  it('should render "See more" button', () => {
-    const clickAction = cy.stub().as('clickAction');
+  describe('Button Rendering', () => {
+    it('should render "See more" button', () => {
+      const clickAction = cy.stub().as('clickAction');
 
-    cy.mount(DefaultLimitIncreaseComponent, {
-      imports: [A2TreeBrowserModule],
-      componentProperties: {
-        clickAction,
-      },
+      cy.mount(DefaultLimitIncreaseComponent, {
+        imports: [A2TreeBrowserModule],
+        componentProperties: {
+          clickAction,
+        },
+      });
+
+      cy.contains('See more').should('be.visible');
     });
-
-    cy.contains('See more').should('be.visible');
   });
 
-  it('should call clickAction when button is clicked', () => {
-    const clickAction = cy.stub().as('clickAction');
+  describe('Click Action Handling', () => {
+    it('should call clickAction when button is clicked', () => {
+      const clickAction = cy.stub().as('clickAction');
 
-    cy.mount(DefaultLimitIncreaseComponent, {
-      imports: [A2TreeBrowserModule],
-      componentProperties: {
-        clickAction,
-      },
+      cy.mount(DefaultLimitIncreaseComponent, {
+        imports: [A2TreeBrowserModule],
+        componentProperties: {
+          clickAction,
+        },
+      });
+
+      cy.contains('See more').click();
+      cy.get('@clickAction').should('have.been.calledOnce');
     });
 
-    cy.contains('See more').click();
-    cy.get('@clickAction').should('have.been.calledOnce');
-  });
+    it('should be clickable multiple times', () => {
+      const clickAction = cy.stub().as('clickAction');
 
-  it('should be clickable multiple times', () => {
-    const clickAction = cy.stub().as('clickAction');
+      cy.mount(DefaultLimitIncreaseComponent, {
+        imports: [A2TreeBrowserModule],
+        componentProperties: {
+          clickAction,
+        },
+      });
 
-    cy.mount(DefaultLimitIncreaseComponent, {
-      imports: [A2TreeBrowserModule],
-      componentProperties: {
-        clickAction,
-      },
+      cy.contains('See more').click();
+      cy.contains('See more').click();
+      cy.contains('See more').click();
+      cy.get('@clickAction').should('have.callCount', 3);
     });
-
-    cy.contains('See more').click();
-    cy.contains('See more').click();
-    cy.contains('See more').click();
-    cy.get('@clickAction').should('have.callCount', 3);
   });
 });
