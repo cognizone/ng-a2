@@ -35,3 +35,21 @@ npm run build -- --watch
 ```
 
 and then in you can run `npm start` in your project repository.
+
+## Reports of testing
+
+### Cypress E2E tests
+
+```bash
+npm run cypress:run:report
+```
+
+in the folder cypress, index.html file will be created
+
+### Unit tests
+
+```bash
+npm run test:coverage:open
+```
+
+the report will open in the browser
