@@ -1,6 +1,6 @@
 {
   "name": "@cognizone/a2-tree-browser",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "peerDependencies": {
     "@angular/common": ">=20.0.0",
     "@angular/core": ">=20.0.0",

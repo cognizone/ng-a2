@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/cognizone/ng-a2/compare/v1.0.5...v1.1.0) (2025-12-15)
+
+### Features
+
+- add describe in test to allow feature description for report purpose, create report ([ae1b404](https://github.com/cognizone/ng-a2/commit/ae1b4042cdd9b0079eb1496c01cec271eb2fe844)), closes [#T25906](https://github.com/cognizone/ng-a2/issues/T25906)
+
 ## [1.0.5](https://github.com/cognizone/ng-a2/compare/v1.0.4...v1.0.5) (2025-11-25)
 
 ### Bug Fixes
