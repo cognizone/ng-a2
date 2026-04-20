@@ -4,7 +4,6 @@ import { Component, inject } from '@angular/core';
 import { AreYouSureComponent } from './are-you-sure.component';
 import { AreYouSureModule } from './are-you-sure.module';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
@@ -43,7 +42,7 @@ describe('AreYouSureComponent', () => {
 
   it('should display all data fields when provided', () => {
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openDialog(defaultData);
 
@@ -72,7 +71,7 @@ describe('AreYouSureComponent', () => {
     };
 
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openDialog(dataWithoutHeader);
 
@@ -99,7 +98,7 @@ describe('AreYouSureComponent', () => {
     };
 
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openDialog(dataWithoutText);
 
@@ -120,7 +119,7 @@ describe('AreYouSureComponent', () => {
 
   it('should close dialog with true when execute button is clicked', () => {
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       const dialogRef = component.component.openDialog(defaultData);
       cy.spy(dialogRef, 'close').as('dialogClose');
@@ -136,7 +135,7 @@ describe('AreYouSureComponent', () => {
 
   it('should close dialog when cancel button is clicked', () => {
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       const dialogRef = component.component.openDialog(defaultData);
       cy.spy(dialogRef, 'close').as('dialogClose');
@@ -152,7 +151,7 @@ describe('AreYouSureComponent', () => {
 
   it('should have correct CSS classes and structure', () => {
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openDialog(defaultData);
 
@@ -168,7 +167,7 @@ describe('AreYouSureComponent', () => {
 
   it('should have correct button styles', () => {
     cy.mount(DialogTestWrapperComponent, {
-      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openDialog(defaultData);
 

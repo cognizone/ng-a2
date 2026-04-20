@@ -2,9 +2,9 @@
   "name": "@cognizone/a2-sse",
   "version": "1.1.0",
   "peerDependencies": {
-    "@angular/common": ">=20.0.0",
-    "@angular/core": ">=20.0.0",
-    "@cognizone/model-utils": ">=7.0.0"
+    "@angular/common": ">=21.0.0",
+    "@angular/core": ">=21.0.0",
+    "@cognizone/model-utils": "8.0.0-beta.1"
   },
   "dependencies": {
     "tslib": "^2.6.2"

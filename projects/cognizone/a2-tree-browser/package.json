@@ -2,10 +2,10 @@
   "name": "@cognizone/a2-tree-browser",
   "version": "1.1.0",
   "peerDependencies": {
-    "@angular/common": ">=20.0.0",
-    "@angular/core": ">=20.0.0",
-    "@cognizone/a2-core": ">=1.0.0",
-    "@cognizone/ng-core": ">=7.0.0"
+    "@angular/common": ">=21.0.0",
+    "@angular/core": ">=21.0.0",
+    "@cognizone/a2-core": ">=2.0.0",
+    "@cognizone/ng-core": ">=8.0.0"
   },
   "dependencies": {
     "tslib": "^2.6.2"

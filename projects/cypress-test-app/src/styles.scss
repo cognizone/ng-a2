@@ -1,5 +1,7 @@
 /* Material Design theme for Cypress test app */
 @use '@angular/material' as mat;
+// Import global alert styles for testing
+@use '../../cognizone/a2-ui/global-alert/styles/global-alert';
 
 // Include the common styles for Angular Material
 @include mat.core();
@@ -44,6 +46,3 @@ body {
   background-color: var(--mat-sys-surface);
   color: var(--mat-sys-on-surface);
 }
-
-// Import global alert styles for testing
-@import '../../cognizone/a2-ui/global-alert/styles/global-alert';

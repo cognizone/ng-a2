@@ -56,3 +56,6 @@ Thumbs.db
 # test manual files
 test-report-summary.csv
 
+# agents
+.claude/*.local.*
+

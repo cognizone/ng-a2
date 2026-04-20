@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -17,7 +16,6 @@ import { GlobalAlertModule } from '../../../cognizone/a2-ui/global-alert/global-
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     RouterModule.forRoot([]),
     MatButtonModule,
     MatDialogModule,
@@ -27,7 +25,7 @@ import { GlobalAlertModule } from '../../../cognizone/a2-ui/global-alert/global-
     AreYouSureModule,
     GlobalAlertModule,
   ],
-  providers: [],
+  providers: [provideZoneChangeDetection({ eventCoalescing: true })],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
