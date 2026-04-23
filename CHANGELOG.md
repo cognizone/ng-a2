@@ -1,3 +1,9 @@
+## [2.0.1](https://github.com/cognizone/ng-a2/compare/v2.0.0...v2.0.1) (2026-04-23)
+
+### Bug Fixes
+
+- add repository url to package.json to fix actual pushing to npm ([3eb875f](https://github.com/cognizone/ng-a2/commit/3eb875f64d939bb6375f7d4601397167ee6a1ac7))
+
 ## [2.0.0](https://github.com/cognizone/ng-a2/compare/v1.1.0...v2.0.0) (2026-04-23)
 
 ### ⚠ BREAKING CHANGES
