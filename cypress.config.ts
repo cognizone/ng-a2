@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress';
 import * as path from 'path';
 
 export default defineConfig({
+  allowCypressEnv: false,
   component: {
     devServer: {
       framework: 'angular',

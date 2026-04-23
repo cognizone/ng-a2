@@ -4,7 +4,6 @@ import { Component, inject } from '@angular/core';
 import { AlertSnackComponent } from './alert-snack.component';
 import { GlobalAlertModule } from './global-alert.module';
 import { MatSnackBar, MatSnackBarModule, MatSnackBarRef } from '@angular/material/snack-bar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 
@@ -44,7 +43,7 @@ describe('AlertSnackComponent', () => {
 
   it('should display message when provided', () => {
     cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openSnackBar(defaultData);
 
@@ -56,7 +55,7 @@ describe('AlertSnackComponent', () => {
 
   it('should dismiss snackbar when dismiss button is clicked', () => {
     cy.mount(SnackBarTestWrapperComponent, {
-      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+      imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
     }).then(component => {
       component.component.openSnackBar(defaultData);
 
@@ -72,7 +71,7 @@ describe('AlertSnackComponent', () => {
   describe('Alert variants', () => {
     it('should display error alert with danger color', () => {
       cy.mount(SnackBarTestWrapperComponent, {
-        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
       }).then(component => {
         component.component.openSnackBar({ message: 'Error message', dismissible: true }, ['alert-danger-color']);
 
@@ -85,7 +84,7 @@ describe('AlertSnackComponent', () => {
 
     it('should display warning alert with warning color', () => {
       cy.mount(SnackBarTestWrapperComponent, {
-        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
       }).then(component => {
         component.component.openSnackBar({ message: 'Warning message', dismissible: false }, ['alert-warning-color']);
 
@@ -98,7 +97,7 @@ describe('AlertSnackComponent', () => {
 
     it('should display info alert with info color', () => {
       cy.mount(SnackBarTestWrapperComponent, {
-        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
       }).then(component => {
         component.component.openSnackBar({ message: 'Info message', dismissible: false }, ['alert-info-color']);
 
@@ -111,7 +110,7 @@ describe('AlertSnackComponent', () => {
 
     it('should display success alert with success color', () => {
       cy.mount(SnackBarTestWrapperComponent, {
-        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule, NoopAnimationsModule],
+        imports: [GlobalAlertModule, MatSnackBarModule, OverlayModule, PortalModule],
       }).then(component => {
         component.component.openSnackBar({ message: 'Success message', dismissible: true }, ['alert-success-color']);
 

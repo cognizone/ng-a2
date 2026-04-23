@@ -1,10 +1,20 @@
-# A2 Sse (Server Side Events)
+# @cognizone/a2-sse (Server Side Events)
 
-[See MDN's official SSE documentation for further details.](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)
+Angular wrapper around the browser's native `EventSource` API, exposing an observable-based interface for SSE connections.
+Requires:
+**Angular >= 20 for v1.1.0**
+**Angular >= 21 for v2.0.0**
+
+## Installation
+
+```bash
+npm i @cognizone/a2-sse
+```
+
+// TODO Mariana - is it still valid ?
 
 ## Setting up
 
-- Install the package with `npm install @cognizone/a2-sse @cognizone/model-utils`
 - Provide the `SseWrapperFactory` service into the module where you'll use the SSE functionality (in the `providers` array)
 - Create a handler service to communicate with the sse functionality, e.g. `log-listener.service.ts`
 
@@ -89,28 +99,6 @@ When you'd like to close your connection, you can use the `.close()` function of
     this.resetStoredLogs();
   }
 ```
-
----
-
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.
-
-## Code scaffolding
-
-Run `ng generate component component-name --project a2-sse` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project a2-sse`.
-
-> Note: Don't forget to add `--project a2-sse` or else it will be added to the default project in your `angular.json` file.
-
-## Build
-
-Run `npm run build:a2-sse` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `npm test a2-sse` to execute the unit tests via [Jest](https://jestjs.io/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Key Features
 

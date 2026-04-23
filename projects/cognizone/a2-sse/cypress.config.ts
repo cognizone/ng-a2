@@ -2,6 +2,7 @@ import { defineConfig } from 'cypress';
 import * as path from 'path';
 
 export default defineConfig({
+  allowCypressEnv: false,
   e2e: {
     baseUrl: 'http://localhost:4200',
   },
