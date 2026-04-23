@@ -10,7 +10,8 @@
     "tslib": "^2.6.2"
   },
   "repository": {
-    "directory": "projects/cognizone/a2-ui"
+    "directory": "projects/cognizone/a2-ui",
+    "url": "https://github.com/cognizone/ng-a2.git"
   },
   "private": false,
   "publishConfig": {

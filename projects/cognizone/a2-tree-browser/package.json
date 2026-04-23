@@ -11,7 +11,8 @@
     "tslib": "^2.6.2"
   },
   "repository": {
-    "directory": "projects/cognizone/a2-tree-browser"
+    "directory": "projects/cognizone/a2-tree-browser",
+    "url": "https://github.com/cognizone/ng-a2.git"
   },
   "private": false,
   "publishConfig": {
