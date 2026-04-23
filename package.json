@@ -18,7 +18,7 @@
     "test:coverage:watch": "jest --runInBand --coverage --watchAll",
     "test:coverage:open": "jest --runInBand --coverage && node -e \"require('child_process').exec(process.platform === 'win32' ? 'start coverage/index.html' : process.platform === 'darwin' ? 'open coverage/index.html' : 'xdg-open coverage/index.html')\"",
     "lint": "ng lint",
-    "release": "npx --package semantic-release@25 --package @semantic-release/exec@7 --package @semantic-release/commit-analyzer@13 --package @semantic-release/changelog@6 --package @semantic-release/git@10 semantic-release",
+    "release": "npx --package semantic-release@25 --package @semantic-release/exec@7 --package @semantic-release/commit-analyzer@13 --package @semantic-release/release-notes-generator@14 --package @semantic-release/changelog@6 --package @semantic-release/git@10 --package conventional-changelog-conventionalcommits@8 semantic-release",
     "release:sync-versions": "node ./tasks/sync-versions.js",
     "release:sync-package-metadata": "node ./tasks/sync-package-metadata.js",
     "prepare": "husky install",
