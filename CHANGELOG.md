@@ -1,3 +1,13 @@
+## [2.0.0](https://github.com/cognizone/ng-a2/compare/v1.1.0...v2.0.0) (2026-04-23)
+
+### ⚠ BREAKING CHANGES
+
+- update version Angular 20 to 21
+
+### Features
+
+- update version Angular 20 to 21 ([8163aef](https://github.com/cognizone/ng-a2/commit/8163aefb6cf4ff9ddcf0c1fa914f0630c9693e75))
+
 # [1.1.0](https://github.com/cognizone/ng-a2/compare/v1.0.5...v1.1.0) (2025-12-15)
 
 ### Features
