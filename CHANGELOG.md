@@ -1,3 +1,13 @@
+## [3.0.0](https://github.com/cognizone/ng-a2/compare/v2.0.1...v3.0.0) (2026-04-24)
+
+### ⚠ BREAKING CHANGES
+
+- line height for longer text in modals
+
+### Bug Fixes
+
+- line height for longer text in modals ([ec3405e](https://github.com/cognizone/ng-a2/commit/ec3405e8af40148c2175953a8ba25e47e03d0b48))
+
 ## [2.0.1](https://github.com/cognizone/ng-a2/compare/v2.0.0...v2.0.1) (2026-04-23)
 
 ### Bug Fixes
