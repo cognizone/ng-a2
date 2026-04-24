@@ -165,6 +165,28 @@ describe('AreYouSureComponent', () => {
     });
   });
 
+  it('should render long text with correct line-height', () => {
+    const longTextData = {
+      header: 'Confirm action for ESCO dataset configuration - ESCO dataset - 1.1.0HF20210126Showcase?',
+      text: 'Are you sure you want to confirm this action for the selected - ESCO dataset - 1.1.0HF20210126Showcase?',
+      cancel: 'Cancel',
+      execute: 'Confirm',
+    };
+
+    cy.mount(DialogTestWrapperComponent, {
+      imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
+    }).then(component => {
+      component.component.openDialog(longTextData);
+
+      cy.get('.cdk-overlay-container').should('be.visible');
+      cy.get('.mat-mdc-dialog-container').should('be.visible');
+
+      cy.get('.my-modal-header').should('be.visible').and('contain', longTextData.header).and('have.css', 'line-height');
+
+      cy.get('p').should('be.visible').and('contain', longTextData.text).and('have.css', 'line-height');
+    });
+  });
+
   it('should have correct button styles', () => {
     cy.mount(DialogTestWrapperComponent, {
       imports: [AreYouSureModule, MatDialogModule, OverlayModule, PortalModule],
