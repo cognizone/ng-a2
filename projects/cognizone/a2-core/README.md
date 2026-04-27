@@ -3,7 +3,7 @@
 Core Angular library providing RDF data models, typed resources, REST services, and Elasticsearch utilities for Cognizone applications.
 Requires:
 **Angular >= 20 for v1.1.0**
-**Angular >= 21 for v2.0.0**
+**Angular >= 21 for v3.0.0**
 
 ## Installation
 

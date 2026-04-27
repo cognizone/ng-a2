@@ -7,7 +7,7 @@ Monorepo for Cognizone Angular libraries, published to npm.
 | Library version | Angular requirement |
 | --------------- | ------------------- |
 | `1.1.x`         | Angular >= 20       |
-| `2.0.x`         | Angular >= 21       |
+| `3.0.x`         | Angular >= 21       |
 
 ## Published packages
 
