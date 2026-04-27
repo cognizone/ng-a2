@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/cognizone/ng-a2/compare/v3.0.0...v3.0.1) (2026-04-27)
+
+### Bug Fixes
+
+- update README for correct Angular version ([f3b5673](https://github.com/cognizone/ng-a2/commit/f3b5673461df00a1fbef50bdf33cf8c4c59409bd))
+
 ## [3.0.0](https://github.com/cognizone/ng-a2/compare/v2.0.1...v3.0.0) (2026-04-27)
 
 ### ⚠ BREAKING CHANGES
