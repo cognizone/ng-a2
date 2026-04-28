@@ -1,3 +1,9 @@
+## [3.0.2](https://github.com/cognizone/ng-a2/compare/v3.0.1...v3.0.2) (2026-04-28)
+
+### Bug Fixes
+
+- deprecated scss [@import](https://github.com/import) causing warning in apps ([a3af829](https://github.com/cognizone/ng-a2/commit/a3af82949bba193074a0066034690f5d9f3d0863))
+
 ## [3.0.1](https://github.com/cognizone/ng-a2/compare/v3.0.0...v3.0.1) (2026-04-27)
 
 ### Bug Fixes
