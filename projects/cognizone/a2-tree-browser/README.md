@@ -2,8 +2,8 @@
 
 Angular component library for rendering hierarchical tree structures with customizable node templates and lazy-loading support.
 Requires:
-**Angular >= 20 for v1.1.0**
-**Angular >= 21 for v3.0.0**
+**Angular >= 20 for v1.1.x**
+**Angular >= 21 for v3.0.x**
 
 ## Installation
 

@@ -2,8 +2,8 @@
 
 Angular wrapper around the browser's native `EventSource` API, exposing an observable-based interface for SSE connections.
 Requires:
-**Angular >= 20 for v1.1.0**
-**Angular >= 21 for v3.0.0**
+**Angular >= 20 for v1.1.x**
+**Angular >= 21 for v3.0.x**
 
 ## Installation
 
