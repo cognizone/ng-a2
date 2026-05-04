@@ -1,3 +1,9 @@
+## [3.0.3](https://github.com/cognizone/ng-a2/compare/v3.0.2...v3.0.3) (2026-05-04)
+
+### Bug Fixes
+
+- update ng-cognizone correct version ([30ec376](https://github.com/cognizone/ng-a2/commit/30ec376ba84cc4665a91ea9295e645fd73abdfb8))
+
 ## [3.0.2](https://github.com/cognizone/ng-a2/compare/v3.0.1...v3.0.2) (2026-04-28)
 
 ### Bug Fixes
